@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>الغرفة · فندق يوسف — خنشلة</title>
+  <meta name="description" content="تفاصيل الغرفة، الصور، المرافق والحجز المباشر في فندق يوسف بخنشلة.">
+  <meta name="theme-color" content="#070b10">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070b10'/%3E%3Cpath d='M16 54V30a16 16 0 0 1 32 0v24' fill='none' stroke='%23d4b37a' stroke-width='3.5'/%3E%3Cpath d='M24 26l8 10 8-10M32 36v12' fill='none' stroke='%23d4b37a' stroke-width='3.5'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+<body class="page-room">
+<a class="skip" href="#roomMain">تخطَّ إلى المحتوى</a>
+
+<header class="site-header" id="header">
+  <a href="index.html" class="brand" aria-label="فندق يوسف – الصفحة الرئيسية">
+    <span class="brand-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 54V30a16 16 0 0 1 32 0v24M24 26l8 10 8-10M32 36v12"/></svg></span>
+    <span class="brand-text"><b>HOTEL YOUCEF</b><small>Khenchela · فندق يوسف</small></span>
+  </a>
+  <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
+    <a href="index.html#rooms">الغرف</a>
+    <a href="index.html#offers">العروض</a>
+    <a href="index.html#events">الحفلات</a>
+    <a href="index.html#contact">الموقع</a>
+  </nav>
+  <div class="header-actions">
+    <a class="icon-btn hide-sm" data-hotel="phone" aria-label="اتصل بالفندق"><i data-lucide="phone"></i></a>
+    <a class="btn btn-gold btn-sm" href="#book"><i data-lucide="calendar-check"></i><span>احجز</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="فتح القائمة" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="room-wrap container" id="roomMain"></main>
+
+<div class="mobile-bar" id="mobileBar"></div>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="index.html" class="brand"><span class="brand-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M16 54V30a16 16 0 0 1 32 0v24M24 26l8 10 8-10M32 36v12"/></svg></span><span class="brand-text"><b>HOTEL YOUCEF</b><small>Khenchela · فندق يوسف</small></span></a>
+      <p class="muted">فندق يوسف — ضيافة أوراسية في ولاية خنشلة.</p>
+    </div>
+    <nav aria-label="روابط">
+      <h4>الفندق</h4>
+      <a href="index.html#rooms">الغرف والأجنحة</a><a href="index.html#offers">العروض</a><a href="index.html#events">قاعة الحفلات</a>
+    </nav>
+    <div>
+      <h4>تواصل</h4>
+      <a data-hotel="phone" dir="ltr"></a>
+      <a data-hotel="wa" target="_blank" rel="noopener">واتساب</a>
+      <a data-hotel="email"></a>
+    </div>
+  </div>
+  <div class="container footer-bottom">© <span id="year"></span> HOTEL YOUCEF · خنشلة — جميع الحقوق محفوظة.</div>
+</footer>
+
+<a class="fab-wa" data-hotel="wa" target="_blank" rel="noopener" aria-label="راسلنا على واتساب"><span class="wa-ico"></span></a>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="lb" id="lightbox" aria-hidden="true" role="dialog" aria-label="عارض الصور">
+  <div class="lb-top"><span class="lb-cat"></span><span class="lb-count"></span><button class="icon-btn lb-close" aria-label="إغلاق"><i data-lucide="x"></i></button></div>
+  <div class="lb-stage"><button class="lb-nav lb-prev" aria-label="السابق"><i data-lucide="chevron-right"></i></button><img alt=""><button class="lb-nav lb-next" aria-label="التالي"><i data-lucide="chevron-left"></i></button></div>
+  <div class="lb-thumbs"></div>
+</div>
+
+<div class="pano-modal" id="panoModal" aria-hidden="true" role="dialog" aria-label="جولة 360 درجة">
+  <button class="icon-btn pano-close" id="panoClose" aria-label="إغلاق الجولة"><i data-lucide="x"></i></button>
+  <div class="tour" data-tour data-lazy>
+    <div class="tour-shade" aria-hidden="true"></div>
+    <div class="tour-head"><p class="eyebrow">360°</p><p class="tour-now"><i data-lucide="map-pin"></i><span class="tour-title"></span></p></div>
+    <div class="tour-hint" aria-hidden="true"><i data-lucide="hand"></i> اسحب للاستكشاف</div>
+    <div class="tour-bar">
+      <div class="tour-scenes" aria-label="اختر المكان"></div>
+      <div class="tour-ctrl">
+        <button type="button" data-gyro aria-pressed="false" aria-label="حرّك هاتفك للاستكشاف"><i data-lucide="smartphone"></i></button>
+        <button type="button" data-zoom="in" aria-label="تكبير"><i data-lucide="zoom-in"></i></button>
+        <button type="button" data-zoom="out" aria-label="تصغير"><i data-lucide="zoom-out"></i></button>
+      </div>
+    </div>
+    <div class="tour-loader" aria-hidden="true"><span></span></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+<script src="js/booking.js"></script>
+<script src="js/room.js"></script>
+<script type="module" src="js/tour.js"></script>
+</body>
+</html>
