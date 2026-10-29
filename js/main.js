@@ -39,9 +39,14 @@ const root = document.documentElement;
   video.addEventListener('seeked', paintBlur);
 
   // Load as a blob so seeking is instant on any host
-  fetch(video.dataset.src).then(r => { if (!r.ok) throw 0; return r.blob(); })
+  let target = 0, current = 0, raf = 0;
+  const src = (matchMedia('(max-width: 760px)').matches && video.dataset.srcMobile) || video.dataset.src;
+  fetch(src).then(r => { if (!r.ok) throw 0; return r.blob(); })
     .then(blob => {
-      video.addEventListener('loadeddata', () => { video.pause(); paintBlur(); root.classList.add('hero-ready'); ready(); }, { once: true });
+      video.addEventListener('loadeddata', () => {
+        video.pause(); paintBlur(); root.classList.add('hero-ready'); ready();
+        if (target) { current = target; video.currentTime = target * (video.duration - 0.05); } // catch up if the visitor already scrolled
+      }, { once: true });
       video.src = URL.createObjectURL(blob);
     })
     .catch(ready);
@@ -74,7 +79,6 @@ const root = document.documentElement;
   }
 
   // Smoothed seeking: the film glides to where the wheel left it
-  let target = 0, current = 0, raf = 0;
   function tick() {
     current += (target - current) * 0.16;
     if (video.duration) {
