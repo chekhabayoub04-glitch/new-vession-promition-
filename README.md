@@ -1,12 +1,13 @@
 # HOTEL YOUCEF · فندق يوسف — Khenchela
 
-A cinematic Arabic (RTL) website for Hotel Youcef in Khenchela, Algeria. It opens on the hotel's own film, played by the mouse wheel, and has 360° room views, direct booking through WhatsApp, and a smart booking assistant.
+A clean, white Arabic (RTL) website for Hotel Youcef in Khenchela, Algeria. It opens on the hotel's own film, played by the mouse wheel, and has 360° room views, direct booking through WhatsApp, and a smart booking assistant.
 
 ## ✨ Features
 
 | | |
 |---|---|
-| **Cinematic hero** | The hotel's film (drone → facade → doors → fountain → dome) moves forward and back with the mouse wheel. On the way: 01 location, 02 lobby with key facts, then «HOTEL YOUCEF» over the dome with check-in/out and directions. On wide screens the portrait film stands centred over its own blurred light |
+| **Design** | White and warm cream, bronze details, Naskh headings, framed photos (offset bronze outlines, an arched video frame echoing the hotel's arches), dark footer |
+| **Hero** | The hotel's film plays on its own inside a tall arch, with a pause button, a booking bar underneath and key facts |
 | **360° views** | On the double room page: drag, gyroscope, zoom, full screen; scenes: lobby, upper gallery, double room |
 | **Rooms** | 5 room types. Each card has Book, Enquire (WhatsApp), and Details buttons |
 | **Packages** | A carousel of packages: wedding night, family, business, Aurès winter |
@@ -59,13 +60,13 @@ css/style.css     Design system (night navy · champagne gold)
 js/data.js        All the hotel data ← edit here
 js/common.js      Smooth scroll, header, room cards, lightbox
 js/booking.js     Booking form + smart assistant
-js/main.js        Home page: hero film, sections, booking, weather
+js/main.js        Home page: hero video, rooms, offers, gallery, weather
 js/pano.js        360° viewer
 js/tour.js        360° tour UI
 js/room.js        Room page
 assets/img/       Hotel photos
 assets/360/       360° panoramas
-assets/video/     hero.mp4 (H.264, short keyframe interval for smooth scrubbing; made from intro-source.mov, which the site does not use)
+assets/video/     hero.mp4 + hero-m.mp4 (H.264 loops made from intro-source.mov, which the site does not use)
 ```
 
 ## ▶️ Running it

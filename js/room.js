@@ -120,6 +120,8 @@
     lastFocus?.focus();
   }
   $('#panoClose').addEventListener('click', closePano);
+  // index.html links here with ?tour=1 to open the 360° view straight away
+  if (r.pano && new URLSearchParams(location.search).has('tour')) addEventListener('load', openPano, { once: true });
   addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closePano(); });
 
   bindContacts();

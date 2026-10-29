@@ -107,30 +107,27 @@ function observeReveals(root = document) {
 
 // ── Room card ──
 function roomCardHTML(r) {
+  const people = r.guests > 2 ? 'أشخاص' : r.guests === 2 ? 'شخصان' : 'شخص';
   return `
   <article class="room-card" data-reveal>
     <a class="room-media" href="room.html?id=${r.id}" aria-label="${r.name}">
-      <img loading="lazy" src="${img(r.photos[0], 900, 700)}" alt="${r.name}">
-      <img loading="lazy" class="alt" src="${img(r.photos[1], 900, 700)}" alt="">
+      <img loading="lazy" src="${img(r.photos[0], 900, 680)}" alt="${r.name}">
       ${r.popular ? '<span class="chip chip-gold">الأكثر طلباً</span>' : ''}
       ${r.pano ? '<span class="chip chip-360"><i data-lucide="rotate-3d"></i>360°</span>' : ''}
+      <span class="room-price"><b>${fmt(r.price)}</b> ${HOTEL.currency} <small>/ الليلة</small></span>
     </a>
     <div class="room-body">
       <p class="room-latin">${r.latin}</p>
       <h3 class="room-title"><a href="room.html?id=${r.id}">${r.name}</a></h3>
       <p class="room-short">${r.short}</p>
       <ul class="specs">
-        <li><i data-lucide="users"></i>${r.guests} ${r.guests > 2 ? 'أشخاص' : r.guests === 2 ? 'شخصان' : 'شخص'}</li>
+        <li><i data-lucide="users"></i>${r.guests} ${people}</li>
         <li><i data-lucide="maximize-2"></i>${r.size} م²</li>
         <li><i data-lucide="bed-double"></i>${r.bed}</li>
       </ul>
-      <div class="room-foot">
-        <p class="price"><small>من</small> ${fmt(r.price)} <small>${HOTEL.currency} / الليلة</small></p>
-      </div>
       <div class="room-actions">
-        <a class="btn btn-gold btn-sm" href="${document.body.classList.contains('page-home') ? '#booking' : `index.html#booking`}" data-book="${r.id}">احجز</a>
-        <a class="btn btn-ghost btn-sm" href="${waLink(`السلام عليكم، أود الاستفسار عن «${r.name}» في ${HOTEL.nameAr}.`)}" target="_blank" rel="noopener"><span class="wa-ico"></span> استفسر</a>
-        <a class="btn btn-ghost btn-sm" href="room.html?id=${r.id}">التفاصيل</a>
+        <a class="link-arrow" href="room.html?id=${r.id}">التفاصيل <i data-lucide="arrow-left"></i></a>
+        <a class="btn btn-dark btn-sm" href="${document.body.classList.contains('page-home') ? '#booking' : 'index.html#booking'}" data-book="${r.id}">احجز</a>
       </div>
     </div>
   </article>`;
