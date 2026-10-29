@@ -15,7 +15,7 @@
     refreshIcons();
   };
   btn.addEventListener('click', () => { paused = !paused; sync(); });
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(); }, { threshold: 0.15 }).observe(video);
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; document.documentElement.classList.toggle('in-hero', visible); sync(); }, { threshold: 0.15 }).observe(video);
   if (REDUCED) sync();
 })();
 
