@@ -162,7 +162,7 @@ function roomCardHTML(r) {
   return `
   <article class="room-card" data-reveal>
     <a class="room-media" href="room.html?id=${r.id}" aria-label="${r.name}">
-      <img loading="lazy" src="${img(r.photos[0], 900, 680)}" alt="${r.name}">
+      <img loading="lazy" decoding="async" src="${pic(img(r.photos[0], 900, 680))}" alt="${r.name}">
       ${r.popular ? '<span class="chip chip-gold">الأكثر طلباً</span>' : ''}
       ${r.pano ? '<span class="chip chip-360"><i data-lucide="rotate-3d"></i>360°</span>' : ''}
       <span class="room-price"><b>${fmt(r.price)}</b> ${HOTEL.currency} <small>/ الليلة</small></span>

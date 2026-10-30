@@ -190,7 +190,7 @@ initConcierge($('#aiForm'), booking);
     const text = `السلام عليكم، أنا مهتم بعرض «${o.title}» (${nightsLabel(o.nights)}) في ${HOTEL.nameAr}. هل هو متاح؟`;
     return `
     <article class="offer" data-reveal>
-      <figure class="offer-media"><img src="${img(o.photo, 800, 1000)}" alt="${o.title}" loading="lazy"><span class="offer-nights">${nightsLabel(o.nights)}</span></figure>
+      <figure class="offer-media"><img src="${pic(img(o.photo, 800, 1000))}" alt="${o.title}" loading="lazy" decoding="async"><span class="offer-nights">${nightsLabel(o.nights)}</span></figure>
       <div class="offer-body">
         <p class="offer-tags">${o.tags}</p>
         <h3>${o.title}</h3>
@@ -216,7 +216,7 @@ initConcierge($('#aiForm'), booking);
   function render() {
     grid.innerHTML = list().map((g, i) => `
       <button type="button" class="g-tile${g.tall ? ' tall' : ''}" data-i="${i}" aria-label="تكبير: ${g.alt}">
-        <img src="${g.src}" alt="${g.alt}" loading="lazy">
+        <img src="${pic(g.src)}" alt="${g.alt}" loading="lazy" decoding="async">
         <span class="g-cap">${g.alt}</span>
       </button>`).join('');
   }

@@ -25,6 +25,13 @@ const HOTEL = {
 
 // Unsplash ID → URL; a local path (assets/…) is returned as is
 const img = (id, w = 1200, h) => (id.includes('/') ? id : `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}${h ? `&h=${h}` : ''}&q=75`);
+// Large local photos also have a 900px copy in assets/img/sm/ — phones load that one (faster download and decode)
+const SMALL = ['atrium', 'lobby', 'room-1', 'room-360', 'room-bed', 'single-2', 'twin-1'];
+const PHONE = matchMedia('(max-width: 760px)').matches;
+const pic = p => {
+  const m = /^assets\/img\/([\w-]+)\.jpg$/.exec(p);
+  return PHONE && m && SMALL.includes(m[1]) ? `assets/img/sm/${m[1]}.jpg` : p;
+};
 const LOCAL = { pool: 'assets/img/hotel-pool.jpg', lobby: 'assets/img/lobby.jpg', atrium: 'assets/img/atrium.jpg', room: 'assets/img/room-1.jpg',
   roomWide: 'assets/img/room-360.jpg', roomBed: 'assets/img/room-bed.jpg',
   twin: 'assets/img/twin-1.jpg', single1: 'assets/img/single-1.jpg', single2: 'assets/img/single-2.jpg'
