@@ -98,19 +98,16 @@ const PANOS = [
 ];
 
 const GALLERY = [
-  { src: LOCAL.pool, cat: 'hotel', alt: 'واجهة فندق يوسف والمسبح', tall: true, real: true },
-  { src: LOCAL.lobby, cat: 'hotel', alt: 'بهو الاستقبال والنافورة', real: true },
-  { src: LOCAL.room, cat: 'rooms', alt: 'غرفة مزدوجة', real: true },
+  { src: LOCAL.lobby, cat: 'hotel', alt: 'بهو الاستقبال والنافورة الرخامية', real: true },
+  { src: LOCAL.room, cat: 'rooms', alt: 'غرفة مزدوجة', tall: true, real: true },
+  { src: LOCAL.atrium, cat: 'hotel', alt: 'الرواق العلوي وطوابق الجبس المنقوش', real: true },
+  { src: LOCAL.pool, cat: 'pool', alt: 'المسبح والواجهة', real: true },
   { src: LOCAL.roomWide, cat: 'rooms', alt: 'غرفة مزدوجة مزيّنة للعرسان', real: true },
   { src: LOCAL.single1, cat: 'rooms', alt: 'غرفة فردية', tall: true, real: true },
   { src: LOCAL.twin, cat: 'rooms', alt: 'غرفة بسريرين', real: true },
-  { src: LOCAL.atrium, cat: 'hotel', alt: 'الرواق العلوي والقبة', real: true },
-  { src: img('1517248135467-4c7edcad34c4'), cat: 'dining', alt: 'المطعم' },
-  { src: img('1519167758481-83f550bb49b3'), cat: 'events', alt: 'قاعة الحفلات', tall: true },
-  { src: img('1542314831-068cd1dbfeeb'), cat: 'pool', alt: 'المسبح ليلاً' },
-  { src: img('1554118811-1e0d58224f24'), cat: 'dining', alt: 'المقهى' },
-  { src: img('1511795409834-ef04bbd61622'), cat: 'events', alt: 'طاولات حفل' },
-  { src: img('1414235077428-338989a2e8c0'), cat: 'dining', alt: 'عشاء في المطعم' }
+  { src: 'assets/img/hero-fountain.webp', cat: 'hotel', alt: 'النافورة في قلب البهو', real: true },
+  { src: LOCAL.single2, cat: 'rooms', alt: 'ركن المكتب والجلوس في الغرفة الفردية', tall: true, real: true },
+  { src: LOCAL.roomBed, cat: 'rooms', alt: 'سرير الغرفة المزدوجة', real: true }
 ];
 const GALLERY_CATS = { all: 'الكل', hotel: 'الفندق', rooms: 'الغرف', pool: 'المسبح', dining: 'المطعم', events: 'الحفلات' };
 
@@ -157,10 +154,10 @@ const WA_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
 
 // ── Packages — TODO: real offers & prices ──
 const OFFERS = [
-  { title: 'ليلة العرسان', tags: 'أعراس · رومانسية', nights: 1, price: 18000, photo: LOCAL.roomBed, text: 'الجناح مزيّن، فطور في الغرفة، ومغادرة متأخرة.' },
-  { title: 'عطلة العائلة', tags: 'عائلة · مسبح · نهاية الأسبوع', nights: 2, price: 24000, photo: '1590490360182-c33d57733427', text: 'غرفة عائلية، فطور للجميع، ووقت بلا حدود في المسبح.' },
-  { title: 'رحلة عمل', tags: 'عمل · واي فاي · هدوء', nights: 1, price: 7500, photo: '1629140727571-9b5c6f6267b4', text: 'غرفة هادئة بمكتب، فطور مبكر وفاتورة باسم الشركة.' },
-  { title: 'شتاء الأوراس', tags: 'شتاء · طبيعة · شيليا', nights: 3, price: 27000, photo: '1464822759023-fed622ff2c3b', text: 'ثلاث ليالٍ، فطور، ونصائح الاستقبال لاكتشاف الأوراس وحمّام الصالحين.' }
+  { title: 'ليلة العرسان', tags: 'أعراس · رومانسية', nights: 1, price: 18000, photo: LOCAL.roomBed, text: 'الغرفة مزيّنة، فطور في الغرفة، ومغادرة متأخرة.' },
+  { title: 'عطلة العائلة', tags: 'عائلة · مسبح · نهاية الأسبوع', nights: 2, price: 24000, photo: LOCAL.twin, text: 'غرفة عائلية، فطور للجميع، ووقت بلا حدود في المسبح.' },
+  { title: 'رحلة عمل', tags: 'عمل · واي فاي · هدوء', nights: 1, price: 7500, photo: LOCAL.single2, text: 'غرفة هادئة بمكتب، فطور مبكر وفاتورة باسم الشركة.' },
+  { title: 'شتاء الأوراس', tags: 'شتاء · طبيعة · شيليا', nights: 3, price: 27000, photo: LOCAL.atrium, text: 'ثلاث ليالٍ، فطور، ونصائح الاستقبال لاكتشاف الأوراس وحمّام الصالحين.' }
 ];
 
 // ── Three pillars (1-2-3) ──

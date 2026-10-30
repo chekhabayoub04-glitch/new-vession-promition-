@@ -1,13 +1,14 @@
 # HOTEL YOUCEF · فندق يوسف — Khenchela
 
-A clean, white Arabic (RTL) website for Hotel Youcef in Khenchela, Algeria. It opens on the hotel's own film, played by the mouse wheel, and has 360° room views, direct booking through WhatsApp, and a smart booking assistant.
+A cinematic Arabic (RTL) website for Hotel Youcef in Khenchela, Algeria. It opens on the hotel's own film, played by the mouse wheel, and has 360° room views, direct booking through WhatsApp, and a smart booking assistant.
 
 ## ✨ Features
 
 | | |
 |---|---|
-| **Design** | White and warm cream, bronze details, Naskh headings, framed photos (offset bronze outlines, an arched video frame echoing the hotel's arches), dark footer |
-| **Hero** | The hotel's film plays on its own inside a tall arch, with a pause button, a booking bar underneath and key facts |
+| **Intro** | The maroon mark draws itself, «HOTEL YOUCEF» appears letter by letter (brown + maroon), then a curtain opens on the film |
+| **Hero** | Full-screen film (sky → facade → doors → fountain) driven by scroll as a WebP image sequence on a canvas — smooth on phones too. It holds on the fountain while the hotel introduces itself |
+| **Design** | Maroon, warm brown and cream; El Messiri headings; words rise one by one, photos open like curtains, icons pop in, numbers count up |
 | **360° views** | On the double room page: drag, gyroscope, zoom, full screen; scenes: lobby, upper gallery, double room |
 | **Rooms** | 5 room types. Each card has Book, Enquire (WhatsApp), and Details buttons |
 | **Packages** | A carousel of packages: wedding night, family, business, Aurès winter |
@@ -65,8 +66,9 @@ js/pano.js        360° viewer
 js/tour.js        360° tour UI
 js/room.js        Room page
 assets/img/       Hotel photos
+assets/frames/    Hero film frames (d = desktop 16:9, m = phones 7:9 crop)
 assets/360/       360° panoramas
-assets/video/     hero.mp4 + hero-m.mp4 (H.264 loops made from intro-source.mov, which the site does not use)
+assets/video/     film.mp4 + film-m.mp4 (the drone film section); the .mov sources are not used by the site
 ```
 
 ## ▶️ Running it

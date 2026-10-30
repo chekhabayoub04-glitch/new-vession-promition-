@@ -92,17 +92,65 @@ function toast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
 }
 
-// ── Reveal on scroll ──
+// ── Motion on scroll ──
+// data-reveal: fade up · data-split: words rise one by one (whole words, so Arabic letters stay joined)
+// data-clip: image opens like a curtain · data-pop: icon tiles pop in · data-count: numbers count up
+function splitWords(el) {
+  if (el.dataset.splitDone) return;
+  el.dataset.splitDone = '1';
+  let i = 0;
+  const walk = node => [...node.childNodes].forEach(n => {
+    if (n.nodeType === 3) {
+      const frag = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach(part => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) return frag.append(part);
+        const w = document.createElement('span');
+        w.className = 'w';
+        w.innerHTML = `<span style="--i:${i++}">${part}</span>`;
+        frag.append(w);
+      });
+      n.replaceWith(frag);
+    } else if (n.nodeType === 1 && n.tagName !== 'BR') walk(n);
+  });
+  walk(el);
+}
+function countUp(el) {
+  const end = +el.dataset.count, suf = el.dataset.suffix || '';
+  if (REDUCED) { el.textContent = end + suf; return; }
+  const t0 = performance.now(), dur = 1400;
+  const step = t => {
+    const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+    el.textContent = Math.round(end * e) + suf;
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
 const revealIO = 'IntersectionObserver' in window
   ? new IntersectionObserver(entries => entries.forEach(en => {
-      if (en.isIntersecting) { en.target.classList.add('in'); revealIO.unobserve(en.target); }
-    }), { rootMargin: '0px 0px -8% 0px' })
+      if (!en.isIntersecting) return;
+      en.target.classList.add('in');
+      $$('[data-count]', en.target).forEach(countUp);
+      revealIO.unobserve(en.target);
+    }), { rootMargin: '0px 0px -10% 0px' })
   : null;
 function observeReveals(root = document) {
-  $$('[data-reveal]:not(.in)', root).forEach((el, i) => {
-    el.style.setProperty('--d', `${(i % 4) * 70}ms`);
-    revealIO ? revealIO.observe(el) : el.classList.add('in');
+  $$('[data-split]', root).forEach(splitWords);
+  const groups = new Map();
+  $$('[data-reveal]:not(.in), [data-split]:not(.in), [data-clip]:not(.in), [data-pop]:not(.in)', root).forEach(el => {
+    // stagger siblings that share a parent
+    const n = groups.get(el.parentElement) || 0;
+    groups.set(el.parentElement, n + 1);
+    el.style.setProperty('--d', `${Math.min(n, 6) * 80}ms`);
+    revealIO && !REDUCED ? revealIO.observe(el) : (el.classList.add('in'), $$('[data-count]', el).forEach(countUp));
   });
+}
+// Gentle parallax on framed photos (desktop only — phones stay still and smooth)
+function parallax(root = document) {
+  if (REDUCED || !window.gsap || matchMedia('(max-width: 760px)').matches) return;
+  $$('[data-parallax]', root).forEach(img => gsap.fromTo(img, { yPercent: -7 }, {
+    yPercent: 7, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true }
+  }));
 }
 
 // ── Room card ──
@@ -190,4 +238,3 @@ function refreshIcons() { window.lucide?.createIcons({ attrs: { 'aria-hidden': '
 
 bindContacts();
 refreshIcons();
-observeReveals();
