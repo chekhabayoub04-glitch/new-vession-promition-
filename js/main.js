@@ -37,8 +37,10 @@ const Hero = (() => {
   }
   function size() {
     const dpr = Math.min(devicePixelRatio || 1, 2);
-    canvas.width = Math.round(canvas.clientWidth * dpr);
-    canvas.height = Math.round(canvas.clientHeight * dpr);
+    const w = Math.round(canvas.clientWidth * dpr), h = Math.round(canvas.clientHeight * dpr);
+    if (w === canvas.width && h === canvas.height) return;
+    canvas.width = w;
+    canvas.height = h;
     current = -1;
     draw(want);
   }
@@ -142,16 +144,24 @@ const Hero = (() => {
   new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(); }, { rootMargin: '200px 0px' }).observe(v);
 })();
 
-// ── 360 tour: the viewer (Three.js) loads only when the section comes near ──
+// ── 360 tour: the viewer (Three.js) loads near the section on desktop; on phones only when tapped
+// (no scroll stutter, no wasted data, and finger-drag never fights the page scroll) ──
 (() => {
-  const el = $('.tour-sec .tour');
+  const el = $('.tour-sec .tour'), btn = $('#tourStart');
   if (!el) return;
+  const mount = () => {
+    if (el.classList.contains('mounted')) return;
+    if (!window.mountTour) return setTimeout(mount, 200);
+    el.classList.add('mounted');
+    window.mountTour(el, el.dataset.initial);
+  };
+  btn.addEventListener('click', mount);
+  if (matchMedia('(pointer: coarse)').matches) return;
   const io = new IntersectionObserver(([e]) => {
     if (!e.isIntersecting) return;
-    const mount = () => (window.mountTour ? (window.mountTour(el, el.dataset.initial), el.classList.add('mounted')) : setTimeout(mount, 200));
-    mount();
     io.disconnect();
-  }, { rootMargin: '400px 0px' });
+    (window.requestIdleCallback || setTimeout)(mount);
+  }, { rootMargin: '300px 0px' });
   io.observe(el);
 })();
 

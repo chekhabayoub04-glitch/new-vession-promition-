@@ -8,7 +8,10 @@ const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ── Smooth scroll (Lenis) wired into GSAP ScrollTrigger ──
 let lenis = null;
-if (window.gsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+if (window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true }); // the phone address bar showing/hiding must not re-layout the hero
+}
 if (!REDUCED && window.Lenis) {
   lenis = new Lenis({ duration: 1.15, smoothWheel: true });
   if (window.gsap) {
