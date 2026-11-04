@@ -68,6 +68,9 @@ if (reduced) {
   hero.classList.add('static');
   first.then(() => draw(COUNT - 1));
   render(1);
+  const onScroll = () => header.classList.toggle('over-hero', hero.getBoundingClientRect().bottom > 80); // white text only over the photo
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 } else {
   let target = 0, shown = 0, raf = 0;
   const tick = () => {

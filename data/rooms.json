@@ -1,179 +1,307 @@
 [
  {
   "id": "room-1",
-  "name": "غرفة بسرير واحد",
-  "shortLine": null,
-  "priceFrom": null,
+  "name": "غرفة فردية",
+  "nameFr": "Single",
+  "shortLine": "غرفة هادئة لشخص واحد بسرير فردي، مع واي فاي وخزنة، والفطور مشمول في السعر.",
+  "priceFrom": 7600,
   "currency": "دج",
+  "breakfastIncluded": true,
   "sizeM2": null,
-  "beds": "سرير واحد",
+  "beds": "سرير فردي",
   "maxGuests": null,
   "view": null,
   "floor": null,
   "amenities": [
-   "تكييف",
-   "حمام خاص",
+   "الفطور مشمول",
    "واي فاي مجاني",
-   "تلفاز"
+   "خزنة",
+   "تلفاز",
+   "تكييف",
+   "حوض استحمام",
+   "ركن شاي وقهوة"
   ],
   "images": [
    "room-1-01",
    "room-1-02",
    "room-1-03",
-   "room-1-04"
+   "room-1-04",
+   "room-tea"
   ],
-  "breakfastPerPerson": null,
+  "alts": [
+   "السرير الفردي والنافذة",
+   "المكتب والتلفاز ومدخل الشرفة",
+   "ركن المكتب",
+   "الحمّام بحوض الاستحمام",
+   "ركن الشاي والقهوة"
+  ],
   "pano": null
  },
  {
   "id": "room-2",
-  "name": null,
-  "shortLine": null,
-  "priceFrom": null,
+  "name": "غرفة مزدوجة بسرير كبير",
+  "nameFr": "Double Grand Lit",
+  "shortLine": "غرفة لشخصين بسرير كبير ونافذة واسعة على الشرفة، مع واي فاي وخزنة، والفطور مشمول في السعر.",
+  "priceFrom": 11400,
   "currency": "دج",
+  "breakfastIncluded": true,
   "sizeM2": null,
-  "beds": null,
+  "beds": "سرير كبير",
   "maxGuests": null,
   "view": null,
   "floor": null,
   "amenities": [
-   "تكييف",
-   "حمام خاص",
+   "الفطور مشمول",
    "واي فاي مجاني",
-   "تلفاز"
+   "خزنة",
+   "شرفة",
+   "تلفاز",
+   "تكييف",
+   "حوض استحمام",
+   "ركن شاي وقهوة"
   ],
   "images": [
    "room-2-01",
    "room-2-02",
    "room-2-03",
-   "room-2-04"
+   "room-2-04",
+   "room-2-05",
+   "room-2-06",
+   "room-tea"
   ],
-  "breakfastPerPerson": null,
-  "pano": "room-2"
+  "alts": [
+   "السرير الكبير والنافذة",
+   "السرير من الأمام",
+   "المكتب والتلفاز",
+   "الشرفة والإطلالة على الجبال",
+   "الحمّام بحوض الاستحمام الزاوي",
+   "مدخل الغرفة",
+   "ركن الشاي والقهوة"
+  ],
+  "pano": null
  },
  {
   "id": "room-3",
-  "name": "غرفة بسريرين",
-  "shortLine": null,
-  "priceFrom": null,
+  "name": "غرفة مزدوجة بسريرين",
+  "nameFr": "Double / Twin",
+  "shortLine": "غرفة بسريرين منفصلين وشرفة، مع واي فاي وخزنة، والفطور مشمول في السعر.",
+  "priceFrom": 12400,
   "currency": "دج",
+  "breakfastIncluded": true,
   "sizeM2": null,
-  "beds": "سريران",
+  "beds": "سريران منفصلان",
   "maxGuests": null,
   "view": null,
   "floor": null,
   "amenities": [
+   "الفطور مشمول",
+   "واي فاي مجاني",
+   "خزنة",
+   "شرفة",
+   "تلفاز",
    "تكييف",
-   "حمام خاص",
-   "واي فاي مجاني"
+   "حوض استحمام",
+   "ركن شاي وقهوة"
   ],
   "images": [
    "room-3-01",
    "room-3-02",
    "room-3-03",
-   "room-3-04"
+   "room-3-04",
+   "room-3-05",
+   "room-3-06",
+   "room-3-07",
+   "room-tea"
   ],
-  "breakfastPerPerson": null,
+  "alts": [
+   "الغرفة بسريريها والشرفة",
+   "منظر عام للغرفة",
+   "السريران",
+   "المكتب والتلفاز",
+   "باب الشرفة",
+   "الإطلالة على المسبح من الشرفة",
+   "الحمّام بحوض الاستحمام الزاوي",
+   "ركن الشاي والقهوة"
+  ],
   "pano": null
  },
  {
   "id": "room-4",
-  "name": null,
-  "shortLine": null,
-  "priceFrom": null,
+  "name": "غرفة ثلاثية",
+  "nameFr": "Triple",
+  "shortLine": "غرفة واسعة بثلاثة أسرّة، مع واي فاي وخزنة، والفطور مشمول في السعر.",
+  "priceFrom": 17900,
   "currency": "دج",
+  "breakfastIncluded": true,
   "sizeM2": null,
-  "beds": null,
+  "beds": "ثلاثة أسرّة",
   "maxGuests": null,
   "view": null,
   "floor": null,
   "amenities": [
+   "الفطور مشمول",
+   "واي فاي مجاني",
+   "خزنة",
+   "تلفاز",
    "تكييف",
-   "حمام خاص",
-   "واي فاي مجاني"
+   "حوض استحمام",
+   "ركن شاي وقهوة"
   ],
   "images": [
    "room-4-01",
    "room-4-02",
    "room-4-03",
-   "room-4-04"
+   "room-4-04",
+   "room-4-05",
+   "room-tea"
   ],
-  "breakfastPerPerson": null,
+  "alts": [
+   "الأسرّة الثلاثة",
+   "منظر عام للغرفة",
+   "ركن الجلوس قرب النافذة",
+   "المكتب والتلفاز",
+   "الحمّام بحوض الاستحمام الزاوي",
+   "ركن الشاي والقهوة"
+  ],
   "pano": null
  },
  {
   "id": "room-5",
-  "name": null,
-  "shortLine": null,
-  "priceFrom": null,
+  "name": "جناح جونيور",
+  "nameFr": "Suite de luxe Junior",
+  "shortLine": "جناح فاخر بسرير كبير وصالون جلوس، مع واي فاي وخزنة، والفطور مشمول في السعر.",
+  "priceFrom": 15800,
   "currency": "دج",
+  "breakfastIncluded": true,
   "sizeM2": null,
-  "beds": null,
+  "beds": "سرير كبير",
   "maxGuests": null,
   "view": null,
   "floor": null,
   "amenities": [
+   "الفطور مشمول",
+   "واي فاي مجاني",
+   "خزنة",
+   "صالون جلوس",
+   "روب استحمام",
+   "تلفاز",
    "تكييف",
-   "حمام خاص",
-   "واي فاي مجاني"
+   "حوض استحمام",
+   "ركن شاي وقهوة"
   ],
   "images": [
    "room-5-01",
    "room-5-02",
    "room-5-03",
-   "room-5-04"
+   "room-5-04",
+   "room-5-05",
+   "room-tea"
   ],
-  "breakfastPerPerson": null,
+  "alts": [
+   "السرير الكبير في الجناح",
+   "الجناح وركن الجلوس",
+   "المكتب والتلفاز",
+   "الخزانة والخزنة وروب الاستحمام",
+   "حوض الاستحمام",
+   "ركن الشاي والقهوة"
+  ],
   "pano": null
  },
  {
   "id": "room-6",
-  "name": null,
-  "shortLine": null,
-  "priceFrom": null,
+  "name": "جناح سينيور",
+  "nameFr": "Suite de luxe Sénior",
+  "shortLine": "جناح فاخر بسرير كبير وصالون واسع تحت الثريّا، مع واي فاي وخزنة، والفطور مشمول في السعر.",
+  "priceFrom": 19000,
   "currency": "دج",
+  "breakfastIncluded": true,
   "sizeM2": null,
-  "beds": null,
+  "beds": "سرير كبير",
   "maxGuests": null,
   "view": null,
   "floor": null,
   "amenities": [
+   "الفطور مشمول",
+   "واي فاي مجاني",
+   "خزنة",
+   "صالون واسع",
+   "تلفاز",
    "تكييف",
-   "حمام خاص",
-   "واي فاي مجاني"
+   "حوض استحمام",
+   "ركن شاي وقهوة"
   ],
   "images": [
    "room-6-01",
    "room-6-02",
    "room-6-03",
-   "room-6-04"
+   "room-6-04",
+   "room-6-05",
+   "room-6-06",
+   "room-6-07",
+   "room-tea"
   ],
-  "breakfastPerPerson": null,
+  "alts": [
+   "السرير الكبير في الجناح",
+   "الصالون والثريّا",
+   "ركن الصالون",
+   "منظر عام للجناح",
+   "السرير ومنطقة النوم",
+   "الحمّام بحوض الاستحمام",
+   "الحمّام",
+   "ركن الشاي والقهوة"
+  ],
   "pano": null
  },
  {
   "id": "room-7",
-  "name": null,
-  "shortLine": null,
-  "priceFrom": null,
+  "name": "الجناح الملكي",
+  "nameFr": "Suite de luxe Royal",
+  "shortLine": "أرقى أجنحة الفندق: سرير كبير، كرسي تدليك، وامتداد بصالون طعام، مع واي فاي وخزنة، والفطور مشمول في السعر.",
+  "priceFrom": 20700,
   "currency": "دج",
+  "breakfastIncluded": true,
   "sizeM2": null,
-  "beds": null,
+  "beds": "سرير كبير",
   "maxGuests": null,
   "view": null,
   "floor": null,
   "amenities": [
+   "الفطور مشمول",
+   "واي فاي مجاني",
+   "خزنة",
+   "كرسي تدليك",
+   "صالون طعام",
+   "صالون جلوس",
+   "شرفة",
+   "تلفاز",
    "تكييف",
-   "حمام خاص",
-   "واي فاي مجاني"
+   "حوض استحمام",
+   "ركن شاي وقهوة"
   ],
   "images": [
    "room-7-01",
    "room-7-02",
    "room-7-03",
-   "room-7-04"
+   "room-7-04",
+   "room-7-05",
+   "room-7-06",
+   "room-7-07",
+   "room-7-08",
+   "room-7-09",
+   "room-tea"
   ],
-  "breakfastPerPerson": null,
+  "alts": [
+   "السرير الكبير في الجناح الملكي",
+   "الصالون وكرسي التدليك",
+   "الصالون والتلفاز تحت الثريّا",
+   "صالون الطعام",
+   "غرفة النوم خلف القوس",
+   "الممرّ إلى ركن الطعام",
+   "الشرفة والإطلالة",
+   "الحمّام بحوض الاستحمام",
+   "المغسلة",
+   "ركن الشاي والقهوة"
+  ],
   "pano": null
  }
 ]

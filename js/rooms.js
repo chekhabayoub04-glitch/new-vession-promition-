@@ -2,11 +2,12 @@
 import { $, $$, json, ready, pic, hasImg, icon, esc, fmt, roomName, waLink, reveal, site, ld, ROOT, ASK } from './main.js';
 import { lightbox } from './gallery.js';
 
-const AMEN = { 'تكييف': 'air-vent', 'حمام خاص': 'shower-head', 'واي فاي مجاني': 'wifi', 'تلفاز': 'tv', 'خزنة': 'lock' };
+const AMEN = { 'تكييف': 'air-vent', 'حمام خاص': 'shower-head', 'حوض استحمام': 'shower-head', 'واي فاي مجاني': 'wifi', 'تلفاز': 'tv', 'خزنة': 'lock', 'الفطور مشمول': 'coffee',
+  'ركن شاي وقهوة': 'coffee', 'شرفة': 'sun', 'صالون جلوس': 'sofa', 'صالون واسع': 'sofa', 'صالون طعام': 'utensils', 'كرسي تدليك': 'armchair' };
 const val = v => (v == null || v === '' ? ASK : esc(v));
 const size = r => (r.sizeM2 ? `${r.sizeM2} م²` : ASK);
 const ppl = n => (n ? `${n} ${n > 2 ? 'أشخاص' : n > 1 ? 'شخصان' : 'شخص'}` : ASK);
-const price = r => `<p class="price">${r.priceFrom ? `من ${fmt(r.priceFrom)} ${r.currency} <small>/ الليلة</small>` : '<span class="tbd">السعر عند الطلب</span>'}</p>`;
+const price = r => `<p class="price">${r.priceFrom ? `${fmt(r.priceFrom)} ${r.currency} <small>/ الليلة</small>` : '<span class="tbd">السعر عند الطلب</span>'}</p>`;
 
 const specs = r => [r.beds && ['bed-double', esc(r.beds)], r.maxGuests && ['users', ppl(r.maxGuests)], r.sizeM2 && ['maximize-2', size(r)], ...r.amenities.map(a => [AMEN[a] || 'check', esc(a)])]
   .filter(Boolean).slice(0, 3).map(([n, t]) => `<li>${icon(n)}${t}</li>`).join('');
@@ -20,14 +21,14 @@ export const card = (r, i) => `<article class="card reveal">
 function roomPage(rooms, el) {
   const i = Math.max(0, rooms.findIndex(r => r.id === new URLSearchParams(location.search).get('id')));
   const r = rooms[i], name = roomName(r, i), set = (k, h) => $$(`[data-r="${k}"]`, el).forEach(n => (n.innerHTML = h));
-  const shots = r.images.map((s, k) => ({ slot: s, alt: `${name} — صورة ${k + 1}` })), real = shots.filter(s => hasImg(s.slot));
+  const shots = r.images.map((s, k) => ({ slot: s, alt: `${name} — ${r.alts?.[k] || `صورة ${k + 1}`}` })), real = shots.filter(s => hasImg(s.slot));
   const line = r.shortLine || 'غرفة مكيّفة بحمّام خاص وواي فاي مجاني، في فندق يوسف بولاية خنشلة.';
   const bf = r.breakfastPerPerson ?? site.breakfastPerPerson;
   document.title = `${name} — فندق يوسف، خنشلة`;
   $('.crumbs [aria-current]', el).textContent = name;
   set('name', name); set('line', esc(line)); set('size', size(r)); set('beds', val(r.beds)); set('guests', ppl(r.maxGuests));
   set('view', val(r.view)); set('floor', val(r.floor)); set('price', price(r));
-  set('breakfast', bf ? `الفطور +${fmt(bf)} دج للشخص` : 'الفطور: السعر عند الطلب');
+  set('breakfast', r.breakfastIncluded ? 'الفطور مشمول · السعر شامل الرسوم (TTC)' : bf ? `الفطور +${fmt(bf)} دج للشخص` : 'الفطور: السعر عند الطلب');
   set('amen', r.amenities.map(a => `<li>${icon(AMEN[a] || 'check')}${esc(a)}</li>`).join(''));
   set('proof', shots.slice(1).map(s => `<div class="slot">${pic(s.slot, s.alt, '260px')}</div>`).join(''));
   set('others', rooms.map((x, k) => (x === r ? '' : card(x, k))).filter(Boolean).slice(0, 3).join(''));

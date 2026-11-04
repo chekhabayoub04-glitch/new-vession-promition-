@@ -24,7 +24,7 @@ export function pic(slot, alt = '', sizes = '100vw', eager) {
 }
 export const hasImg = s => !!IMG[s];
 export const roomName = (r, i) => r.name || `نوع الغرفة ${i + 1}`;
-export const waLink = t => `https://wa.me/${(site.phoneE164 || '').replace(/\D/g, '')}?text=${encodeURIComponent(t)}`;
+export const waLink = t => `https://wa.me/${(site.whatsappE164 || '').replace(/\D/g, '')}?text=${encodeURIComponent(t)}`; // landline is not on WhatsApp
 
 // Forms: data-err-* messages shown inline via aria-describedby
 export function waForm(f, build) {

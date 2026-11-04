@@ -480,11 +480,12 @@
 
   /* ---------- ROOM page ---------- */
   .room-top { display: grid; gap: var(--space-s); }
-  .gal-main { --r: 3 / 2; display: block; inline-size: 100%; border-radius: var(--arch); }
+  .gal-main { --r: 4 / 5; display: block; inline-size: 100%; border-radius: var(--arch); }
+  @media (min-width: 900px) { .gal-main { --r: 4 / 3; } .gal-main img { object-position: 50% 62%; } } /* room photos are 3:4 portraits */
   .thumbs { display: grid; grid-auto-flow: column; grid-auto-columns: 6.5rem; gap: .5rem; overflow-x: auto; padding-block: .25rem; scrollbar-width: thin; }
   .thumbs button { padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; background: none; }
   .thumbs button[aria-current="true"] { border-color: var(--brass-500); }
-  .thumbs .slot { --r: 4 / 3; }
+  .thumbs .slot { --r: 3 / 4; }
   .thumbs .ph span { display: none; }
   .room-layout { display: grid; grid-template-columns: 1fr 22rem; gap: var(--space-m); align-items: start; }
   .side { position: sticky; inset-block-start: calc(var(--header-h) + 1rem); padding: 1.25rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-soft); }
@@ -499,7 +500,7 @@
   .amen li { display: flex; align-items: center; gap: .6rem; }
   .amen .i { color: var(--accent); }
   .proof { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: var(--space-s); }
-  .proof .slot { border-radius: var(--radius-soft); }
+  .proof .slot { border-radius: var(--radius-soft); --r: 3 / 4; }
   .policies { display: grid; gap: .6rem; list-style: none; padding: 0; }
   .policies li { display: flex; gap: .6rem; }
   .policies .i { color: var(--hair); margin-block-start: .25rem; }
@@ -560,7 +561,7 @@
   #gallery-tabs:empty, #rail-tabs:empty { min-block-size: 2.75rem; }
   #compare:empty { block-size: 22rem; }
   #marquee ul:empty { min-block-size: 275px; }
-  #room .thumbs:empty { min-block-size: 5.6rem; }
+  #room .thumbs:empty { min-block-size: 9.2rem; }
   #room [data-r="line"] { min-block-size: 3.5em; } /* two lines: the font swap cannot move what follows */
   #room [data-r="price"]:empty, #room [data-r="breakfast"]:empty { min-block-size: 1.75em; }
 
