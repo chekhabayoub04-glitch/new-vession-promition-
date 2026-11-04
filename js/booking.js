@@ -10,6 +10,7 @@ const message = f => ['السلام عليكم، أريد الحجز في فند
 
 ready.then(() => json('data/rooms.json')).then(rooms => {
   for (const f of $$('form.booking')) {
+    f.removeAttribute('action'); // mailto: is the no-JS fallback only
     f.room.insertAdjacentHTML('beforeend', rooms.map((r, i) => `<option value="${r.id}">${roomName(r, i)}</option>`).join(''));
     f.room.value = new URLSearchParams(location.search).get('room') || '';
     f.arrive.onchange = () => (f.depart.min = f.arrive.value);
