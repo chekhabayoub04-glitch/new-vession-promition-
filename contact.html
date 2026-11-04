@@ -69,8 +69,10 @@
     <p class="eyebrow">الحجز</p>
     <h2 id="b-h">أرسل طلب الحجز</h2>
     <p class="muted mt-s">يصل طلبك إلى الاستقبال مباشرة عبر واتساب، دون وسيط ودون دفعٍ مسبق.</p>
-    <div class="mt-m"><!-- TODO:FILL: data/site.json → email (used by this mailto: fallback) and phoneE164 (WhatsApp) -->
-<form class="booking" action="mailto:" method="post" enctype="text/plain">
+    <div class="mt-m"><!-- TODO:FILL: data/site.json → email and phoneE164 (WhatsApp); also the two no-JS links below -->
+<!-- ASSUMPTION: no action="mailto:" — Chrome reports a mailto: form on https as mixed content (Best Practices). Without JS the visitor gets the two direct links in <noscript>. -->
+<form class="booking">
+  <noscript><p class="note">لإرسال الطلب من هنا فعّل JavaScript، أو راسل الفندق مباشرة: <a href="mailto:">بالبريد</a> · <a href="https://wa.me/">عبر واتساب</a>.</p></noscript>
   <div class="field"><label for="c-room">الغرفة</label><select id="c-room" name="room"><option value="">يقترحها الاستقبال</option></select></div>
   <div class="grid-2">
     <div class="field"><label for="c-arrive">الوصول</label><input type="date" id="c-arrive" name="arrive" required aria-describedby="c-arrive-err" data-err-empty="اختر تاريخ الوصول." data-err-past="هذا التاريخ مضى. اختر اليوم أو تاريخاً لاحقاً."><p class="err" id="c-arrive-err" aria-live="polite"></p></div>

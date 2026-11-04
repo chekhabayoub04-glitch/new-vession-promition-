@@ -113,4 +113,5 @@ Also: GSAP, Lenis, Lucide and Three.js removed (JS 24.9 KB total, no dependency)
 1. The hero `<video>` has no `autoplay` attribute: `js/main.js` starts it after `load` so the AVIF poster stays the LCP; phones, reduced motion, Save-Data and 2g/3g get the poster only (§6). This means **phones never play the hero film** — say if you want it back on phones.
 2. The 5-second drone master is played forward then backward (10.4 s) so the loop is seamless.
 3. `room-4`'s photo type is unknown; meeting-salon layouts/equipment come from the brief.
-4. Data pages need a web server (GitHub Pages, VS Code Live Server). Opening `index.html` straight from the disk (`file://`) blocks the JSON — the pages still show their static content and placeholders.
+4. The booking form has no `action="mailto:"`: Chrome flags a `mailto:` form on an https page as mixed content (Lighthouse Best Practices). With JS the form sends to WhatsApp or opens the email app; without JS it shows two direct links (email · WhatsApp) instead.
+5. Data pages need a web server (GitHub Pages, VS Code Live Server). Opening `index.html` straight from the disk (`file://`) blocks the JSON — the pages still show their static content and placeholders.
