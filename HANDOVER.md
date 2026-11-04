@@ -9,35 +9,33 @@ A `null` in a JSON file shows on the site as **«عند الطلب»** or **«ي
 
 ## 1. `data/site.json` — the hotel (one value each)
 
-✅ From the hotel's price card: `phoneE164` / `phoneDisplay` (032 73 15 40), `faxDisplay` (032 73 13 66), `email` (hotelyoucef@gmail.com), `streetAddress` (الحامة، خنشلة 40016), `breakfastIncluded` (every rate includes breakfast).
-
 | # | Key | What to send | Shown where |
 |---|---|---|---|
-| 1 | `whatsappE164` | **The WhatsApp number** (mobile), e.g. `+2136XXXXXXXX`. 032 73 15 40 is a landline, so it is not used for WhatsApp | Every WhatsApp button and the booking form. Until it is set, WhatsApp opens without a recipient and «أرسل بالبريد» goes to hotelyoucef@gmail.com |
-| 2 | `checkin` / `checkout` | Times, e.g. `14:00` / `12:00` | Room pages, location block, footer, JSON-LD |
-| 3 | `cancellation` | One sentence | Room pages «قبل وصولك» |
-| 4 | `reviewsUrl` | Confirm the Google Maps link | «آراء النزلاء على Google» |
-| 5 | `stats.roomsCount`, `stats.hallCapacity`, `stats.yearOpened` | Numbers only. `roomTypes` is already 7 | Counters (a `null` stat is hidden, never shows 0) |
+| 1 | `phoneE164` | Phone/WhatsApp in international form, e.g. `+21332XXXXXX` | Every WhatsApp button, `tel:` links, Hotel JSON-LD |
+| 2 | `phoneDisplay` | The same number as people write it, e.g. `032 XX XX XX` | Contact lists, footer |
+| 3 | `email` | Reservations email | Booking form email fallback, footer |
+| 4 | `streetAddress` | Street / neighbourhood (the pages already say «ولاية خنشلة، الجزائر») | Location block, JSON-LD |
+| 5 | `checkin` / `checkout` | Times, e.g. `14:00` / `12:00` | Room pages, location block, footer, JSON-LD |
+| 6 | `cancellation` | One sentence | Room pages «قبل وصولك» |
+| 7 | `breakfastPerPerson` | Price in دج (number) | Room pages price block |
+| 8 | `reviewsUrl` | Confirm the Google Maps link (set to the hotel's place page) | «آراء النزلاء على Google» |
+| 9 | `stats.roomsCount`, `stats.hallCapacity`, `stats.yearOpened` | Numbers only. `roomTypes` is already 7 | Counters (a `null` stat is hidden, never shows 0) |
 
-## 2. `data/rooms.json` — the 7 room types ✅ (price card + photo folders)
+## 2. `data/rooms.json` — the 7 room types
 
-Order, names, beds, prices (TTC, breakfast included) and the card's amenities (wifi, coffre-fort, petit-déjeuner) come from **TARIFS HEBERGEMENT**:
+Each room: `name`, `shortLine` (one sentence: what the room is and who it is for), `priceFrom` (دج / night), `sizeM2`, `beds`, `maxGuests`, `view`, `floor`, `amenities` (list), `breakfastPerPerson` (if different from the hotel's).
+The `id`s `room-1` … `room-7` are the URLs (`room.html?id=room-3`) — keep them; reorder the array to reorder the site.
 
-| id | Card | Arabic name | دج / night | Photos |
-|---|---|---|---|---|
-| `room-1` | Chambre Single | غرفة فردية | 7 600 | 4 + tea tray |
-| `room-2` | Chambre Double Grand Lit | غرفة مزدوجة بسرير كبير | 11 400 | 6 + tray |
-| `room-3` | Chambre Double / Twin | غرفة مزدوجة بسريرين | 12 400 | 7 + tray |
-| `room-4` | Chambre Triple | غرفة ثلاثية | 17 900 | 5 + tray |
-| `room-5` | Suite de luxe Junior | جناح جونيور | 15 800 | 5 + tray |
-| `room-6` | Suite de luxe Sénior | جناح سينيور | 19 000 | 7 + tray |
-| `room-7` | Suite de luxe Royal | الجناح الملكي | 20 700 | 9 + tray |
+| Room | What is already there (from your Google Maps links) | Still needed |
+|---|---|---|
+| `room-1` | name «غرفة بسرير واحد», beds «سرير واحد», 2 photos, TV seen in photo | everything else |
+| `room-2` | 2 photos + a 360° view (the room decorated with the swans) | **name**, beds, everything else |
+| `room-3` | name «غرفة بسريرين», beds «سريران», 1 photo | everything else |
+| `room-4` | 1 photo (large bed, green headboard) — <!-- ASSUMPTION --> type unknown, filed as room 4 | **name**, everything |
+| `room-5` … `room-7` | nothing | **everything** |
 
-Amenities seen in the photos (TV, air-conditioning vents, bathtub, tea/coffee tray, balcony, bathrobe) are listed too. <!-- ASSUMPTION --> TV / air-con / bathtub / tray are listed for every type because they appear in every folder.
-**Still needed per room:** `sizeM2`, `maxGuests`, `view`, `floor` (shown as «عند الطلب» until set).
-
-Photos: originals in `img/src/rooms/<folder>/` → `python3 tools/rooms_import.py` (white balance + levels + sharpening, gentle) → `img/src/room-<n>-<kk>.jpg` → `python3 tools/images.py`. Each photo's Arabic alt is in `alts`, in the same order as `images`.
-The old 360° `room-2` (the room with the swans) stays in the gallery as «إحدى غرف الفندق» — tell me its type to attach it to a room.
+Photos per room: `room-{n}-01` (wide), `-02` (bed detail), `-03` (bathroom), `-04` (view) — see §6.
+If a room has a 360° photo, set `"pano": "room-n"` and add it to `data/panos.json` (§5).
 
 ## 3. `data/venues.json` — the three spaces
 
@@ -79,7 +77,7 @@ The old 360° `room-2` (the room with the swans) stays in the gallery as «إح�
 | `hall-wedding-01` … `03` | 3:2 | 1600 | event hall, round tables, chandeliers lit | ❌ |
 | `salon-meeting-01` … `02` | 3:2 | 1600 | meeting salon, U-shape / boardroom | ❌ |
 | `salon-lounge-01` | 3:2 | 1400 | smaller reception salon | ❌ |
-| `room-{1..7}-NN`, `room-tea` | 3:4 | 1440 | every room type | ✅ 43 + 1 (from the 7 folders) |
+| `room-{1..7}-01…04` | 3:2 | 1600 | wide · bed · bathroom · view | ✅ 6 of 28 (room-1 ×2, room-2 ×2, room-3, room-4) |
 | `img/og.jpg` | 1.91:1 | 1200 | social share card | ✅ (from the hero poster) |
 
 Every alt text is already written in Arabic in the JSON / pages.

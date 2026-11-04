@@ -77,7 +77,8 @@
       <div><h2>الإقامة</h2><ul>
         <!-- TODO:FILL: check-in / check-out (data/site.json → checkin, checkout) -->
         <li>الدخول: <span data-site="checkin">يُحدَّد عند الحجز</span></li>
-        <li>المغادرة: <span data-site="checkout">يُحدَّد عند الحجز</span></li></ul></div>
+        <li>المغادرة: <span data-site="checkout">يُحدَّد عند الحجز</span></li>
+        <li>الدفع عند الوصول</li></ul></div>
     </div>
     <p class="copy">© <span data-site="year">2026</span> فندق يوسف · HOTEL YOUCEF — ولاية خنشلة، الجزائر.</p>
   </div>
@@ -87,7 +88,7 @@
   <div class="dlg-body"><!-- TODO:FILL: data/site.json → email and phoneE164 (WhatsApp); also the two no-JS links below -->
 <!-- ASSUMPTION: no action="mailto:" — Chrome reports a mailto: form on https as mixed content (Best Practices). Without JS the visitor gets the two direct links in <noscript>. -->
 <form class="booking">
-  <noscript><p class="note">لإرسال الطلب من هنا فعّل JavaScript، أو راسل الفندق مباشرة: <a href="mailto:hotelyoucef@gmail.com">بالبريد</a> · <a href="tel:+21332731540">بالهاتف</a>.</p></noscript>
+  <noscript><p class="note">لإرسال الطلب من هنا فعّل JavaScript، أو راسل الفندق مباشرة: <a href="mailto:">بالبريد</a> · <a href="https://wa.me/">عبر واتساب</a>.</p></noscript>
   <div class="field"><label for="d-room">الغرفة</label><select id="d-room" name="room"><option value="">يقترحها الاستقبال</option></select></div>
   <div class="grid-2">
     <div class="field"><label for="d-arrive">الوصول</label><input type="date" id="d-arrive" name="arrive" required aria-describedby="d-arrive-err" data-err-empty="اختر تاريخ الوصول." data-err-past="هذا التاريخ مضى. اختر اليوم أو تاريخاً لاحقاً."><p class="err" id="d-arrive-err" aria-live="polite"></p></div>
@@ -97,8 +98,9 @@
     <div class="field"><label for="d-adults">الكبار</label><input type="number" id="d-adults" name="adults" min="1" max="12" value="2" inputmode="numeric"></div>
     <div class="field"><label for="d-children">الأطفال</label><input type="number" id="d-children" name="children" min="0" max="10" value="0" inputmode="numeric"></div>
   </div>
+  <label class="check"><input type="checkbox" name="breakfast"> مع الفطور</label>
   <div class="field"><label for="d-guest">الاسم الكامل</label><input id="d-guest" name="guest" autocomplete="name" required aria-describedby="d-guest-err" data-err-empty="اكتب اسمك ليعرف الاستقبال باسم من الحجز."><p class="err" id="d-guest-err" aria-live="polite"></p></div>
-  <p class="note">الأسعار شاملة الرسوم والفطور، ويؤكّدها الاستقبال عند الرد عليك.</p>
+  <p class="note">الدفع عند الوصول. السعر إرشادي ويُثبَّت عند الحجز.</p>
   <div class="form-actions">
     <button class="btn btn--wa" type="submit" data-via="wa"><svg class="i" aria-hidden="true"><use href="img/icons.svg#whatsapp"/></svg>أرسل الطلب عبر واتساب</button>
     <button class="btn btn--ghost" type="submit" data-via="mail"><svg class="i" aria-hidden="true"><use href="img/icons.svg#mail"/></svg>أرسل عبر البريد</button>

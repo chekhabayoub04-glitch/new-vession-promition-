@@ -21,10 +21,6 @@ Static Arabic (RTL) site for Hotel Youcef, Khenchela Province. Vanilla HTML + on
 
 Edit `data/rooms.json`. Each entry renders on the homepage (first 4), `rooms.html`, the comparison table, the booking `<select>` and `room.html?id=<id>`. Keep the `id` stable — it is the URL.
 
-## Room photos
-
-The 7 folders from the hotel are in `img/src/rooms/` (named after the price card). `python3 tools/rooms_import.py` corrects them and names them `room-<n>-<kk>`, then `python3 tools/images.py` makes the web sizes. Edit the `ROOMS` list in `rooms_import.py` to change the order or the cover photo.
-
 ## Add or swap a photo
 
 1. Put the original in `img/src/<slot>.jpg` — the slot names are listed in [`img/README.md`](img/README.md) (e.g. `room-5-01`, `hall-wedding-02`, `dish-03`).
@@ -61,5 +57,5 @@ data/    site.json · rooms.json · venues.json · menu.json · gallery.json · 
 img/     icons.svg · favicon.svg · icons · og.jpg · 360/ · src/ (originals) · <slot>-<w>.{avif,webp,jpg}
 video/   frames/d (desktop) · frames/m (phones) — 125 WebP frames each
 fonts/   Reem Kufi · IBM Plex Sans Arabic (woff2, Arabic + Latin subsets)
-tools/   images.py (photo pipeline) · rooms_import.py (room folders → corrected slots)
+tools/   images.py (photo pipeline for Phase B)
 ```

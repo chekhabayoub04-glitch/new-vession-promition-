@@ -5,7 +5,7 @@ const message = f => ['السلام عليكم، أريد الحجز في فند
   `الغرفة: ${f.room.value ? f.room.selectedOptions[0].text : 'يقترحها الاستقبال'}`,
   `الوصول: ${f.arrive.value} — المغادرة: ${f.depart.value}`,
   `الأشخاص: ${f.adults.value} كبار، ${f.children.value} أطفال`,
-  'الفطور: مشمول في السعر',
+  `الفطور: ${f.breakfast.checked ? 'نعم' : 'لا'}`,
   `الاسم: ${f.guest.value.trim()}`].join('\n');
 
 ready.then(() => json('data/rooms.json')).then(rooms => {
