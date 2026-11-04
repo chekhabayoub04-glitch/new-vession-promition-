@@ -1,4 +1,4 @@
-// main.js — shared: data, image slots, contact fields, menu, booking sheet, forms, reveal, counters, hero film
+// main.js — shared: data, image slots, contact fields, menu, booking sheet, forms, reveal, counters
 const cache = {};
 export const json = p => (cache[p] ||= fetch(p).then(r => (r.ok ? r.json() : Promise.reject(p))));
 export const $ = (s, r = document) => r.querySelector(s);
@@ -95,11 +95,6 @@ addEventListener('click', e => {
 });
 $$('dialog').forEach(d => d.addEventListener('close', () => d.from?.focus()));
 addEventListener('click', e => e.target.closest('[data-close]')?.closest('dialog').close());
-
-// Hero film after load; skipped on phones, reduced motion, Save-Data, 2g/3g
-const film = $('.hero__media'), c = navigator.connection;
-film && addEventListener('load', () => (reduced || innerWidth <= 768 || c?.saveData || /2g|3g/.test(c?.effectiveType)
-  ? film.remove() : ((film.preload = 'auto'), film.play().catch(() => film.remove()))));
 
 ready.then(s => {
   fillSite(s);

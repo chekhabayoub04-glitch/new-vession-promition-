@@ -106,12 +106,11 @@ Every alt text is already written in Arabic in the JSON / pages.
 | 10 | Unsplash photo for the hall | Deleted. Arch placeholder naming `img/hall-wedding-01.avif` until the real photo arrives. No third-party stock anywhere. |
 | 11 | Anchors under the sticky header | `scroll-margin-block-start` on every section with an id. |
 
-Also: GSAP, Lenis, Lucide and Three.js removed (JS 24.9 KB total, no dependency); the 360° viewer was rewritten in plain WebGL; fonts are self-hosted; the WhatsApp message follows §10 exactly; invented data from the old site (prices, room names, email, offers) is gone.
+Also: GSAP, Lenis, Lucide and Three.js removed (no dependency); the 360° viewer was rewritten in plain WebGL; fonts are self-hosted; the WhatsApp message follows §10 exactly; invented data from the old site (prices, room names, email, offers) is gone.
 
 ## Assumptions (also marked `ASSUMPTION` in the files)
 
-1. The hero `<video>` has no `autoplay` attribute: `js/main.js` starts it after `load` so the AVIF poster stays the LCP; phones, reduced motion, Save-Data and 2g/3g get the poster only (§6). This means **phones never play the hero film** — say if you want it back on phones.
-2. The 5-second drone master is played forward then backward (10.4 s) so the loop is seamless.
-3. `room-4`'s photo type is unknown; meeting-salon layouts/equipment come from the brief.
-4. The booking form has no `action="mailto:"`: Chrome flags a `mailto:` form on an https page as mixed content (Lighthouse Best Practices). With JS the form sends to WhatsApp or opens the email app; without JS it shows two direct links (email · WhatsApp) instead.
-5. Data pages need a web server (GitHub Pages, VS Code Live Server). Opening `index.html` straight from the disk (`file://`) blocks the JSON — the pages still show their static content and placeholders.
+1. **Hero, by the client's choice:** the brief's §6 autoplay video (hidden on phones) was replaced by the previous cinematic hero — intro screen, then the drone film scrubbed by scroll on desktop **and phones**, holding on the fountain while «فندق يوسف» appears. Cost: +3.7 KB of JS (28.6 KB total, brief asked < 25 KB) and ~3.8 MB (phones) / 8.6 MB (desktop) of frames loaded progressively. Measured: 60 fps while scrolling on iPhone 13 / Pixel 5 / iPhone SE with a 4× slower CPU.
+2. `room-4`'s photo type is unknown; meeting-salon layouts/equipment come from the brief.
+3. The booking form has no `action="mailto:"`: Chrome flags a `mailto:` form on an https page as mixed content (Lighthouse Best Practices). With JS the form sends to WhatsApp or opens the email app; without JS it shows two direct links (email · WhatsApp) instead.
+4. Data pages need a web server (GitHub Pages, VS Code Live Server). Opening `index.html` straight from the disk (`file://`) blocks the JSON — the pages still show their static content and placeholders.

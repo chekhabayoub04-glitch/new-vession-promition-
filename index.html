@@ -23,18 +23,21 @@
 <link rel="manifest" href="site.webmanifest">
 <link rel="preload" href="fonts/plex-400-arabic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/reem-arabic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" type="image/avif" href="img/hero-poster-1280.avif" imagesrcset="img/hero-poster-640.avif 640w, img/hero-poster-960.avif 960w, img/hero-poster-1280.avif 1280w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" href="video/frames/d/001.webp" media="(min-aspect-ratio: 4/5)" fetchpriority="high">
+<link rel="preload" as="image" href="video/frames/m/001.webp" media="(max-aspect-ratio: 4/5)" fetchpriority="high">
+<link rel="preload" href="fonts/cormorant-600-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
 <script type="speculationrules">{"prerender":[{"where":{"href_matches":"/new-vession-promition-/*"},"eagerness":"moderate"}]}</script>
 <script type="module" src="js/main.js"></script>
+<script type="module" src="js/hero.js"></script>
 <script type="module" src="js/booking.js"></script>
 <script type="module" src="js/rooms.js"></script>
 <script type="module" src="js/gallery.js"></script>
 <script type="module" src="js/pano.js"></script>
 </head>
-<body data-ld="hotel">
+<body data-ld="hotel" class="home">
 <a class="skip" href="#main">تخطَّ إلى المحتوى</a>
-<header class="site-header">
+<header class="site-header over-hero">
   <div class="wrap">
     <a class="brand" href="./"><svg aria-hidden="true" viewBox="0 0 64 64"><use href="img/icons.svg#mark"/></svg><span><b>HOTEL YOUCEF</b><small>فندق يوسف · خنشلة</small></span></a>
     <nav class="nav" id="nav" aria-label="القائمة الرئيسية"><ul><li><a href="rooms.html">الغرف</a></li><li><a href="venues.html">القاعات والصالونات</a></li><li><a href="restaurant.html">المطعم</a></li><li><a href="gallery.html">الصور</a></li><li><a href="contact.html">الموقع والاتصال</a></li></ul></nav>
@@ -45,24 +48,42 @@
   </div>
 </header>
 <main id="main">
-<section class="hero" aria-labelledby="hero-h">
-  <div class="hero__frame">
-    <picture><source type="image/avif" srcset="img/hero-poster-640.avif 640w, img/hero-poster-960.avif 960w, img/hero-poster-1280.avif 1280w" sizes="100vw"><source type="image/webp" srcset="img/hero-poster-640.webp 640w, img/hero-poster-960.webp 960w, img/hero-poster-1280.webp 1280w" sizes="100vw"><img class="hero__poster" src="img/hero-poster-1280.jpg" srcset="img/hero-poster-640.jpg 640w, img/hero-poster-960.jpg 960w, img/hero-poster-1280.jpg 1280w" sizes="100vw" width="1280" height="720" alt="" fetchpriority="high" decoding="async"></picture>
-    <!-- ASSUMPTION: no autoplay and no poster attribute — the <picture> above is the poster (no second download) and js/main.js starts the film after `load` (skipped on phones, reduced motion, Save-Data, 2g/3g). -->
-    <video class="hero__media" muted loop playsinline preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1">
-      <source src="video/drone-720.webm" type="video/webm">
-      <source src="video/drone-720.mp4" type="video/mp4">
-    </video>
+<!-- Intro: the mark draws itself, HOTEL (brown) YOUCEF (maroon) appears, the curtain opens on the film -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-in">
+    <svg class="loader-mark" viewBox="0 0 64 64"><path class="lm-arch" d="M18 52V30a14 14 0 0 1 28 0v22"/><path class="lm-y" d="M25 26l7 9 7-9M32 35v11"/><path class="lm-base" d="M12 52h40"/></svg>
+    <p class="loader-name" lang="en"><span>H</span><span>O</span><span>T</span><span>E</span><span>L</span><span class="sp"></span><b>Y</b><b>O</b><b>U</b><b>C</b><b>E</b><b>F</b></p>
+    <p class="loader-ar">فندق يوسف</p>
+    <span class="loader-line"><i></i></span>
   </div>
-  <div class="hero__scrim" aria-hidden="true"></div>
-  <div class="hero__content">
-    <p class="eyebrow">ولاية خنشلة · الأوراس</p>
-    <h1 id="hero-h">فندق يوسف في خنشلة<span>HOTEL YOUCEF</span></h1>
-    <p class="lede">غرفٌ مكيّفة، مسبحٌ خارجي، مطعمٌ، وقاعاتٌ للأفراح والاجتماعات. عنوانٌ واحد لإقامتك ومناسبتك.</p>
-    <div class="ctas">
-      <a class="btn btn--light" href="contact.html#booking" data-book>احجز إقامتك</a>
-      <a class="btn btn--line" href="rooms.html">اكتشف الغرف</a>
+  <div class="curtain curtain-a"></div><div class="curtain curtain-b"></div>
+</div>
+<!-- Hero: scroll drives the drone film from the sky to the fountain, then the hotel introduces itself -->
+<section class="hero" aria-label="فندق يوسف — من السماء إلى النافورة">
+  <div class="hero-pin">
+    <canvas class="hero-canvas" id="heroCanvas" role="img" aria-label="فيديو الفندق: لقطة جوية عند الغروب، الواجهة، ثم البهو والنافورة"></canvas>
+    <div class="hero-veil" id="heroVeil" aria-hidden="true"></div>
+    <div class="hero-start" id="heroStart">
+      <p class="hs-kicker"><svg class="i" aria-hidden="true"><use href="img/icons.svg#map-pin"/></svg> ولاية خنشلة · الجزائر</p>
+      <p class="hs-brand" lang="en">HOTEL YOUCEF</p>
+      <div class="scroll-cue" aria-hidden="true"><span></span>مرّر لتدخل الفندق</div>
     </div>
+    <div class="hero-end" id="heroEnd">
+      <p class="he-kicker">مرحباً بكم في</p>
+      <h1 class="he-title">فندق يوسف<span lang="en">HOTEL YOUCEF</span></h1>
+      <p class="he-lead">فندقٌ مميّز في ولاية خنشلة، يجمع هدوء الأوراس وأناقة الضيافة الجزائرية — غرفٌ وأجنحة هادئة، مسبحٌ خارجي، مطعمٌ وقاعةُ حفلات.</p>
+      <ul class="he-tags" role="list">
+        <li><svg class="i" aria-hidden="true"><use href="img/icons.svg#moon-star"/></svg>أماكن هادئة</li>
+        <li><svg class="i" aria-hidden="true"><use href="img/icons.svg#waves"/></svg>مسبح خارجي</li>
+        <li><svg class="i" aria-hidden="true"><use href="img/icons.svg#utensils"/></svg>مطعم</li>
+        <li><svg class="i" aria-hidden="true"><use href="img/icons.svg#party-popper"/></svg>قاعة حفلات</li>
+      </ul>
+      <div class="he-ctas">
+        <a class="btn btn--light" href="contact.html#booking" data-book>احجز إقامتك</a>
+        <a class="btn btn--line" href="#rooms">اكتشف الغرف</a>
+      </div>
+    </div>
+    <div class="hero-progress" aria-hidden="true"><i id="heroBar"></i></div>
   </div>
 </section>
 <section class="trust" aria-label="ما يقدّمه الفندق">
