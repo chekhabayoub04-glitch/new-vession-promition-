@@ -1,0 +1,101 @@
+{
+ "_note": "Transcribe the printed menu card here (name, desc, price in دج). Items with name null are shown as placeholders and left out of the JSON-LD.",
+ "hours": null,
+ "cafeHours": null,
+ "servesCuisine": [
+  "جزائرية"
+ ],
+ "priceRange": null,
+ "sections": [
+  {
+   "id": "starters",
+   "name": "مقبلات",
+   "items": [
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-01"
+    },
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-02"
+    }
+   ]
+  },
+  {
+   "id": "mains",
+   "name": "أطباق رئيسية",
+   "items": [
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-03"
+    },
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-04"
+    }
+   ]
+  },
+  {
+   "id": "grill",
+   "name": "مشاوي",
+   "items": [
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-05"
+    },
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-06"
+    }
+   ]
+  },
+  {
+   "id": "desserts",
+   "name": "حلويات",
+   "items": [
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-07"
+    },
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-08"
+    }
+   ]
+  },
+  {
+   "id": "drinks",
+   "name": "مشروبات",
+   "items": [
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": null
+    },
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": null
+    }
+   ]
+  }
+ ]
+}

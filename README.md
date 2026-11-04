@@ -1,86 +1,71 @@
-# HOTEL YOUCEF · فندق يوسف — Khenchela
+# فندق يوسف · HOTEL YOUCEF — Khenchela
 
-A cinematic Arabic (RTL) website for Hotel Youcef in Khenchela, Algeria. It opens on the hotel's own film, played by the mouse wheel, and has 360° room views, direct booking through WhatsApp, and a smart booking assistant.
+Static Arabic (RTL) site for Hotel Youcef, Khenchela Province. Vanilla HTML + one `styles.css` + ES modules (24.9 KB of JS, no library, no build step). Hosted on GitHub Pages under `/new-vession-promition-/`.
 
-## ✨ Features
+**Phase A** (this version): the structure, with every piece of content as a named slot. **Phase B**: fill the slots — see [`HANDOVER.md`](HANDOVER.md).
 
-| | |
+## Pages
+
+| Page | Content from |
 |---|---|
-| **Intro** | The maroon mark draws itself, «HOTEL YOUCEF» appears letter by letter (brown + maroon), then a curtain opens on the film |
-| **Hero** | Full-screen film (sky → facade → doors → fountain) driven by scroll as a WebP image sequence on a canvas — smooth on phones too. It holds on the fountain while the hotel introduces itself |
-| **Design** | Maroon, warm brown and cream; El Messiri headings; words rise one by one, photos open like curtains, icons pop in, numbers count up |
-| **360° views** | On the double room page: drag, gyroscope, zoom, full screen; scenes: lobby, upper gallery, double room |
-| **Rooms** | 5 room types. Each card has Book, Enquire (WhatsApp), and Details buttons |
-| **Packages** | A carousel of packages: wedding night, family, business, Aurès winter |
-| **Smart booking** | Write your request in Arabic, Darija, French, or English, for example «جناح لعائلة من 4 نهاية الأسبوع مع فطور». It fills the dates, nights, guests, and room, and suggests a bigger room when needed. A live estimated total updates as you go, and the request is sent through WhatsApp or email |
-| **1-2-3 pillars** | Three promises with numbered tabs and images that change automatically |
-| **Services** | A carousel of photos, each with a short line |
-| **A day at the hotel** | A timeline from 06:00 to 21:00 |
-| **Banquet hall** | A quote request for an event (type, date, number of guests) through WhatsApp |
-| **Gallery** | Filters by category, plus a lightbox with keyboard and swipe |
-| **Khenchela** | Places to discover, the local time, and live weather with a 4-day forecast (Open-Meteo, no key needed) |
-| **Location** | A map with the exact coordinates, directions, and a link to the reviews on Google |
-| **Quality** | Responsive from 375 to 1440+, `prefers-reduced-motion` support, keyboard navigation, ARIA, Schema.org `Hotel` markup, lazy loading, and the 360° views stop rendering when they are off screen |
+| `index.html` — hero, trust strip, rooms, experience, gallery + 360°, location | `data/site.json`, `rooms.json`, `gallery.json`, `panos.json` |
+| `rooms.html` — all rooms + comparison table | `data/rooms.json` |
+| `room.html?id=room-1` … `room-7` — the conversion page | `data/rooms.json` |
+| `venues.html` — hall, meeting salons, lounges + quote form | `data/venues.json` |
+| `restaurant.html` — dish strip, dish rail, menu, table request | `data/menu.json` |
+| `gallery.html` — filterable gallery + 360° | `data/gallery.json`, `panos.json` |
+| `contact.html` — map, contact, booking form, FAQ | `data/site.json` |
+| `404.html`, `sitemap.xml`, `robots.txt`, `site.webmanifest` | — |
 
-## ⚠️ To do before going live (TODO)
+## Add or change a room
 
-Everything is in **`js/data.js`**:
+Edit `data/rooms.json`. Each entry renders on the homepage (first 4), `rooms.html`, the comparison table, the booking `<select>` and `room.html?id=<id>`. Keep the `id` stable — it is the URL.
 
-- [ ] **Phone, WhatsApp, email** in `HOTEL`. They are placeholders right now.
-- [ ] **Check-in and check-out times, and the breakfast price.**
-- [ ] **Room types, prices, sizes** in `ROOMS`. These are estimates.
-- [ ] **Packages and their prices** in `OFFERS`.
-- [ ] Confirm the services the hotel actually offers (restaurant, café, parking, 24/7 reception…).
+## Add or swap a photo
 
-## 📸 Adding the hotel's real photos
+1. Put the original in `img/src/<slot>.jpg` — the slot names are listed in [`img/README.md`](img/README.md) (e.g. `room-5-01`, `hall-wedding-02`, `dish-03`).
+2. Run once: `pip install pillow` (Pillow ≥ 11.2 has AVIF), then `python3 tools/images.py`.
+3. Done — the tool writes AVIF/WebP/JPEG at 640/960/1280/1920 and lists the slot in `data/images.json`. Commit `img/` and `data/images.json`.
 
-1. Put the photos in `assets/img/`, for example `assets/img/lobby.jpg`.
-2. In `js/data.js`, swap the image for the local path: `{ src: 'assets/img/lobby.jpg', … }`.
-   - For rooms: put the path straight into `photos`, e.g. `photos: ['assets/img/suite-1.jpg', …]`.
+## The hero film
 
-## 🌐 Adding the hotel's 360° photos
+`video/drone-720.webm` and `video/drone-720.mp4`: 1280×720, silent, 10.4 s loop (the 5.2 s drone master played forward then backward), each under 2 MB.
+It starts only after the page has loaded, and never on phones, with reduced motion, Save-Data or 2g/3g — those visitors see `img/hero-poster` (AVIF, 47 KB).
 
-1. Download each panorama as an **equirectangular (2:1) JPG**, for example 6000×3000.
-   - From Google Maps: open the 360° photo, then use a downloader such as *Street View Download 360*, or ask the hotel for the original files.
-2. Put it in `assets/360/`, for example `assets/360/lobby.jpg`.
-   Optional: a lighter copy for phones, `lobby-m.jpg` at 2048×1024.
-3. Add a line to `PANOS` in `js/data.js`:
-   ```js
-   { id: 'lobby', title: 'البهو', icon: 'sofa', src: 'assets/360/lobby.jpg', srcMobile: 'assets/360/lobby-m.jpg' }
-   ```
-4. To show it in a room's page, set `pano: 'lobby'` in `ROOMS`.
-
-> `lobby`, `atrium` and `room` are the hotel's own photos from Google Maps. `pool` is still a free CC0 demo photo from Poly Haven. Replace them with the hotel's.
-
-## 🗂️ Structure
-
-```
-index.html        Home page
-room.html         Room page (?id=single|double|twin|family|suite)
-css/style.css     Design system (night navy · champagne gold)
-js/data.js        All the hotel data ← edit here
-js/common.js      Smooth scroll, header, room cards, lightbox
-js/booking.js     Booking form + smart assistant
-js/main.js        Home page: hero video, rooms, offers, gallery, weather
-js/pano.js        360° viewer
-js/tour.js        360° tour UI
-js/room.js        Room page
-assets/img/       Hotel photos
-assets/frames/    Hero film frames (d = desktop 16:9, m = phones 7:9 crop)
-assets/360/       360° panoramas
-assets/video/     film.mp4 + film-m.mp4 (the drone film section); the .mov sources are not used by the site
-```
-
-## ▶️ Running it
-
-The 360° viewer uses ES modules, so open the site **through a local server**:
+Re-encode from a new master `master.mov` (8–14 s, no audio):
 
 ```bash
-npx serve .        # or VS Code Live Server, or: python3 -m http.server 8000
+# MP4 (H.264) — target < 2 MB
+ffmpeg -i master.mov -an -vf "scale=1280:720:flags=lanczos,fps=24,format=yuv420p" \
+  -c:v libx264 -preset slower -crf 30 -profile:v high -movflags +faststart video/drone-720.mp4
+# WebM (VP9), two passes — target < 2 MB
+ffmpeg -i master.mov -an -vf "scale=1280:720:flags=lanczos,fps=24" -c:v libvpx-vp9 -b:v 1300k -maxrate 1500k -minrate 900k -row-mt 1 -pass 1 -f webm /dev/null
+ffmpeg -i master.mov -an -vf "scale=1280:720:flags=lanczos,fps=24" -c:v libvpx-vp9 -b:v 1300k -maxrate 1500k -minrate 900k -row-mt 1 -pass 2 video/drone-720.webm
+# Poster = first frame
+ffmpeg -i master.mov -frames:v 1 img/src/hero-poster.jpg && python3 tools/images.py
 ```
 
-Deploying: the site is fully static, so it works on Netlify, Vercel, or GitHub Pages.
+The current loop is made from a 5 s master with: `-filter_complex "[0:v]scale=1280:720,format=yuv420p,split[a][b];[b]reverse[r];[a][r]concat=n=2:v=1:a=0,fps=24"`.
 
-## 🧰 Stack
+**Moving the video off GitHub** (recommended once the site has real traffic): upload the master to Cloudflare Stream or bunny.net Stream, then replace the two `<source src="video/…">` lines in `index.html` with the CDN's MP4/WebM URLs. Keep the poster local — it is the LCP.
 
-Three.js 0.170 · GSAP 3.12 + ScrollTrigger · Lenis · Lucide · Open-Meteo · OpenStreetMap · HTML/CSS/JS with no build step.
+## Run locally
+
+The pages read JSON with `fetch`, so open them through a server, not by double-clicking:
+VS Code **Live Server**, or `python3 -m http.server` in this folder → `http://localhost:8000`.
+
+## Stack and budgets
+
+HTML · CSS (`@layer`, logical properties, `color-mix`, `:has`, view transitions) · ES modules · WebGL (360°) · self-hosted Reem Kufi + IBM Plex Sans Arabic · inline-SVG sprite (`img/icons.svg`, Lucide ISC).
+Budgets: JS < 25 KB (24.9), CSS < 45 KB (36), no third-party script, no analytics, no cookie banner.
+
+```
+index.html rooms.html room.html venues.html restaurant.html gallery.html contact.html 404.html
+styles.css
+js/      main.js (shared) · booking.js · rooms.js · gallery.js · pano.js · content.js
+data/    site.json · rooms.json · venues.json · menu.json · gallery.json · panos.json · images.json
+img/     icons.svg · favicon.svg · icons · og.jpg · 360/ · src/ (originals) · <slot>-<w>.{avif,webp,jpg}
+video/   drone-720.webm · drone-720.mp4
+fonts/   Reem Kufi · IBM Plex Sans Arabic (woff2, Arabic + Latin subsets)
+tools/   images.py (photo pipeline for Phase B)
+```

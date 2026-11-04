@@ -1,273 +1,114 @@
-/* ===================================================
-   HOTEL YOUCEF · main.js — home page
-   =================================================== */
+// main.js — shared: data, image slots, contact fields, menu, booking sheet, forms, reveal, counters, hero film
+const cache = {};
+export const json = p => (cache[p] ||= fetch(p).then(r => (r.ok ? r.json() : Promise.reject(p))));
+export const $ = (s, r = document) => r.querySelector(s);
+export const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+export const esc = s => String(s ?? '').replace(/[&<>"]/g, c => `&#${c.charCodeAt(0)};`);
+export const icon = n => `<svg class="i" aria-hidden="true"><use href="img/icons.svg#${n}"/></svg>`;
+export const fmt = n => n.toLocaleString('fr-FR').replace(/\s/g, ' ');
+export const ASK = '<span class="tbd">عند الطلب</span>';
+export const ROOT = 'https://chekhabayoub04-glitch.github.io/new-vession-promition-/';
+export const ld = o => document.head.insertAdjacentHTML('beforeend', `<script type="application/ld+json">${JSON.stringify(o)}</script>`);
+export const day = () => new Date().toISOString().slice(0, 10);
+export const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+export let site = {};
+let IMG = {};
+export const ready = Promise.all([json('data/site.json'), json('data/images.json').catch(() => ({}))]).then(([s, i]) => ((IMG = i), (site = s)));
 
-const root = document.documentElement;
-const PORTRAIT = matchMedia('(max-aspect-ratio: 4/5)').matches;
+// Listed slot → AVIF/WebP/JPEG; else the arch placeholder naming the file
+export function pic(slot, alt = '', sizes = '100vw', eager) {
+  const m = IMG[slot];
+  if (!m) return `<span class="ph" ${alt ? `role="img" aria-label="${esc(alt)}"` : 'aria-hidden="true"'}><span>img/${slot}.avif</span></span>`;
+  const set = f => m.widths.map(w => `img/${slot}-${w}.${f} ${w}w`).join();
+  return `<picture><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><source type="image/webp" srcset="${set('webp')}" sizes="${sizes}"><img src="img/${slot}-${m.widths.at(-1)}.jpg" srcset="${set('jpg')}" sizes="${sizes}" width="${m.w}" height="${m.h}" alt="${esc(alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"></picture>`;
+}
+export const hasImg = s => !!IMG[s];
+export const roomName = (r, i) => r.name || `نوع الغرفة ${i + 1}`;
+export const waLink = t => `https://wa.me/${(site.phoneE164 || '').replace(/\D/g, '')}?text=${encodeURIComponent(t)}`;
 
-// ── Hero film as an image sequence on a canvas: smooth scrubbing on every phone ──
-const Hero = (() => {
-  const hero = $('.hero'), canvas = $('#heroCanvas');
-  if (!hero || !canvas) return null;
-  const ctx = canvas.getContext('2d');
-  const COUNT = 125, dir = PORTRAIT ? 'm' : 'd';
-  const src = i => `assets/frames/${dir}/${String(i + 1).padStart(3, '0')}.webp`;
-  const frames = new Array(COUNT), asked = new Set();
-  let current = -1, want = 0, firstReady;
-  const first = new Promise(r => (firstReady = r));
-
-  function load(i) {
-    if (asked.has(i)) return;
-    asked.add(i);
-    const im = new Image();
-    im.decoding = 'async';
-    im.onload = () => { frames[i] = im; if (i === 0) firstReady(); if (i === want || current < 0) { current = -1; draw(want); } };
-    im.src = src(i);
-  }
-  // First frame now, the fountain next, then coarse-to-fine so scrubbing works before everything is loaded
-  load(0); load(COUNT - 1);
-  const rest = () => [16, 8, 4, 2, 1].forEach(step => { for (let i = 0; i < COUNT; i += step) load(i); });
-  first.then(() => (window.requestIdleCallback || setTimeout)(rest));
-
-  function nearest(i) {
-    for (let d = 0; d < COUNT; d++) {
-      if (frames[i - d]?.complete) return frames[i - d];
-      if (frames[i + d]?.complete) return frames[i + d];
+// Forms: data-err-* messages shown inline via aria-describedby
+export function waForm(f, build) {
+  f.noValidate = true;
+  $$('[type=date]', f).forEach(d => (d.min = day()));
+  f.onsubmit = e => {
+    e.preventDefault();
+    let first;
+    for (const el of $$('[aria-describedby]', f)) {
+      const v = el.value.trim(), d = el.dataset;
+      const msg = !v ? d.errEmpty : (el.type === 'date' && v < day() ? d.errPast : el.min && +v < +el.min ? d.errEmpty : d.after && v <= f.elements[d.after].value ? d.errAfter : el.type === 'tel' && v.replace(/\D/g, '').length < 9 ? d.errEmpty : '') || '';
+      el.setAttribute('aria-invalid', !!msg);
+      $(`#${el.getAttribute('aria-describedby')}`).textContent = msg;
+      first ||= msg && el;
     }
-  }
-  function size() {
-    const dpr = Math.min(devicePixelRatio || 1, 2);
-    const w = Math.round(canvas.clientWidth * dpr), h = Math.round(canvas.clientHeight * dpr);
-    if (w === canvas.width && h === canvas.height) return;
-    canvas.width = w;
-    canvas.height = h;
-    current = -1;
-    draw(want);
-  }
-  function draw(i) {
-    want = i;
-    const im = nearest(i);
-    if (!im || (i === current && im === frames[i])) return;
-    current = i;
-    const cw = canvas.width, ch = canvas.height, r = Math.max(cw / im.naturalWidth, ch / im.naturalHeight);
-    const w = im.naturalWidth * r, h = im.naturalHeight * r;
-    ctx.drawImage(im, (cw - w) / 2, (ch - h) / 2, w, h);
-  }
-  addEventListener('resize', size);
-  size();
-  return { COUNT, draw, first };
-})();
-
-// ── Intro: the mark draws itself, the name appears, then the curtain opens on the film ──
-(() => {
-  const loader = $('#loader');
-  if (!loader) return;
-  const bar = $('#loaderBar');
-  root.classList.add('is-loading');
-  lenis?.stop();
-  const minTime = new Promise(r => setTimeout(r, REDUCED ? 200 : 2300));
-  const ready = Promise.race([Hero ? Hero.first : Promise.resolve(), new Promise(r => setTimeout(r, 5000))]);
-  requestAnimationFrame(() => loader.classList.add('play'));
-  bar.style.transitionDuration = REDUCED ? '0.2s' : '2.1s';
-  requestAnimationFrame(() => requestAnimationFrame(() => (bar.style.transform = 'scaleX(1)')));
-  Promise.all([minTime, ready]).then(() => {
-    loader.classList.add('open');
-    root.classList.remove('is-loading');
-    root.classList.add('loaded');
-    lenis?.start();
-    setTimeout(() => loader.remove(), 1400);
-  });
-})();
-
-// ── Hero scroll: sky → facade → doors → fountain, then the hotel introduces itself ──
-(() => {
-  const hero = $('.hero');
-  if (!hero || !Hero) return;
-  const start = $('#heroStart'), end = $('#heroEnd'), veil = $('#heroVeil'), bar = $('#heroBar'), header = $('#header');
-  const clamp01 = v => Math.min(1, Math.max(0, v));
-  const FILM_END = 0.68; // the film reaches the fountain here; the rest of the scroll holds on it
-
-  function render(p) {
-    Hero.draw(Math.round(clamp01(p / FILM_END) * (Hero.COUNT - 1)));
-    const s = 1 - clamp01(p / 0.1);
-    start.style.opacity = s;
-    start.style.transform = `translateY(${(1 - s) * -30}px)`;
-    const e = clamp01((p - FILM_END) / 0.14);
-    end.style.opacity = e;
-    end.style.visibility = e > 0.01 ? 'visible' : 'hidden';
-    end.classList.toggle('on', e > 0.35);
-    veil.style.setProperty('--dim', e);
-    bar.style.transform = `scaleX(${p})`;
-  }
-
-  if (REDUCED || !window.ScrollTrigger) {
-    hero.classList.add('static');
-    Hero.first.then(() => Hero.draw(Hero.COUNT - 1));
-    render(1);
-    return;
-  }
-  // Smooth the scrub on top of Lenis so frames glide instead of stepping
-  let target = 0, shown = 0, raf = 0;
-  const tick = () => {
-    shown += (target - shown) * 0.2;
-    if (Math.abs(target - shown) < 0.0005) shown = target;
-    render(shown);
-    raf = shown !== target ? requestAnimationFrame(tick) : 0;
+    first ? first.focus() : build(f, e.submitter);
   };
-  ScrollTrigger.create({
-    trigger: hero, start: 'top top', end: 'bottom bottom',
-    onUpdate: st => { target = st.progress; raf ||= requestAnimationFrame(tick); },
-    onToggle: st => root.classList.toggle('in-hero', st.isActive)
-  });
-  // Header stays transparent while the film plays
-  const onHero = () => header.classList.toggle('over-hero', scrollY < hero.offsetHeight - innerHeight - 10);
-  addEventListener('scroll', onHero, { passive: true });
-  onHero();
-  root.classList.add('in-hero');
-  render(0);
-})();
+}
+// Message: form data-wa, then «label: value» per field
+export const lines = f => [f.dataset.wa, ...$$('[name]', f).map(el => `${$(`label[for="${el.id}"]`).textContent}: ${el.value}`)].join('\n');
 
-// ── Film section: plays only while visible ──
-(() => {
-  const v = $('#filmVideo'), btn = $('#filmPlay');
-  if (!v) return;
-  let paused = REDUCED, visible = false, loaded = false;
-  const sync = () => {
-    if (visible && !loaded) { v.src = (matchMedia('(max-width: 760px)').matches && v.dataset.srcMobile) || v.dataset.src; loaded = true; }
-    paused || !visible ? v.pause() : v.play().catch(() => {});
-    btn.setAttribute('aria-pressed', String(paused));
-    btn.setAttribute('aria-label', paused ? 'تشغيل الفيلم' : 'إيقاف الفيلم');
-    btn.innerHTML = `<i data-lucide="${paused ? 'play' : 'pause'}"></i>`;
-    refreshIcons();
-  };
-  btn.addEventListener('click', () => { paused = !paused; sync(); });
-  new IntersectionObserver(([e]) => { visible = e.isIntersecting; sync(); }, { rootMargin: '200px 0px' }).observe(v);
-})();
-
-// ── 360 tour: the viewer (Three.js) loads near the section on desktop; on phones only when tapped
-// (no scroll stutter, no wasted data, and finger-drag never fights the page scroll) ──
-(() => {
-  const el = $('.tour-sec .tour'), btn = $('#tourStart');
-  if (!el) return;
-  const mount = () => {
-    if (el.classList.contains('mounted')) return;
-    if (!window.mountTour) return setTimeout(mount, 200);
-    el.classList.add('mounted');
-    window.mountTour(el, el.dataset.initial);
-  };
-  btn.addEventListener('click', mount);
-  if (matchMedia('(pointer: coarse)').matches) return;
-  const io = new IntersectionObserver(([e]) => {
-    if (!e.isIntersecting) return;
-    io.disconnect();
-    (window.requestIdleCallback || setTimeout)(mount);
-  }, { rootMargin: '300px 0px' });
-  io.observe(el);
-})();
-
-// ── Rooms: swipeable track ──
-const booking = initBooking($('#bookForm'));
-initConcierge($('#aiForm'), booking);
-(() => {
-  const grid = $('#roomsGrid');
-  if (!grid) return;
-  grid.innerHTML = ROOMS.map(roomCardHTML).join('');
-  $$('.track-arrows[data-for="roomsGrid"] button').forEach(b => b.addEventListener('click', () => {
-    const step = grid.firstElementChild.getBoundingClientRect().width + 24;
-    grid.scrollBy({ left: -step * +b.dataset.dir, behavior: REDUCED ? 'auto' : 'smooth' }); // RTL: "next" moves left
-  }));
-  document.addEventListener('click', e => {
-    const b = e.target.closest('[data-book]');
-    if (b) booking?.pick(b.dataset.book);
-  });
-})();
-
-// ── Offers ──
-(() => {
-  const grid = $('#offersGrid');
-  if (!grid) return;
-  grid.innerHTML = OFFERS.map(o => {
-    const text = `السلام عليكم، أنا مهتم بعرض «${o.title}» (${nightsLabel(o.nights)}) في ${HOTEL.nameAr}. هل هو متاح؟`;
-    return `
-    <article class="offer" data-reveal>
-      <figure class="offer-media"><img src="${pic(img(o.photo, 800, 1000))}" alt="${o.title}" loading="lazy" decoding="async"><span class="offer-nights">${nightsLabel(o.nights)}</span></figure>
-      <div class="offer-body">
-        <p class="offer-tags">${o.tags}</p>
-        <h3>${o.title}</h3>
-        <p class="offer-text">${o.text}</p>
-        <div class="offer-foot">
-          <p class="price"><small>من</small> ${fmt(o.price)} <small>${HOTEL.currency}</small></p>
-          <a class="link-arrow" href="${waLink(text)}" target="_blank" rel="noopener">استفسر <i data-lucide="arrow-left"></i></a>
-        </div>
-      </div>
-    </article>`;
-  }).join('');
-})();
-
-// ── Gallery with filters ──
-(() => {
-  const grid = $('#galleryGrid'), tabs = $('#galleryTabs');
-  if (!grid) return;
-  let cat = 'all';
-  tabs.innerHTML = Object.entries(GALLERY_CATS)
-    .filter(([k]) => k === 'all' || GALLERY.some(g => g.cat === k))
-    .map(([k, v]) => `<button type="button" role="tab" data-cat="${k}" aria-selected="${k === cat}">${v}</button>`).join('');
-  const list = () => GALLERY.filter(g => cat === 'all' || g.cat === cat);
-  function render() {
-    grid.innerHTML = list().map((g, i) => `
-      <button type="button" class="g-tile${g.tall ? ' tall' : ''}" data-i="${i}" aria-label="تكبير: ${g.alt}">
-        <img src="${pic(g.src)}" alt="${g.alt}" loading="lazy" decoding="async">
-        <span class="g-cap">${g.alt}</span>
-      </button>`).join('');
+function fillSite(s) {
+  const link = (el, href, text) => (href ? ((el.href = href), (el.textContent = text)) : (el.removeAttribute('href'), (el.innerHTML = ASK)));
+  for (const el of $$('[data-site]')) {
+    const k = el.dataset.site;
+    if (k === 'phone') link(el, s.phoneE164 && `tel:${s.phoneE164}`, s.phoneDisplay || s.phoneE164);
+    else if (k === 'email') link(el, s.email && `mailto:${s.email}`, s.email);
+    else if (k === 'wa') el.href = waLink(`السلام عليكم، أستفسر عن ${s.nameAr}.`);
+    else if (k === 'reviews') el.href = s.reviewsUrl;
+    else if (k === 'address') el.textContent = [s.streetAddress, s.region].filter(Boolean).join('، ');
+    else if (k === 'year') el.textContent = new Date().getFullYear();
+    else if (s[k]) el.textContent = s[k];
   }
-  tabs.addEventListener('click', e => {
-    const b = e.target.closest('[data-cat]');
-    if (!b) return;
-    cat = b.dataset.cat;
-    $$('button', tabs).forEach(x => x.setAttribute('aria-selected', String(x === b)));
-    render();
-  });
-  grid.addEventListener('click', e => {
-    const b = e.target.closest('.g-tile');
-    if (b) Lightbox.open(list(), +b.dataset.i);
-  });
-  render();
-})();
+}
 
-// ── Events: quote request ──
-$('#eventForm')?.addEventListener('submit', e => {
+// Reveal once, 40 ms stagger (max 6); counters: real stats only
+const io = !reduced && new IntersectionObserver(es => es.forEach(e => e.isIntersecting && (e.target.classList.add('in'), io.unobserve(e.target), count(e.target))), { rootMargin: '0px 0px -10% 0px' });
+export function reveal(root = document) {
+  const n = new Map();
+  for (const el of $$('.reveal:not(.in)', root)) {
+    const k = n.get(el.parentElement) || 0;
+    n.set(el.parentElement, k + 1);
+    el.style.setProperty('--stagger', `${Math.min(k, 5) * 40}ms`);
+    io ? io.observe(el) : (el.classList.add('in'), count(el));
+  }
+}
+function count(el) {
+  for (const b of $$('[data-stat]', el.parentElement)) {
+    const v = site.stats?.[b.dataset.stat];
+    if (v == null) { b.closest('.stat').hidden = true; continue; }
+    const t0 = performance.now(), step = t => { const k = reduced ? 1 : Math.min(1, (t - t0) / 280); b.textContent = Math.round(v * (1 - (1 - k) ** 4)); k < 1 && requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+}
+
+const menu = $('.menu-btn'), setMenu = o => (document.body.classList.toggle('nav-open', o), menu.setAttribute('aria-expanded', o));
+menu.onclick = () => setMenu(!document.body.classList.contains('nav-open'));
+$('.nav').onclick = e => e.target.closest('a') && setMenu(false);
+addEventListener('keydown', e => e.key === 'Escape' && setMenu(false));
+
+// [data-book] opens the sheet; without JS it links to contact.html#booking
+addEventListener('click', e => {
+  const a = e.target.closest('[data-book]'), dlg = $('#book'), f = $('form.booking');
+  if (!a || !f) return;
   e.preventDefault();
-  const type = $('#eType').value, date = $('#eDate').value, n = $('#eGuests').value;
-  const text = [
-    `السلام عليكم، أود الاستفسار عن قاعة حفلات ${HOTEL.nameAr}:`,
-    `• المناسبة: ${type}`,
-    date && `• التاريخ: ${arDate(date)}`,
-    `• عدد المدعوين: ${n}`,
-    'ما هي الأسعار والخدمات المتوفرة؟ شكراً.'
-  ].filter(Boolean).join('\n');
-  window.open(waLink(text), '_blank', 'noopener');
+  if (a.dataset.book) f.room.value = a.dataset.book;
+  dlg ? ((dlg.from = a), dlg.showModal()) : f.scrollIntoView();
 });
+$$('dialog').forEach(d => d.addEventListener('close', () => d.from?.focus()));
+addEventListener('click', e => e.target.closest('[data-close]')?.closest('dialog').close());
 
-// ── Live: local time + weather in Khenchela (Open-Meteo, no key) ──
-(() => {
-  const time = $('#liveTime');
-  if (!time) return;
-  const tick = () => (time.textContent = new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Algiers' }).format(new Date()));
-  tick();
-  setInterval(tick, 30000);
-  const WX = c => c === 0 ? ['sun', 'مشمس'] : c <= 2 ? ['cloud-sun', 'غائم جزئياً'] : c === 3 ? ['cloud', 'غائم'] : c <= 48 ? ['cloud-fog', 'ضباب']
-    : c <= 67 ? ['cloud-rain', 'ممطر'] : c <= 77 ? ['snowflake', 'ثلوج'] : c <= 82 ? ['cloud-rain', 'زخات'] : c <= 86 ? ['snowflake', 'ثلوج'] : ['cloud-lightning', 'عواصف'];
-  fetch(`https://api.open-meteo.com/v1/forecast?latitude=${HOTEL.lat}&longitude=${HOTEL.lng}&current=temperature_2m,weather_code&timezone=Africa%2FAlgiers`)
-    .then(r => r.json())
-    .then(d => {
-      const [ico, label] = WX(d.current.weather_code);
-      $('#liveWeather').innerHTML = `<i data-lucide="${ico}"></i> ${label} <b>${Math.round(d.current.temperature_2m)}°</b>`;
-      refreshIcons();
-    })
-    .catch(() => ($('#liveWeather').hidden = true));
-})();
+// Hero film after load; skipped on phones, reduced motion, Save-Data, 2g/3g
+const film = $('.hero__media'), c = navigator.connection;
+film && addEventListener('load', () => (reduced || innerWidth <= 768 || c?.saveData || /2g|3g/.test(c?.effectiveType)
+  ? film.remove() : ((film.preload = 'auto'), film.play().catch(() => film.remove()))));
 
-bindContacts();
-refreshIcons();
-observeReveals();
-parallax();
+ready.then(s => {
+  fillSite(s);
+  $$('[data-slot]').forEach(el => $('picture', el) || (el.innerHTML = pic(el.dataset.slot, el.dataset.alt, el.dataset.sizes)));
+  reveal();
+  if (document.body.dataset.ld) ld({ '@context': 'https://schema.org', '@type': 'Hotel', name: s.nameAr, alternateName: s.name, url: ROOT,
+    telephone: s.phoneE164 || undefined, checkinTime: s.checkin || undefined, checkoutTime: s.checkout || undefined,
+    image: ['facade', 'lobby-dome', 'pool', 'reception'].filter(hasImg).map(k => `${ROOT}img/${k}.avif`),
+    address: { '@type': 'PostalAddress', addressRegion: 'خنشلة', addressCountry: 'DZ', streetAddress: s.streetAddress || undefined },
+    geo: { '@type': 'GeoCoordinates', latitude: s.lat, longitude: s.lng },
+    amenityFeature: s.amenities.map(name => ({ '@type': 'LocationFeatureSpecification', name, value: true })) });
+}, () => reveal());

@@ -1,157 +1,77 @@
-/* ===================================================
-   HOTEL YOUCEF · pano.js — 360° panorama viewer (Three.js)
-   Equirectangular 2:1 photos. Drag / swipe to look around, gyroscope on phones,
-   zoom buttons, cross-fade between scenes, optional scroll-driven auto-turn.
-   =================================================== */
-import * as THREE from 'three';
+// pano.js — 360° viewer in plain WebGL (per-pixel ray → equirectangular photo)
+import { $, $$, json, ready, esc } from './main.js';
 
-const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-const mobile = () => matchMedia('(max-width: 768px)').matches;
+const FS = `precision mediump float;uniform sampler2D t;uniform vec2 r;uniform float y,x,f;
+void main(){vec3 d=normalize(vec3((gl_FragCoord.xy*2.-r)/r.y*f,-1.));float c=cos(x),s=sin(x);d=vec3(d.x,d.y*c-d.z*s,d.y*s+d.z*c);
+c=cos(y);s=sin(y);d=vec3(d.x*c-d.z*s,d.y,d.x*s+d.z*c);gl_FragColor=texture2D(t,vec2(.5+atan(d.x,-d.z)/6.2832,.5-asin(d.y)/3.1416));}`;
+const clamp = v => Math.max(-1.3, Math.min(1.3, v));
 
-export function createPano(container, { onLoad, drift = 0.05, fadeSpeed = 1.6 } = {}) {
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  const canvas = renderer.domElement;
-  canvas.className = 'pano-canvas';
-  canvas.setAttribute('role', 'img');
-  container.prepend(canvas);
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 100);
-  const geo = new THREE.SphereGeometry(50, 64, 40);
-  geo.scale(-1, 1, 1); // look at the inside
-  const layers = [0, 1].map(() => {
-    const m = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false }));
-    scene.add(m);
-    return m;
+function viewer(box) {
+  const cv = document.createElement('canvas'), gl = cv.getContext('webgl');
+  if (!gl) return;
+  cv.tabIndex = 0; cv.role = 'img'; cv.ariaLabel = 'صورة 360° — اسحب أو استعمل الأسهم';
+  box.prepend(cv);
+  const p = gl.createProgram();
+  [[gl.VERTEX_SHADER, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'], [gl.FRAGMENT_SHADER, FS]].forEach(([k, src]) => {
+    const o = gl.createShader(k); gl.shaderSource(o, src); gl.compileShader(o); gl.attachShader(p, o);
   });
-  let front = 0;
-
-  const loader = new THREE.TextureLoader();
-  const cache = new Map();
-  const state = { yaw: 0, pitch: 0, fov: 75, vyaw: 0, offset: 0, gyro: null, fade: 1, auto: true, dragging: false };
-  let running = false, raf = 0, lastT = performance.now(), idleAt = 0;
-
-  function load(pano) {
-    const src = mobile() && pano.srcMobile ? pano.srcMobile : pano.src;
-    canvas.setAttribute('aria-label', `صورة 360 درجة: ${pano.title}`);
-    container.classList.add('loading');
-    const ready = tex => {
-      container.classList.remove('loading');
-      const next = layers[1 - front];
-      next.material.map = tex;
-      next.material.needsUpdate = true;
-      next.material.opacity = 0;
-      next.renderOrder = 1; layers[front].renderOrder = 0;
-      front = 1 - front;
-      state.fade = 0;
-      if (pano.yaw !== undefined) state.yaw = pano.yaw;
-      if (pano.pitch !== undefined) state.pitch = pano.pitch;
-      onLoad?.(pano);
-      if (!running) renderOnce();
-    };
-    if (cache.has(src)) return ready(cache.get(src));
-    loader.load(src, tex => {
-      tex.colorSpace = THREE.SRGBColorSpace;
-      tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-      cache.set(src, tex);
-      ready(tex);
-    }, undefined, () => container.classList.add('error'));
-  }
-
-  // Drag / swipe (vertical page scroll keeps working on touch: touch-action: pan-y)
-  let px = 0, py = 0, pid = null;
-  canvas.addEventListener('pointerdown', e => {
-    pid = e.pointerId; px = e.clientX; py = e.clientY;
-    state.dragging = true; state.auto = false; state.vyaw = 0;
-    canvas.setPointerCapture(pid);
-    container.classList.add('grabbing', 'touched');
-  });
-  canvas.addEventListener('pointermove', e => {
-    if (!state.dragging || e.pointerId !== pid) return;
-    const k = state.fov / container.clientHeight * (Math.PI / 180);
-    const dx = (e.clientX - px) * k, dy = (e.clientY - py) * k;
-    state.yaw += dx; state.vyaw = dx;
-    if (e.pointerType === 'mouse') state.pitch = clamp(state.pitch + dy, -1.3, 1.3);
-    px = e.clientX; py = e.clientY;
-  });
-  const up = () => { state.dragging = false; pid = null; idleAt = performance.now(); container.classList.remove('grabbing'); };
-  canvas.addEventListener('pointerup', up);
-  canvas.addEventListener('pointercancel', up);
-  canvas.addEventListener('keydown', e => {
-    const step = { ArrowLeft: [0.15, 0], ArrowRight: [-0.15, 0], ArrowUp: [0, 0.1], ArrowDown: [0, -0.1] }[e.key];
-    if (!step) return;
-    e.preventDefault();
-    state.auto = false; state.yaw += step[0]; state.pitch = clamp(state.pitch + step[1], -1.3, 1.3);
-    if (!running) renderOnce();
-  });
-  canvas.tabIndex = 0;
-
-  function onOrient(e) {
-    if (e.alpha == null) return;
-    state.gyro = { a: THREE.MathUtils.degToRad(e.alpha), b: THREE.MathUtils.degToRad(e.beta) };
-  }
-  let gyroBase = null;
-  async function enableGyro() {
-    try {
-      if (typeof DeviceOrientationEvent?.requestPermission === 'function') {
-        if ((await DeviceOrientationEvent.requestPermission()) !== 'granted') return false;
-      }
-      addEventListener('deviceorientation', onOrient);
-      gyroBase = null; state.auto = false;
-      return true;
-    } catch { return false; }
-  }
-  function disableGyro() { removeEventListener('deviceorientation', onOrient); state.gyro = null; gyroBase = null; }
-
-  const look = new THREE.Vector3();
-  function step(t) {
-    const dt = Math.min(0.05, (t - lastT) / 1000);
-    lastT = t;
-    if (!state.dragging) {
-      state.yaw += state.vyaw; state.vyaw *= 0.92;
-      if (state.auto || t - idleAt > 6000) state.yaw += dt * drift; // gentle drift when idle
-    }
-    let yaw = state.yaw + state.offset, pitch = state.pitch;
-    if (state.gyro) {
-      gyroBase ??= { a: state.gyro.a - state.yaw, b: state.gyro.b };
-      yaw = state.gyro.a - gyroBase.a;
-      pitch = clamp((state.gyro.b - Math.PI / 2) * 0.9, -1.3, 1.3);
-    }
-    if (state.fade < 1) {
-      state.fade = Math.min(1, state.fade + dt * fadeSpeed);
-      layers[front].material.opacity = state.fade;
-      layers[1 - front].material.opacity = layers[1 - front].material.map ? 1 : 0;
-      if (state.fade >= 1) layers[1 - front].material.opacity = 0;
-    }
-    camera.fov += (state.fov - camera.fov) * 0.15;
-    camera.updateProjectionMatrix();
-    look.set(Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), -Math.cos(yaw) * Math.cos(pitch));
-    camera.lookAt(look);
-    renderer.render(scene, camera);
-  }
-  function frame(t) { step(t); if (running) raf = requestAnimationFrame(frame); }
-  function renderOnce() { step(performance.now()); }
-
-  function resize() {
-    const w = container.clientWidth, h = container.clientHeight;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    state.fov = clamp(state.fov, 35, w < h ? 95 : 85);
-    camera.updateProjectionMatrix();
-    renderOnce();
-  }
-  new ResizeObserver(resize).observe(container);
-  resize();
-
-  return {
-    load,
-    zoom(dir) { state.fov = clamp(state.fov + dir * 12, 35, container.clientWidth < container.clientHeight ? 95 : 85); state.auto = false; if (!running) renderOnce(); },
-    setOffset(rad) { state.offset = rad; if (!running) renderOnce(); },
-    enableGyro, disableGyro,
-    start() { if (!running) { running = true; lastT = performance.now(); raf = requestAnimationFrame(frame); } },
-    stop() { running = false; cancelAnimationFrame(raf); },
-    dispose() { this.stop(); disableGyro(); renderer.dispose(); canvas.remove(); }
+  gl.linkProgram(p); gl.useProgram(p);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+  gl.bindTexture(gl.TEXTURE_2D, gl.createTexture());
+  const u = n => gl.getUniformLocation(p, n), v = { y: 0, x: 0, f: .7 };
+  let raf, px, py, id;
+  const draw = () => {
+    raf = 0;
+    const k = Math.min(devicePixelRatio, 1.5), w = Math.round(cv.clientWidth * k), h = Math.round(cv.clientHeight * k);
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; gl.viewport(0, 0, w, h); }
+    gl.uniform2f(u('r'), w, h); gl.uniform1f(u('y'), v.y); gl.uniform1f(u('x'), v.x); gl.uniform1f(u('f'), v.f);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
   };
+  const ask = () => { box.classList.add('touched'); raf ||= requestAnimationFrame(draw); };
+  new ResizeObserver(() => (raf ||= requestAnimationFrame(draw))).observe(cv);
+  cv.onpointerdown = e => { id = e.pointerId; px = e.clientX; py = e.clientY; cv.setPointerCapture(id); };
+  cv.onpointermove = e => {
+    if (e.pointerId !== id) return;
+    const k = 2 * v.f / cv.clientHeight;
+    v.y -= (e.clientX - px) * k;
+    if (e.pointerType === 'mouse') v.x = clamp(v.x + (e.clientY - py) * k);
+    px = e.clientX; py = e.clientY; ask();
+  };
+  cv.onpointerup = cv.onpointercancel = () => (id = null);
+  cv.onkeydown = e => {
+    const d = { ArrowLeft: [-.15, 0], ArrowRight: [.15, 0], ArrowUp: [0, .1], ArrowDown: [0, -.1] }[e.key];
+    d && (e.preventDefault(), (v.y += d[0]), (v.x = clamp(v.x + d[1])), ask());
+  };
+  cv.addEventListener('wheel', e => { e.preventDefault(); v.f = Math.max(.35, Math.min(1, v.f * (e.deltaY > 0 ? 1.08 : .93))); ask(); }, { passive: false });
+  return (src, yaw = 0, pitch = 0) => new Promise(ok => {
+    const im = new Image();
+    im.onload = () => {
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, im);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      v.y = yaw; v.x = pitch; raf ||= requestAnimationFrame(draw); ok();
+    };
+    im.src = src;
+  });
 }
+
+// Loads on «ابدأ الجولة» only
+ready.then(() => json('data/panos.json')).then(scenes => $$('.pano').forEach(box => {
+  const start = $('.pano-start', box), nav = $('.pano-scenes', box);
+  start.onclick = () => {
+    const load = viewer(box);
+    if (!load) return (start.textContent = 'متصفحك لا يدعم العرض 360°');
+    const go = s => {
+      box.ariaBusy = true;
+      load(`img/360/${s.id}${innerWidth < 900 ? '-m' : ''}.jpg`, s.yaw, s.pitch).then(() => (box.ariaBusy = false));
+      $$('button', nav).forEach(b => b.setAttribute('aria-pressed', b.dataset.id === s.id));
+    };
+    nav.innerHTML = scenes.map(s => `<button type="button" data-id="${s.id}">${esc(s.title)}</button>`).join('');
+    nav.onclick = e => { const b = e.target.closest('[data-id]'); b && go(scenes.find(s => s.id === b.dataset.id)); };
+    box.classList.add('live');
+    go(scenes.find(s => s.id === box.dataset.initial) || scenes[0]);
+    $('canvas', box).focus({ preventScroll: true });
+  };
+}));

@@ -1,0 +1,36 @@
+{
+ "_note": "Every null is a TODO:FILL — see HANDOVER.md. The pages show «عند الطلب» / «يُحدَّد عند الحجز» until a value is set.",
+ "name": "HOTEL YOUCEF",
+ "nameAr": "فندق يوسف",
+ "region": "ولاية خنشلة، الجزائر",
+ "streetAddress": null,
+ "lat": 35.4633375,
+ "lng": 7.0939309,
+ "mapsUrl": "https://www.google.com/maps/place/HOTEL+YOUCEF/@35.4633375,7.0939309,17z",
+ "reviewsUrl": "https://www.google.com/maps/place/HOTEL+YOUCEF/@35.4633375,7.0939309,17z",
+ "phoneE164": null,
+ "phoneDisplay": null,
+ "email": null,
+ "checkin": null,
+ "checkout": null,
+ "cancellation": null,
+ "breakfastPerPerson": null,
+ "currency": "دج",
+ "amenities": [
+  "مسبح خارجي",
+  "مطعم",
+  "مقهى",
+  "قاعة حفلات",
+  "صالونات اجتماعات",
+  "موقف سيارات",
+  "واي فاي مجاني",
+  "تكييف وتدفئة",
+  "استقبال 24 ساعة"
+ ],
+ "stats": {
+  "roomTypes": 7,
+  "roomsCount": null,
+  "hallCapacity": null,
+  "yearOpened": null
+ }
+}

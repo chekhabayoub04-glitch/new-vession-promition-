@@ -1,0 +1,179 @@
+[
+ {
+  "id": "room-1",
+  "name": "غرفة بسرير واحد",
+  "shortLine": null,
+  "priceFrom": null,
+  "currency": "دج",
+  "sizeM2": null,
+  "beds": "سرير واحد",
+  "maxGuests": null,
+  "view": null,
+  "floor": null,
+  "amenities": [
+   "تكييف",
+   "حمام خاص",
+   "واي فاي مجاني",
+   "تلفاز"
+  ],
+  "images": [
+   "room-1-01",
+   "room-1-02",
+   "room-1-03",
+   "room-1-04"
+  ],
+  "breakfastPerPerson": null,
+  "pano": null
+ },
+ {
+  "id": "room-2",
+  "name": null,
+  "shortLine": null,
+  "priceFrom": null,
+  "currency": "دج",
+  "sizeM2": null,
+  "beds": null,
+  "maxGuests": null,
+  "view": null,
+  "floor": null,
+  "amenities": [
+   "تكييف",
+   "حمام خاص",
+   "واي فاي مجاني",
+   "تلفاز"
+  ],
+  "images": [
+   "room-2-01",
+   "room-2-02",
+   "room-2-03",
+   "room-2-04"
+  ],
+  "breakfastPerPerson": null,
+  "pano": "room-2"
+ },
+ {
+  "id": "room-3",
+  "name": "غرفة بسريرين",
+  "shortLine": null,
+  "priceFrom": null,
+  "currency": "دج",
+  "sizeM2": null,
+  "beds": "سريران",
+  "maxGuests": null,
+  "view": null,
+  "floor": null,
+  "amenities": [
+   "تكييف",
+   "حمام خاص",
+   "واي فاي مجاني"
+  ],
+  "images": [
+   "room-3-01",
+   "room-3-02",
+   "room-3-03",
+   "room-3-04"
+  ],
+  "breakfastPerPerson": null,
+  "pano": null
+ },
+ {
+  "id": "room-4",
+  "name": null,
+  "shortLine": null,
+  "priceFrom": null,
+  "currency": "دج",
+  "sizeM2": null,
+  "beds": null,
+  "maxGuests": null,
+  "view": null,
+  "floor": null,
+  "amenities": [
+   "تكييف",
+   "حمام خاص",
+   "واي فاي مجاني"
+  ],
+  "images": [
+   "room-4-01",
+   "room-4-02",
+   "room-4-03",
+   "room-4-04"
+  ],
+  "breakfastPerPerson": null,
+  "pano": null
+ },
+ {
+  "id": "room-5",
+  "name": null,
+  "shortLine": null,
+  "priceFrom": null,
+  "currency": "دج",
+  "sizeM2": null,
+  "beds": null,
+  "maxGuests": null,
+  "view": null,
+  "floor": null,
+  "amenities": [
+   "تكييف",
+   "حمام خاص",
+   "واي فاي مجاني"
+  ],
+  "images": [
+   "room-5-01",
+   "room-5-02",
+   "room-5-03",
+   "room-5-04"
+  ],
+  "breakfastPerPerson": null,
+  "pano": null
+ },
+ {
+  "id": "room-6",
+  "name": null,
+  "shortLine": null,
+  "priceFrom": null,
+  "currency": "دج",
+  "sizeM2": null,
+  "beds": null,
+  "maxGuests": null,
+  "view": null,
+  "floor": null,
+  "amenities": [
+   "تكييف",
+   "حمام خاص",
+   "واي فاي مجاني"
+  ],
+  "images": [
+   "room-6-01",
+   "room-6-02",
+   "room-6-03",
+   "room-6-04"
+  ],
+  "breakfastPerPerson": null,
+  "pano": null
+ },
+ {
+  "id": "room-7",
+  "name": null,
+  "shortLine": null,
+  "priceFrom": null,
+  "currency": "دج",
+  "sizeM2": null,
+  "beds": null,
+  "maxGuests": null,
+  "view": null,
+  "floor": null,
+  "amenities": [
+   "تكييف",
+   "حمام خاص",
+   "واي فاي مجاني"
+  ],
+  "images": [
+   "room-7-01",
+   "room-7-02",
+   "room-7-03",
+   "room-7-04"
+  ],
+  "breakfastPerPerson": null,
+  "pano": null
+ }
+]

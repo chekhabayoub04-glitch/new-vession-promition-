@@ -1,111 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>الغرفة · فندق يوسف — ولاية خنشلة</title>
-  <meta name="description" content="تفاصيل الغرفة، الصور، المرافق والحجز المباشر في فندق يوسف بولاية خنشلة.">
-  <meta name="theme-color" content="#6e1f2b">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%236e1f2b'/%3E%3Cpath d='M18 52V30a14 14 0 0 1 28 0v22' fill='none' stroke='%23e8d3b0' stroke-width='3'/%3E%3Cpath d='M25 26l7 9 7-9M32 35v11' fill='none' stroke='%23e8d3b0' stroke-width='3'/%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://images.unsplash.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=El+Messiri:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <script type="importmap">
-    { "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
-    } }
-  </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>غرفة — فندق يوسف، خنشلة</title>
+<meta name="description" content="تفاصيل الغرفة في فندق يوسف بولاية خنشلة: المساحة، الأسرّة، المرافق والسعر. احجز عبر واتساب والدفع عند الوصول.">
+<link rel="canonical" href="https://chekhabayoub04-glitch.github.io/new-vession-promition-/room.html">
+<meta name="theme-color" content="#6E1F2B">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_DZ">
+<meta property="og:site_name" content="فندق يوسف">
+<meta property="og:title" content="غرفة — فندق يوسف، خنشلة">
+<meta property="og:description" content="تفاصيل الغرفة في فندق يوسف بولاية خنشلة: المساحة، الأسرّة، المرافق والسعر. احجز عبر واتساب والدفع عند الوصول.">
+<meta property="og:url" content="https://chekhabayoub04-glitch.github.io/new-vession-promition-/room.html">
+<meta property="og:image" content="https://chekhabayoub04-glitch.github.io/new-vession-promition-/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="غرفة — فندق يوسف، خنشلة">
+<meta name="twitter:description" content="تفاصيل الغرفة في فندق يوسف بولاية خنشلة: المساحة، الأسرّة، المرافق والسعر. احجز عبر واتساب والدفع عند الوصول.">
+<meta name="twitter:image" content="https://chekhabayoub04-glitch.github.io/new-vession-promition-/img/og.jpg">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="fonts/plex-400-arabic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/reem-arabic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<script type="speculationrules">{"prerender":[{"where":{"href_matches":"/new-vession-promition-/*"},"eagerness":"moderate"}]}</script>
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/booking.js"></script>
+<script type="module" src="js/rooms.js"></script>
+<script type="module" src="js/gallery.js"></script>
 </head>
-<body class="page-room">
-<a class="skip" href="#roomMain">تخطَّ إلى المحتوى</a>
-
-<header class="site-header" id="header">
-  <div class="container header-in">
-    <a href="index.html" class="brand" aria-label="فندق يوسف – الصفحة الرئيسية">
-      <span class="brand-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 52V30a14 14 0 0 1 28 0v22M25 26l7 9 7-9M32 35v11"/></svg></span>
-      <span class="brand-text"><b><i>HOTEL</i> YOUCEF</b><small>فندق يوسف · خنشلة</small></span>
-    </a>
-    <nav class="nav" id="nav" aria-label="القائمة الرئيسية">
-      <a href="index.html">الرئيسية</a>
-      <a href="index.html#rooms">الغرف</a>
-      <a href="index.html#offers">العروض</a>
-      <a href="index.html#events">الحفلات</a>
-      <a href="index.html#contact">اتصل بنا</a>
-    </nav>
-    <div class="header-actions">
-      <a class="icon-btn hide-sm" data-hotel="phone" aria-label="اتصل بالفندق"><i data-lucide="phone"></i></a>
-      <a class="btn btn-primary btn-sm" href="#book">احجز الآن</a>
-      <button class="menu-btn" id="menuBtn" aria-label="فتح القائمة" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
+<body>
+<a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><svg aria-hidden="true" viewBox="0 0 64 64"><use href="img/icons.svg#mark"/></svg><span><b>HOTEL YOUCEF</b><small>فندق يوسف · خنشلة</small></span></a>
+    <nav class="nav" id="nav" aria-label="القائمة الرئيسية"><ul><li><a href="rooms.html" aria-current="page">الغرف</a></li><li><a href="venues.html">القاعات والصالونات</a></li><li><a href="restaurant.html">المطعم</a></li><li><a href="gallery.html">الصور</a></li><li><a href="contact.html">الموقع والاتصال</a></li></ul></nav>
+    <div class="header-cta">
+      <a class="btn btn--primary btn--sm" href="contact.html#booking" data-book>احجز الآن</a>
+      <button class="menu-btn" type="button" aria-controls="nav" aria-expanded="false" aria-label="القائمة"><svg class="i" aria-hidden="true"><use href="img/icons.svg#menu"/></svg></button>
     </div>
   </div>
 </header>
-
-<main><div class="room-wrap container" id="roomMain"></div></main>
-
-<div class="mobile-bar" id="mobileBar"></div>
-
-<footer class="site-footer">
-  <div class="container footer-grid">
-    <div>
-      <a href="index.html" class="brand brand-light"><span class="brand-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 52V30a14 14 0 0 1 28 0v22M25 26l7 9 7-9M32 35v11"/></svg></span><span class="brand-text"><b><i>HOTEL</i> YOUCEF</b><small>فندق يوسف · خنشلة</small></span></a>
-      <p>فندقٌ مميّز في ولاية خنشلة — غرف وأجنحة، مسبح، مطعم وقاعة حفلات.</p>
-    </div>
-    <nav aria-label="روابط">
-      <h4>الفندق</h4>
-      <a href="index.html#rooms">الغرف والأجنحة</a><a href="index.html#offers">العروض</a><a href="index.html#events">قاعة الحفلات</a><a href="index.html#gallery">الصور</a>
-    </nav>
-    <div>
-      <h4>تواصل</h4>
-      <a data-hotel="phone" dir="ltr"></a>
-      <a data-hotel="wa" target="_blank" rel="noopener">واتساب</a>
-      <a data-hotel="email"></a>
-    </div>
-    <div>
-      <h4>الإقامة</h4>
-      <span>الدخول من <b data-hotel="checkin"></b></span>
-      <span>المغادرة قبل <b data-hotel="checkout"></b></span>
-      <span>الدفع عند الوصول</span>
-    </div>
-  </div>
-  <div class="container footer-bottom">© <span id="year"></span> HOTEL YOUCEF · فندق يوسف — جميع الحقوق محفوظة.</div>
-</footer>
-
-<a class="fab-wa" data-hotel="wa" target="_blank" rel="noopener" aria-label="راسلنا على واتساب"><span class="wa-ico"></span></a>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<div class="lb" id="lightbox" aria-hidden="true" role="dialog" aria-label="عارض الصور">
-  <div class="lb-top"><span class="lb-cat"></span><span class="lb-count"></span><button class="icon-btn lb-close" aria-label="إغلاق"><i data-lucide="x"></i></button></div>
-  <div class="lb-stage"><button class="lb-nav lb-prev" aria-label="السابق"><i data-lucide="chevron-right"></i></button><img alt=""><button class="lb-nav lb-next" aria-label="التالي"><i data-lucide="chevron-left"></i></button></div>
-  <div class="lb-thumbs"></div>
-</div>
-
-<div class="pano-modal" id="panoModal" aria-hidden="true" role="dialog" aria-label="جولة 360 درجة">
-  <button class="icon-btn pano-close" id="panoClose" aria-label="إغلاق الجولة"><i data-lucide="x"></i></button>
-  <div class="tour" data-tour data-lazy>
-    <div class="tour-shade" aria-hidden="true"></div>
-    <div class="tour-head"><p class="kicker light">360°</p><p class="tour-now"><i data-lucide="map-pin"></i><span class="tour-title"></span></p></div>
-    <div class="tour-hint" aria-hidden="true"><i data-lucide="hand"></i> اسحب للاستكشاف</div>
-    <div class="tour-bar">
-      <div class="tour-scenes" aria-label="اختر المكان"></div>
-      <div class="tour-ctrl">
-        <button type="button" data-gyro aria-pressed="false" aria-label="حرّك هاتفك للاستكشاف"><i data-lucide="smartphone"></i></button>
-        <button type="button" data-zoom="in" aria-label="تكبير"><i data-lucide="zoom-in"></i></button>
-        <button type="button" data-zoom="out" aria-label="تصغير"><i data-lucide="zoom-out"></i></button>
+<main id="main">
+<!-- TODO:FILL: every value on this page comes from data/rooms.json (room.html?id=room-1 … room-7) -->
+<div class="wrap section" id="room">
+  <nav class="crumbs" aria-label="مسار التصفح"><ol><li><a href="./">الرئيسية</a></li><li><a href="rooms.html">الغرف</a></li><li aria-current="page">الغرفة</li></ol></nav>
+  <noscript><p class="note">لعرض هذه القائمة فعّل JavaScript، أو <a href="contact.html#booking">اطلب الحجز مباشرة</a>.</p></noscript>
+  <div class="room-layout mt-s">
+    <div class="room-top">
+      <button type="button" class="slot gal-main vt-img" style="border:0;padding:0" aria-label="تكبير صور الغرفة"></button>
+      <div class="thumbs" role="group" aria-label="صور الغرفة"></div>
+      <h1 data-r="name">الغرفة</h1>
+      <p class="lede" data-r="line"></p>
+      <div class="spec-row">
+        <div><small>المساحة</small><b data-r="size"></b></div>
+        <div><small>نوع السرير</small><b data-r="beds"></b></div>
+        <div><small>عدد الأشخاص</small><b data-r="guests"></b></div>
+        <div><small>الإطلالة</small><b data-r="view"></b></div>
+        <div><small>الطابق</small><b data-r="floor"></b></div>
       </div>
+      <section class="mt-m" aria-labelledby="p-h"><h2 id="p-h" class="sr-only">السعر</h2>
+        <div data-r="price"></div><p data-r="breakfast"></p><p class="note">السعر إرشادي ويُثبَّت عند الحجز.</p></section>
+      <section class="mt-m" aria-labelledby="a-h"><h2 id="a-h">ما في الغرفة</h2><ul class="amen mt-s" data-r="amen"></ul></section>
+      <section class="mt-m" aria-labelledby="ph-h"><h2 id="ph-h">صور من الغرفة</h2><div class="proof mt-s" data-r="proof"></div></section>
+      <section class="mt-m" aria-labelledby="po-h"><h2 id="po-h">قبل وصولك</h2>
+        <ul class="policies mt-s">
+          <li><svg class="i" aria-hidden="true"><use href="img/icons.svg#log-in"/></svg><span>الدخول: <b data-site="checkin">يُحدَّد عند الحجز</b></span></li>
+          <li><svg class="i" aria-hidden="true"><use href="img/icons.svg#log-out"/></svg><span>المغادرة: <b data-site="checkout">يُحدَّد عند الحجز</b></span></li>
+          <!-- TODO:FILL: cancellation policy (data/site.json → cancellation) -->
+          <li><svg class="i" aria-hidden="true"><use href="img/icons.svg#calendar-check"/></svg><span>الإلغاء: <span data-site="cancellation">يُحدَّد عند الحجز</span></span></li>
+          <li><svg class="i" aria-hidden="true"><use href="img/icons.svg#banknote"/></svg><span>الدفع عند الوصول.</span></li>
+        </ul></section>
     </div>
-    <div class="tour-loader" aria-hidden="true"><span></span></div>
+    <aside class="side" aria-label="احجز هذه الغرفة">
+      <p><b data-r="name">الغرفة</b></p><div data-r="price"></div><p class="note">السعر إرشادي ويُثبَّت عند الحجز.</p>
+      <a class="btn btn--wa" href="contact.html" data-room-wa target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="img/icons.svg#whatsapp"/></svg>احجز هذه الغرفة عبر واتساب</a>
+      <a class="btn btn--ghost" href="contact.html#booking" data-book>اختر التواريخ</a>
+    </aside>
   </div>
+  <section class="mt-m" aria-labelledby="o-h"><div class="head"><h2 id="o-h">الغرف الأخرى</h2><a class="link" href="rooms.html">كل الغرف <svg class="i" aria-hidden="true"><use href="img/icons.svg#arrow-left"/></svg></a></div>
+    <div class="cards" data-r="others"></div></section>
 </div>
-
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
-<script src="js/data.js"></script>
-<script src="js/common.js"></script>
-<script src="js/booking.js"></script>
-<script src="js/room.js"></script>
-<script type="module" src="js/tour.js"></script>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="./"><svg aria-hidden="true" viewBox="0 0 64 64"><use href="img/icons.svg#mark"/></svg><span><b>HOTEL YOUCEF</b><small>فندق يوسف · خنشلة</small></span></a>
+        <p class="mt-s">فندقٌ في ولاية خنشلة بقلب الأوراس: غرف، مسبح، مطعم، وقاعات للأفراح والاجتماعات.</p>
+      </div>
+      <nav aria-labelledby="f-hotel"><h2 id="f-hotel">الفندق</h2><ul><li><a href="rooms.html">الغرف</a></li><li><a href="venues.html">القاعات والصالونات</a></li><li><a href="restaurant.html">المطعم</a></li><li><a href="gallery.html">الصور</a></li></ul></nav>
+      <div><h2>تواصل</h2><ul>
+        <!-- TODO:FILL: phone (data/site.json → phoneE164 + phoneDisplay) -->
+        <li><a data-site="phone" dir="ltr">عند الطلب</a></li>
+        <li><a data-site="wa" href="contact.html" target="_blank" rel="noopener">واتساب</a></li>
+        <!-- TODO:FILL: email (data/site.json → email) -->
+        <li><a data-site="email">عند الطلب</a></li></ul></div>
+      <div><h2>الإقامة</h2><ul>
+        <!-- TODO:FILL: check-in / check-out (data/site.json → checkin, checkout) -->
+        <li>الدخول: <span data-site="checkin">يُحدَّد عند الحجز</span></li>
+        <li>المغادرة: <span data-site="checkout">يُحدَّد عند الحجز</span></li>
+        <li>الدفع عند الوصول</li></ul></div>
+    </div>
+    <p class="copy">© <span data-site="year">2026</span> فندق يوسف · HOTEL YOUCEF — ولاية خنشلة، الجزائر.</p>
+  </div>
+</footer>
+<dialog id="book" class="sheet" aria-labelledby="book-h">
+  <div class="dlg-head"><h2 id="book-h">طلب حجز</h2><button type="button" class="icon-btn" data-close aria-label="إغلاق"><svg class="i" aria-hidden="true"><use href="img/icons.svg#x"/></svg></button></div>
+  <div class="dlg-body"><!-- TODO:FILL: data/site.json → email (used by this mailto: fallback) and phoneE164 (WhatsApp) -->
+<form class="booking" action="mailto:" method="post" enctype="text/plain">
+  <div class="field"><label for="d-room">الغرفة</label><select id="d-room" name="room"><option value="">يقترحها الاستقبال</option></select></div>
+  <div class="grid-2">
+    <div class="field"><label for="d-arrive">الوصول</label><input type="date" id="d-arrive" name="arrive" required aria-describedby="d-arrive-err" data-err-empty="اختر تاريخ الوصول." data-err-past="هذا التاريخ مضى. اختر اليوم أو تاريخاً لاحقاً."><p class="err" id="d-arrive-err" aria-live="polite"></p></div>
+    <div class="field"><label for="d-depart">المغادرة</label><input type="date" id="d-depart" name="depart" required aria-describedby="d-depart-err" data-after="arrive" data-err-empty="اختر تاريخ المغادرة." data-err-past="هذا التاريخ مضى." data-err-after="المغادرة تكون بعد الوصول بليلة على الأقل."><p class="err" id="d-depart-err" aria-live="polite"></p></div>
+  </div>
+  <div class="grid-2">
+    <div class="field"><label for="d-adults">الكبار</label><input type="number" id="d-adults" name="adults" min="1" max="12" value="2" inputmode="numeric"></div>
+    <div class="field"><label for="d-children">الأطفال</label><input type="number" id="d-children" name="children" min="0" max="10" value="0" inputmode="numeric"></div>
+  </div>
+  <label class="check"><input type="checkbox" name="breakfast"> مع الفطور</label>
+  <div class="field"><label for="d-guest">الاسم الكامل</label><input id="d-guest" name="guest" autocomplete="name" required aria-describedby="d-guest-err" data-err-empty="اكتب اسمك ليعرف الاستقبال باسم من الحجز."><p class="err" id="d-guest-err" aria-live="polite"></p></div>
+  <p class="note">الدفع عند الوصول. السعر إرشادي ويُثبَّت عند الحجز.</p>
+  <div class="form-actions">
+    <button class="btn btn--wa" type="submit" data-via="wa"><svg class="i" aria-hidden="true"><use href="img/icons.svg#whatsapp"/></svg>أرسل الطلب عبر واتساب</button>
+    <button class="btn btn--ghost" type="submit" data-via="mail"><svg class="i" aria-hidden="true"><use href="img/icons.svg#mail"/></svg>أرسل عبر البريد</button>
+  </div>
+</form></div>
+</dialog>
+<dialog class="lightbox" aria-label="عارض الصور">
+  <div class="dlg-head"><p class="lb-count" aria-live="polite"></p><button type="button" class="icon-btn" data-close aria-label="إغلاق"><svg class="i" aria-hidden="true"><use href="img/icons.svg#x"/></svg></button></div>
+  <figure><div class="lb-img"></div>
+    <button type="button" class="icon-btn lb-nav lb-prev" aria-label="الصورة السابقة"><svg class="i" aria-hidden="true"><use href="img/icons.svg#chevron-right"/></svg></button>
+    <button type="button" class="icon-btn lb-nav lb-next" aria-label="الصورة التالية"><svg class="i" aria-hidden="true"><use href="img/icons.svg#chevron-left"/></svg></button>
+    <figcaption></figcaption></figure>
+</dialog>
+<div class="bar room-bar" role="region" aria-label="احجز هذه الغرفة"><a class="btn btn--wa" href="contact.html" data-room-wa target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="img/icons.svg#whatsapp"/></svg>احجز هذه الغرفة عبر واتساب</a></div>
 </body>
 </html>
