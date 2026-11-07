@@ -500,7 +500,7 @@
   .hero { position: relative; block-size: 340vh; background: var(--ink-900); }
   .hero.static { block-size: 100vh; block-size: 100svh; }
   .hero-pin { position: sticky; inset-block-start: 0; block-size: 100vh; block-size: 100svh; overflow: hidden; isolation: isolate; color: #FFF; }
-  .hero-canvas { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; background: var(--ink-900) url("video/frames/d/001.webp") center / cover; }
+  .hero-canvas { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; background: var(--ink-900) url("video/frames/d/001.webp?hd1") center / cover; }
   .hero-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to bottom, rgb(20 10 8 / .55), transparent 26%, transparent 50%, rgb(20 10 8 / .82)); }
   .hero-veil::after { content: ""; position: absolute; inset: 0; background: radial-gradient(90% 75% at 50% 52%, rgb(26 10 10 / .45), rgb(26 10 10 / .85)); opacity: var(--dim, 0); }
   .hero-start { position: absolute; z-index: 2; inset: auto 0 0; display: grid; justify-items: center; padding: 0 var(--gutter) clamp(30px, 7vh, 64px); text-align: center; text-shadow: 0 2px 24px rgb(0 0 0 / .45); }
@@ -528,7 +528,7 @@
   .he-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-block-start: 1.9rem; text-shadow: none; }
   .hero-progress { position: absolute; z-index: 3; inset: auto 0 0; block-size: 2px; background: rgb(255 255 255 / .12); }
   .hero-progress i { display: block; block-size: 100%; background: linear-gradient(90deg, var(--gold-500), var(--gold-300)); transform: scaleX(0); transform-origin: right; }
-  @media (max-aspect-ratio: 4/5) { .hero-canvas { background-image: url("video/frames/m/001.webp"); } }
+  @media (max-aspect-ratio: 4/5) { .hero-canvas { background-image: url("video/frames/m/001.webp?hd1"); } }
   @media (max-width: 760px) {
     .hero { block-size: 290vh; }
     .hs-brand { font-size: clamp(1.7rem, 8.6vw, 2.4rem); letter-spacing: .14em; margin-block-end: 1.1rem; }
