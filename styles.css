@@ -403,6 +403,11 @@
   .docs { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; }
   .doc-btn { display: inline-flex; align-items: center; gap: .8rem; min-block-size: 2.75rem; padding: .45rem .5rem; padding-inline-end: 1rem; border: 1px solid var(--line); border-radius: 14px; background: var(--card); color: var(--text); text-align: start; cursor: pointer; transition: border-color var(--dur-micro) var(--ease-out-quart); }
   .doc-btn:hover { border-color: var(--gold-500); }
+  /* footer: the hotel's Facebook and Instagram pages, as two quiet boxes in the footer's own style */
+  .social { list-style: none; padding: 0; margin-block-start: var(--space-s); display: flex; flex-wrap: wrap; gap: .5rem; }
+  .site-footer .social a { display: inline-flex; align-items: center; gap: .55rem; min-block-size: 2.75rem; padding-inline: 1rem; border: 1px solid var(--line); border-radius: 14px; background: var(--card); color: var(--text); font-weight: 600; text-decoration: none; transition: border-color var(--dur-micro) var(--ease-out-quart), color var(--dur-micro) var(--ease-out-quart); }
+  .site-footer .social a:hover { border-color: var(--gold-500); color: var(--accent); }
+  .social .i { inline-size: 1.15rem; block-size: 1.15rem; color: var(--accent); }
   .doc-btn > .i { inline-size: 1rem; block-size: 1rem; color: var(--accent); margin-inline-start: .25rem; }
   .doc-thumb { flex: none; inline-size: 2.5rem; aspect-ratio: 1852 / 2644; overflow: hidden; border-radius: 3px; background: #FBFAF7; box-shadow: 0 0 0 1px var(--gold-400), 0 6px 14px -8px rgb(14 12 9 / .5); transform: rotate(-4deg); transition: transform var(--dur-micro) var(--ease-out-quart); }
   .doc-btn:hover .doc-thumb, .doc-btn:focus-visible .doc-thumb { transform: rotate(0) translateY(-2px) scale(1.06); }

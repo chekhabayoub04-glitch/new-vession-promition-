@@ -41,5 +41,9 @@
  "legal": {
   "rc": "40/00-0482912 B 13",
   "nif": "001340048291270"
- }
+ },
+ "sameAs": [
+  "https://www.facebook.com/Hotel.Youcef40",
+  "https://www.instagram.com/youcefhotel/"
+ ]
 }
