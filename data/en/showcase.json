@@ -1,0 +1,117 @@
+{
+ "_note": "Home «لحظات» film. A chapter with no photo yet is hidden. tools/curate.py fills dining-/pool-/hotel- slides from img/src/drop/.",
+ "chapters": [
+  {
+   "id": "dining",
+   "title": "Restaurant and café",
+   "line": "Breakfast is included with every stay, served fresh from the hotel kitchen.",
+   "link": "restaurant.html",
+   "cta": "Discover the restaurant",
+   "slides": [
+    {
+     "slot": "restaurant-01",
+     "alt": "The restaurant dining room, tables in red and white"
+    },
+    {
+     "slot": "dish-01",
+     "alt": "Meat with grilled vegetables"
+    },
+    {
+     "slot": "restaurant-03",
+     "alt": "Restaurant tables between the marble columns"
+    },
+    {
+     "slot": "dish-hero",
+     "alt": "Pizza by the pool, with the Hotel Youcef façade behind"
+    },
+    {
+     "slot": "restaurant-05",
+     "alt": "A set table by a window overlooking the pool"
+    },
+    {
+     "slot": "dish-07",
+     "alt": "Colourful juices and cocktails"
+    },
+    {
+     "slot": "dining-pool-01",
+     "alt": "Pizza and drinks on the lawn by the pool"
+    },
+    {
+     "slot": "dish-06",
+     "alt": "Grilled fish with lemon"
+    }
+   ]
+  },
+  {
+   "id": "venues",
+   "title": "Venues",
+   "line": "A conference and banquet hall for 120–135 pax, and a VIP meeting lounge.",
+   "link": "venues.html",
+   "cta": "Venues and lounges",
+   "slides": [
+    {
+     "slot": "conference-02",
+     "alt": "The conference hall from the back, facing the stage, 120–135 pax"
+    },
+    {
+     "slot": "conference-01",
+     "alt": "The conference hall with theatre-style seating, 120–135 pax"
+    },
+    {
+     "slot": "vip-01",
+     "alt": "The VIP lounge with its gilded sofas and carved tables"
+    }
+   ]
+  },
+  {
+   "id": "pool",
+   "title": "Pool",
+   "line": "An outdoor pool between the hotel wings, lit up at night, with seating on the lawn.",
+   "link": "gallery.html?f=pool",
+   "cta": "Pool photos",
+   "slides": [
+    {
+     "slot": "pool-03",
+     "alt": "The pool and courtyard from above on a sunny day"
+    },
+    {
+     "slot": "pool-04",
+     "alt": "White lounge seating on the lawn by the pool"
+    },
+    {
+     "slot": "dining-pool-02",
+     "alt": "Drinks on a white table by the pool"
+    }
+   ]
+  },
+  {
+   "id": "hotel",
+   "title": "The hotel",
+   "line": "A façade of white mashrabiya screens, a lobby beneath a dome ringed by carved galleries, and a marble fountain at its heart.",
+   "link": "gallery.html?f=hotel",
+   "cta": "Hotel photos",
+   "slides": [
+    {
+     "slot": "hotel-01",
+     "alt": "The Hotel Youcef façade and its entrance with white mashrabiya screens"
+    },
+    {
+     "slot": "hotel-02",
+     "alt": "The reception lobby and the marble fountain beneath the carved galleries"
+    },
+    {
+     "slot": "hotel-04",
+     "alt": "The dome and galleries of the lobby"
+    },
+    {
+     "slot": "pool-01",
+     "alt": "The pool and the hotel lit up at night"
+    },
+    {
+     "slot": "hotel-03",
+     "alt": "The circular galleries and the lobby from above"
+    }
+   ]
+  }
+ ]
+}

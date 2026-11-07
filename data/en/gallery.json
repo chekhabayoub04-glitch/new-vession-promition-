@@ -1,0 +1,212 @@
+{
+ "cats": {
+  "all": "All",
+  "hotel": "The hotel",
+  "rooms": "Rooms",
+  "pool": "Pool",
+  "dining": "Restaurant",
+  "events": "Venues"
+ },
+ "items": [
+  {
+   "slot": "hotel-06",
+   "cat": "hotel",
+   "alt": "The Hotel Youcef façade at night, its mashrabiya screens lit above the entrance"
+  },
+  {
+   "slot": "hotel-01",
+   "cat": "hotel",
+   "alt": "The Hotel Youcef façade and its entrance with white mashrabiya screens"
+  },
+  {
+   "slot": "hotel-02",
+   "cat": "hotel",
+   "alt": "The reception lobby and the marble fountain beneath the carved galleries"
+  },
+  {
+   "slot": "hotel-04",
+   "cat": "hotel",
+   "alt": "The dome and galleries of the lobby"
+  },
+  {
+   "slot": "hotel-03",
+   "cat": "hotel",
+   "alt": "The circular galleries and the lobby from above"
+  },
+  {
+   "slot": "hotel-05",
+   "cat": "hotel",
+   "alt": "The room corridor"
+  },
+  {
+   "slot": "pool-01",
+   "cat": "pool",
+   "alt": "The pool and the hotel lit up at night"
+  },
+  {
+   "slot": "pool-03",
+   "cat": "pool",
+   "alt": "The pool and courtyard from above on a sunny day"
+  },
+  {
+   "slot": "pool-02",
+   "cat": "pool",
+   "alt": "The pool at night between the hotel wings"
+  },
+  {
+   "slot": "pool-04",
+   "cat": "pool",
+   "alt": "White lounge seating on the lawn by the pool"
+  },
+  {
+   "slot": "pool",
+   "cat": "pool",
+   "alt": "The outdoor pool in front of the hotel"
+  },
+  {
+   "slot": "room-7-01",
+   "cat": "rooms",
+   "alt": "Royal Suite"
+  },
+  {
+   "slot": "room-7-02",
+   "cat": "rooms",
+   "alt": "The Royal Suite lounge and the massage chair"
+  },
+  {
+   "slot": "room-6-02",
+   "cat": "rooms",
+   "alt": "The Senior Suite lounge beneath the chandelier"
+  },
+  {
+   "slot": "room-5-01",
+   "cat": "rooms",
+   "alt": "Junior Suite"
+  },
+  {
+   "slot": "room-2-01",
+   "cat": "rooms",
+   "alt": "Double Room, Large Bed"
+  },
+  {
+   "slot": "room-3-01",
+   "cat": "rooms",
+   "alt": "Double / Twin Room"
+  },
+  {
+   "slot": "room-4-01",
+   "cat": "rooms",
+   "alt": "Triple Room"
+  },
+  {
+   "slot": "room-1-01",
+   "cat": "rooms",
+   "alt": "Single Room"
+  },
+  {
+   "slot": "room-7-08",
+   "cat": "rooms",
+   "alt": "The Royal Suite bathroom"
+  },
+  {
+   "slot": "restaurant-01",
+   "cat": "dining",
+   "alt": "The restaurant dining room, tables in red and white"
+  },
+  {
+   "slot": "dish-hero",
+   "cat": "dining",
+   "alt": "Pizza by the pool, with the Hotel Youcef façade behind"
+  },
+  {
+   "slot": "dish-01",
+   "cat": "dining",
+   "alt": "Meat with grilled vegetables"
+  },
+  {
+   "slot": "restaurant-02",
+   "cat": "dining",
+   "alt": "A round table set in the restaurant dining room"
+  },
+  {
+   "slot": "restaurant-06",
+   "cat": "dining",
+   "alt": "A round table laid in the restaurant, glasses and napkins in place"
+  },
+  {
+   "slot": "dish-02",
+   "cat": "dining",
+   "alt": "Tuna salad with fresh vegetables"
+  },
+  {
+   "slot": "dish-07",
+   "cat": "dining",
+   "alt": "Colourful juices and cocktails"
+  },
+  {
+   "slot": "restaurant-03",
+   "cat": "dining",
+   "alt": "Restaurant tables between the marble columns"
+  },
+  {
+   "slot": "dish-03",
+   "cat": "dining",
+   "alt": "Marinated vegetables on a long platter"
+  },
+  {
+   "slot": "dining-pool-01",
+   "cat": "dining",
+   "alt": "Pizza and drinks on the lawn by the pool"
+  },
+  {
+   "slot": "dish-04",
+   "cat": "dining",
+   "alt": "A vegetable dish with lemon"
+  },
+  {
+   "slot": "restaurant-05",
+   "cat": "dining",
+   "alt": "A set table by a window overlooking the pool"
+  },
+  {
+   "slot": "dish-05",
+   "cat": "dining",
+   "alt": "Chicken in sauce with vegetables"
+  },
+  {
+   "slot": "dish-06",
+   "cat": "dining",
+   "alt": "Grilled fish with lemon"
+  },
+  {
+   "slot": "restaurant-04",
+   "cat": "dining",
+   "alt": "A table for two in the restaurant"
+  },
+  {
+   "slot": "dish-08",
+   "cat": "dining",
+   "alt": "Grilled meat with potatoes"
+  },
+  {
+   "slot": "dining-pool-02",
+   "cat": "dining",
+   "alt": "Drinks on a white table by the pool"
+  },
+  {
+   "slot": "conference-02",
+   "cat": "events",
+   "alt": "The conference hall from the back, facing the stage, 120–135 pax"
+  },
+  {
+   "slot": "conference-01",
+   "cat": "events",
+   "alt": "The conference hall with theatre-style seating, 120–135 pax"
+  },
+  {
+   "slot": "vip-01",
+   "cat": "events",
+   "alt": "The VIP lounge with its gilded sofas and carved tables"
+  }
+ ]
+}

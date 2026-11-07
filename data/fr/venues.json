@@ -1,0 +1,42 @@
+[
+ {
+  "id": "meeting",
+  "name": "Salle de conférences et de réceptions",
+  "line": "Une même salle pour les conférences, séminaires et réceptions, avec sièges en gradins, pour 120–135 pax, dans l'hôtel même où séjournent vos invités.",
+  "uses": [
+   "Conférences",
+   "Séminaires",
+   "Fêtes",
+   "Réunions"
+  ],
+  "capacity": "⁦120–135 pax⁩",
+  "layouts": [],
+  "equipment": [],
+  "images": [
+   "conference-02",
+   "conference-01"
+  ],
+  "nameFr": "Salle de conférence",
+  "pano": [
+   "conference",
+   "conference-2"
+  ],
+  "panoPoster": "conference-02"
+ },
+ {
+  "id": "lounge",
+  "name": "Salon VIP pour réunions",
+  "line": "Un salon privé pour les petites réunions et l'accueil de vos invités de marque, pour 17–20 pax, avec canapés dorés et télévision.",
+  "uses": [
+   "Réunions",
+   "Rencontres privées"
+  ],
+  "capacity": "⁦17–20 pax⁩",
+  "layouts": [],
+  "equipment": [],
+  "images": [
+   "vip-01"
+  ],
+  "nameFr": "Salon VIP pour les réunions"
+ }
+]

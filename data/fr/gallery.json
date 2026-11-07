@@ -1,0 +1,212 @@
+{
+ "cats": {
+  "all": "Tout",
+  "hotel": "L'hôtel",
+  "rooms": "Chambres",
+  "pool": "Piscine",
+  "dining": "Restaurant",
+  "events": "Salles"
+ },
+ "items": [
+  {
+   "slot": "hotel-06",
+   "cat": "hotel",
+   "alt": "La façade de l'Hôtel Youcef de nuit, ses moucharabiehs illuminés au-dessus de l'entrée"
+  },
+  {
+   "slot": "hotel-01",
+   "cat": "hotel",
+   "alt": "La façade de l'Hôtel Youcef et son entrée aux moucharabiehs blancs"
+  },
+  {
+   "slot": "hotel-02",
+   "cat": "hotel",
+   "alt": "Le hall de réception et la fontaine en marbre sous les galeries ciselées"
+  },
+  {
+   "slot": "hotel-04",
+   "cat": "hotel",
+   "alt": "La coupole et les galeries du hall"
+  },
+  {
+   "slot": "hotel-03",
+   "cat": "hotel",
+   "alt": "Les galeries circulaires et le hall vus d'en haut"
+  },
+  {
+   "slot": "hotel-05",
+   "cat": "hotel",
+   "alt": "Le couloir des chambres"
+  },
+  {
+   "slot": "pool-01",
+   "cat": "pool",
+   "alt": "La piscine et l'hôtel illuminés la nuit"
+  },
+  {
+   "slot": "pool-03",
+   "cat": "pool",
+   "alt": "La piscine et la cour vues d'en haut, un jour de soleil"
+  },
+  {
+   "slot": "pool-02",
+   "cat": "pool",
+   "alt": "La piscine de nuit entre les ailes de l'hôtel"
+  },
+  {
+   "slot": "pool-04",
+   "cat": "pool",
+   "alt": "Salons blancs sur la pelouse, au bord de la piscine"
+  },
+  {
+   "slot": "pool",
+   "cat": "pool",
+   "alt": "La piscine extérieure devant l'hôtel"
+  },
+  {
+   "slot": "room-7-01",
+   "cat": "rooms",
+   "alt": "Suite Royale"
+  },
+  {
+   "slot": "room-7-02",
+   "cat": "rooms",
+   "alt": "Le salon de la Suite Royale et le fauteuil de massage"
+  },
+  {
+   "slot": "room-6-02",
+   "cat": "rooms",
+   "alt": "Le salon de la Suite Sénior sous le lustre"
+  },
+  {
+   "slot": "room-5-01",
+   "cat": "rooms",
+   "alt": "Suite Junior"
+  },
+  {
+   "slot": "room-2-01",
+   "cat": "rooms",
+   "alt": "Chambre Double Grand Lit"
+  },
+  {
+   "slot": "room-3-01",
+   "cat": "rooms",
+   "alt": "Chambre Double / Twin"
+  },
+  {
+   "slot": "room-4-01",
+   "cat": "rooms",
+   "alt": "Chambre Triple"
+  },
+  {
+   "slot": "room-1-01",
+   "cat": "rooms",
+   "alt": "Chambre Single"
+  },
+  {
+   "slot": "room-7-08",
+   "cat": "rooms",
+   "alt": "La salle de bains de la Suite Royale"
+  },
+  {
+   "slot": "restaurant-01",
+   "cat": "dining",
+   "alt": "La salle du restaurant, tables en rouge et blanc"
+  },
+  {
+   "slot": "dish-hero",
+   "cat": "dining",
+   "alt": "Une pizza au bord de la piscine, la façade de l'Hôtel Youcef derrière"
+  },
+  {
+   "slot": "dish-01",
+   "cat": "dining",
+   "alt": "Viande et légumes grillés"
+  },
+  {
+   "slot": "restaurant-02",
+   "cat": "dining",
+   "alt": "Une table ronde dressée dans la salle du restaurant"
+  },
+  {
+   "slot": "restaurant-06",
+   "cat": "dining",
+   "alt": "Une table ronde dressée au restaurant, verres et serviettes en place"
+  },
+  {
+   "slot": "dish-02",
+   "cat": "dining",
+   "alt": "Salade au thon et légumes frais"
+  },
+  {
+   "slot": "dish-07",
+   "cat": "dining",
+   "alt": "Jus et cocktails colorés"
+  },
+  {
+   "slot": "restaurant-03",
+   "cat": "dining",
+   "alt": "Les tables du restaurant entre les colonnes de marbre"
+  },
+  {
+   "slot": "dish-03",
+   "cat": "dining",
+   "alt": "Légumes marinés dans un plat allongé"
+  },
+  {
+   "slot": "dining-pool-01",
+   "cat": "dining",
+   "alt": "Pizza et boissons sur la pelouse, au bord de la piscine"
+  },
+  {
+   "slot": "dish-04",
+   "cat": "dining",
+   "alt": "Un plat de légumes au citron"
+  },
+  {
+   "slot": "restaurant-05",
+   "cat": "dining",
+   "alt": "Une table dressée devant une fenêtre donnant sur la piscine"
+  },
+  {
+   "slot": "dish-05",
+   "cat": "dining",
+   "alt": "Poulet en sauce et légumes"
+  },
+  {
+   "slot": "dish-06",
+   "cat": "dining",
+   "alt": "Poisson grillé au citron"
+  },
+  {
+   "slot": "restaurant-04",
+   "cat": "dining",
+   "alt": "Une table pour deux au restaurant"
+  },
+  {
+   "slot": "dish-08",
+   "cat": "dining",
+   "alt": "Viande grillée et pommes de terre"
+  },
+  {
+   "slot": "dining-pool-02",
+   "cat": "dining",
+   "alt": "Boissons sur une table blanche devant la piscine"
+  },
+  {
+   "slot": "conference-02",
+   "cat": "events",
+   "alt": "La salle de conférences depuis le fond, vers la scène, 120–135 pax"
+  },
+  {
+   "slot": "conference-01",
+   "cat": "events",
+   "alt": "La salle de conférences et ses sièges en gradins, 120–135 pax"
+  },
+  {
+   "slot": "vip-01",
+   "cat": "events",
+   "alt": "Le salon VIP, ses canapés dorés et ses tables ciselées"
+  }
+ ]
+}

@@ -1,5 +1,5 @@
 // pano.js — 360° viewer in plain WebGL (per-pixel ray → equirectangular photo)
-import { $, $$, json, ready, esc } from './main.js';
+import { $, $$, json, ready, esc, tt, BASE } from './main.js?v=b0832607';
 
 const FS = `precision mediump float;uniform sampler2D t;uniform vec2 r;uniform float y,x,f;
 void main(){vec3 d=normalize(vec3((gl_FragCoord.xy*2.-r)/r.y*f,-1.));float c=cos(x),s=sin(x);d=vec3(d.x,d.y*c-d.z*s,d.y*s+d.z*c);
@@ -9,7 +9,7 @@ const clamp = v => Math.max(-1.3, Math.min(1.3, v));
 function viewer(box) {
   const cv = document.createElement('canvas'), gl = cv.getContext('webgl');
   if (!gl) return;
-  cv.tabIndex = 0; cv.role = 'img'; cv.ariaLabel = 'صورة 360° — اسحب أو استعمل الأسهم';
+  cv.tabIndex = 0; cv.role = 'img'; cv.ariaLabel = tt('صورة 360° — اسحب أو استعمل الأسهم', 'Photo 360° — faites glisser ou utilisez les flèches', '360° photo — drag or use the arrow keys');
   box.prepend(cv);
   const p = gl.createProgram();
   [[gl.VERTEX_SHADER, 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'], [gl.FRAGMENT_SHADER, FS]].forEach(([k, src]) => {
@@ -57,21 +57,25 @@ function viewer(box) {
   });
 }
 
-// Loads on «ابدأ الجولة» only
-ready.then(() => json('data/panos.json')).then(scenes => $$('.pano').forEach(box => {
-  const start = $('.pano-start', box), nav = $('.pano-scenes', box);
-  start.onclick = () => {
+// Loads on «ابدأ الجولة» only. Delegated, so boxes added later (venues.html builds its zones from JSON) work too.
+// data-only="id,id" limits a box to its own scenes (e.g. the conference room).
+ready.then(() => json('data/panos.json')).then(all => addEventListener('click', e => {
+  const start = e.target.closest('.pano-start'), box = start?.closest('.pano');
+  if (!box || box.classList.contains('live')) return;
+  const nav = $('.pano-scenes', box), only = box.dataset.only?.split(',');
+  const scenes = only ? all.filter(s => only.includes(s.id)) : all;
+  {
     const load = viewer(box);
-    if (!load) return (start.textContent = 'متصفحك لا يدعم العرض 360°');
+    if (!load) return (start.textContent = tt('متصفحك لا يدعم العرض 360°', 'Votre navigateur ne prend pas en charge la vue 360°', 'Your browser does not support the 360° view'));
     const go = s => {
       box.ariaBusy = true;
-      load(`img/360/${s.id}${innerWidth < 900 ? '-m' : ''}.jpg`, s.yaw, s.pitch).then(() => (box.ariaBusy = false));
+      load(`${BASE}img/360/${s.id}${innerWidth < 900 ? '-m' : ''}.jpg`, s.yaw, s.pitch).then(() => (box.ariaBusy = false));
       $$('button', nav).forEach(b => b.setAttribute('aria-pressed', b.dataset.id === s.id));
     };
-    nav.innerHTML = scenes.map(s => `<button type="button" data-id="${s.id}">${esc(s.title)}</button>`).join('');
+    nav.innerHTML = scenes.length > 1 ? scenes.map(s => `<button type="button" data-id="${s.id}">${esc(s.title)}</button>`).join('') : '';
     nav.onclick = e => { const b = e.target.closest('[data-id]'); b && go(scenes.find(s => s.id === b.dataset.id)); };
     box.classList.add('live');
     go(scenes.find(s => s.id === box.dataset.initial) || scenes[0]);
     $('canvas', box).focus({ preventScroll: true });
-  };
+  }
 }));

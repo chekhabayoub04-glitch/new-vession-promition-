@@ -1,0 +1,109 @@
+{
+ "_note": "Transcribe the printed menu card here (name, desc, price in دج). Items with name null are shown as placeholders and left out of the JSON-LD.",
+ "hours": null,
+ "cafeHours": null,
+ "servesCuisine": [
+  "Algerian"
+ ],
+ "priceRange": null,
+ "sections": [
+  {
+   "id": "starters",
+   "name": "Starters",
+   "items": [
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-01",
+     "imgAlt": "Meat with grilled vegetables"
+    },
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-02",
+     "imgAlt": "Tuna salad with fresh vegetables"
+    }
+   ]
+  },
+  {
+   "id": "mains",
+   "name": "Main courses",
+   "items": [
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-03",
+     "imgAlt": "Marinated vegetables on a long platter"
+    },
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-04",
+     "imgAlt": "A vegetable dish with lemon"
+    }
+   ]
+  },
+  {
+   "id": "grill",
+   "name": "Grills",
+   "items": [
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-05",
+     "imgAlt": "Chicken in sauce with vegetables"
+    },
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-06",
+     "imgAlt": "Grilled fish with lemon"
+    }
+   ]
+  },
+  {
+   "id": "desserts",
+   "name": "Desserts",
+   "items": [
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-07",
+     "imgAlt": "Colourful juices and cocktails"
+    },
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": "dish-08",
+     "imgAlt": "Grilled meat with potatoes"
+    }
+   ]
+  },
+  {
+   "id": "drinks",
+   "name": "Drinks",
+   "items": [
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": null
+    },
+    {
+     "name": null,
+     "desc": null,
+     "price": null,
+     "img": null
+    }
+   ]
+  }
+ ]
+}

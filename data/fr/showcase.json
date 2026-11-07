@@ -1,0 +1,117 @@
+{
+ "_note": "Home «لحظات» film. A chapter with no photo yet is hidden. tools/curate.py fills dining-/pool-/hotel- slides from img/src/drop/.",
+ "chapters": [
+  {
+   "id": "dining",
+   "title": "Restaurant et cafétéria",
+   "line": "Le petit-déjeuner est inclus dans chaque séjour, et la table vient de la cuisine de l'hôtel.",
+   "link": "restaurant.html",
+   "cta": "Découvrir le restaurant",
+   "slides": [
+    {
+     "slot": "restaurant-01",
+     "alt": "La salle du restaurant, tables en rouge et blanc"
+    },
+    {
+     "slot": "dish-01",
+     "alt": "Viande et légumes grillés"
+    },
+    {
+     "slot": "restaurant-03",
+     "alt": "Les tables du restaurant entre les colonnes de marbre"
+    },
+    {
+     "slot": "dish-hero",
+     "alt": "Une pizza au bord de la piscine, la façade de l'Hôtel Youcef derrière"
+    },
+    {
+     "slot": "restaurant-05",
+     "alt": "Une table dressée devant une fenêtre donnant sur la piscine"
+    },
+    {
+     "slot": "dish-07",
+     "alt": "Jus et cocktails colorés"
+    },
+    {
+     "slot": "dining-pool-01",
+     "alt": "Pizza et boissons sur la pelouse, au bord de la piscine"
+    },
+    {
+     "slot": "dish-06",
+     "alt": "Poisson grillé au citron"
+    }
+   ]
+  },
+  {
+   "id": "venues",
+   "title": "Salles",
+   "line": "Une salle de conférences et de réceptions pour 120–135 pax, et un salon VIP pour vos réunions.",
+   "link": "venues.html",
+   "cta": "Salles et salons",
+   "slides": [
+    {
+     "slot": "conference-02",
+     "alt": "La salle de conférences depuis le fond, vers la scène, 120–135 pax"
+    },
+    {
+     "slot": "conference-01",
+     "alt": "La salle de conférences et ses sièges en gradins, 120–135 pax"
+    },
+    {
+     "slot": "vip-01",
+     "alt": "Le salon VIP, ses canapés dorés et ses tables ciselées"
+    }
+   ]
+  },
+  {
+   "id": "pool",
+   "title": "Piscine",
+   "line": "Une piscine extérieure entre les ailes de l'hôtel, illuminée la nuit, et des salons sur la pelouse.",
+   "link": "gallery.html?f=pool",
+   "cta": "Photos de la piscine",
+   "slides": [
+    {
+     "slot": "pool-03",
+     "alt": "La piscine et la cour vues d'en haut, un jour de soleil"
+    },
+    {
+     "slot": "pool-04",
+     "alt": "Salons blancs sur la pelouse, au bord de la piscine"
+    },
+    {
+     "slot": "dining-pool-02",
+     "alt": "Boissons sur une table blanche devant la piscine"
+    }
+   ]
+  },
+  {
+   "id": "hotel",
+   "title": "L'hôtel",
+   "line": "Une façade aux moucharabiehs blancs, un hall sous une coupole aux galeries ciselées, et une fontaine en marbre en son cœur.",
+   "link": "gallery.html?f=hotel",
+   "cta": "Photos de l'hôtel",
+   "slides": [
+    {
+     "slot": "hotel-01",
+     "alt": "La façade de l'Hôtel Youcef et son entrée aux moucharabiehs blancs"
+    },
+    {
+     "slot": "hotel-02",
+     "alt": "Le hall de réception et la fontaine en marbre sous les galeries ciselées"
+    },
+    {
+     "slot": "hotel-04",
+     "alt": "La coupole et les galeries du hall"
+    },
+    {
+     "slot": "pool-01",
+     "alt": "La piscine et l'hôtel illuminés la nuit"
+    },
+    {
+     "slot": "hotel-03",
+     "alt": "Les galeries circulaires et le hall vus d'en haut"
+    }
+   ]
+  }
+ ]
+}

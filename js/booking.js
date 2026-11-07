@@ -1,20 +1,37 @@
-// booking.js — form.booking → §10 WhatsApp message (or email)
-import { $$, json, ready, roomName, waLink, waForm, site } from './main.js';
+// booking.js — «احجز» without a form (no auto-filled, fake requests): the visitor writes the email himself.
+// Computer: Gmail opens on a new message to the reservations desk. Phone: the phone's mail app (Gmail on Android).
+// Only the subject is set, so the hotel sees at once what the message is about (stay, a given room, an event quote).
+import { $, $$, ready, site, tt } from './main.js?v=b0832607';
 
-const message = f => ['السلام عليكم، أريد الحجز في فندق يوسف.',
-  `الغرفة: ${f.room.value ? f.room.selectedOptions[0].text : 'يقترحها الاستقبال'}`,
-  `الوصول: ${f.arrive.value} — المغادرة: ${f.depart.value}`,
-  `الأشخاص: ${f.adults.value} كبار، ${f.children.value} أطفال`,
-  `الفطور: ${f.breakfast.checked ? 'نعم' : 'لا'}`,
-  `الاسم: ${f.guest.value.trim()}`].join('\n');
+const phone = matchMedia('(pointer: coarse)').matches;
+const to = () => site.bookingEmail || site.email || 'reservation.hotelyoucef@gmail.com';
 
-ready.then(() => json('data/rooms.json')).then(rooms => {
-  for (const f of $$('form.booking')) {
-    f.room.insertAdjacentHTML('beforeend', rooms.map((r, i) => `<option value="${r.id}">${roomName(r, i)}</option>`).join(''));
-    f.room.value = new URLSearchParams(location.search).get('room') || '';
-    f.arrive.onchange = () => (f.depart.min = f.arrive.value);
-    waForm(f, (f, btn) => btn?.dataset.via === 'mail'
-      ? (location.href = `mailto:${site.email || ''}?subject=${encodeURIComponent('طلب حجز — فندق يوسف')}&body=${encodeURIComponent(message(f))}`)
-      : open(waLink(message(f)), '_blank', 'noopener'));
+export function compose(box, subject = box.dataset.subject) {
+  const su = encodeURIComponent(subject || '');
+  $$('[data-compose]', box).forEach(a => {
+    a.href = phone ? `mailto:${to()}?subject=${su}` : `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to())}&su=${su}`;
+    phone ? a.removeAttribute('target') : (a.target = '_blank');
+    $('span', a).textContent = phone ? tt('اكتب لنا رسالة', 'Nous écrire', 'Write to us') : tt('اكتب لنا عبر Gmail', 'Nous écrire via Gmail', 'Write to us in Gmail');
+  });
+}
+
+ready.then(() => $$('.reach').forEach(b => compose(b)));
+
+addEventListener('click', async e => {
+  // copy the address (for webmail users or to write later)
+  const c = e.target.closest('[data-copy]');
+  if (c) {
+    const done = $('.reach-done', c.closest('.reach'));
+    try { await navigator.clipboard.writeText(to()); done.textContent = tt('نُسخ البريد الإلكتروني.', 'Adresse e-mail copiée.', 'Email address copied.'); }
+    catch { done.textContent = to(); }
+    clearTimeout(done.t); done.t = setTimeout(() => (done.textContent = ''), 3000);
+    return;
   }
+  // [data-book] opens the sheet; its subject follows the button (a room, a quote…). Without JS: contact.html#booking
+  const a = e.target.closest('[data-book]'), dlg = $('#book');
+  if (!a || !dlg) return;
+  e.preventDefault();
+  compose($('.reach', dlg), a.dataset.subject || $('.reach', dlg).dataset.subject);
+  dlg.from = a;
+  dlg.showModal();
 });

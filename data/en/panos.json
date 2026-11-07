@@ -1,0 +1,32 @@
+[
+ {
+  "id": "conference",
+  "title": "Conference and banquet hall · 120–135 pax",
+  "yaw": 0,
+  "pitch": -0.05
+ },
+ {
+  "id": "conference-2",
+  "title": "Conference hall · facing the stage",
+  "yaw": 0,
+  "pitch": -0.05
+ },
+ {
+  "id": "lobby",
+  "title": "The reception lobby",
+  "yaw": 0.16,
+  "pitch": 0.08
+ },
+ {
+  "id": "atrium",
+  "title": "The upper gallery",
+  "yaw": 0,
+  "pitch": 0.04
+ },
+ {
+  "id": "room-2",
+  "title": "One of the hotel rooms",
+  "yaw": 0,
+  "pitch": -0.16
+ }
+]

@@ -1,5 +1,5 @@
 // gallery.js — lightbox, gallery filters, home strip
-import { $, $$, json, ready, pic, hasImg, esc, reveal } from './main.js';
+import { $, $$, json, ready, pic, hasImg, esc, reveal, step } from './main.js?v=b0832607';
 
 const dlg = $('dialog.lightbox');
 let list = [], at = 0;
@@ -12,7 +12,7 @@ const go = d => {
 if (dlg) {
   $('.lb-prev', dlg).onclick = () => go(-1);
   $('.lb-next', dlg).onclick = () => go(1);
-  dlg.onkeydown = e => { const d = { ArrowLeft: 1, ArrowRight: -1 }[e.key]; d && (e.preventDefault(), go(d)); }; // RTL: ← = next
+  dlg.onkeydown = e => { const d = step(e.key); d && (e.preventDefault(), go(d)); }; // RTL: ← = next
   dlg.onclick = e => e.target === dlg && dlg.close();
 }
 export function lightbox(items, i, from) {
@@ -27,7 +27,11 @@ const open = (b, shown) => { const real = shown.filter(g => hasImg(g.slot)); lig
 ready.then(() => json('data/gallery.json')).then(({ cats, items }) => {
   const strip = $('#strip'), grid = $('#gallery-grid'), tabs = $('#gallery-tabs');
   if (strip) {
-    const shown = items.filter(g => hasImg(g.slot)).slice(0, 8);
+    // 8 photos taken in turn from each category (hotel, dining, pool, events, rooms…), so every part of the hotel shows
+    const by = {}, shown = []; // (no Object.groupBy: iOS < 17.4)
+    items.filter(g => hasImg(g.slot)).forEach(g => (by[g.cat] ||= []).push(g));
+    const lists = Object.values(by);
+    for (let k = 0; shown.length < 8 && lists.some(l => l[k]); k++) lists.forEach(l => l[k] && shown.length < 8 && shown.push(l[k]));
     strip.innerHTML = shown.map((g, i) => tile(g, i, '4 / 5', '320px')).join('');
     strip.onclick = e => { const b = e.target.closest('[data-i]'); b && open(b, shown); };
   }

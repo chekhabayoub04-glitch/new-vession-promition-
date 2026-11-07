@@ -1,0 +1,42 @@
+[
+ {
+  "id": "meeting",
+  "name": "Conference and banquet hall",
+  "line": "One hall for conferences, seminars and banquets, with theatre-style seating for 120–135 pax, in the very hotel where your guests are staying.",
+  "uses": [
+   "Conferences",
+   "Seminars",
+   "Celebrations",
+   "Meetings"
+  ],
+  "capacity": "⁦120–135 pax⁩",
+  "layouts": [],
+  "equipment": [],
+  "images": [
+   "conference-02",
+   "conference-01"
+  ],
+  "nameFr": "Salle de conférence",
+  "pano": [
+   "conference",
+   "conference-2"
+  ],
+  "panoPoster": "conference-02"
+ },
+ {
+  "id": "lounge",
+  "name": "VIP meeting lounge",
+  "line": "A private lounge for small meetings and for receiving distinguished guests, seating 17–20 pax, with gilded sofas and a TV.",
+  "uses": [
+   "Meetings",
+   "Private gatherings"
+  ],
+  "capacity": "⁦17–20 pax⁩",
+  "layouts": [],
+  "equipment": [],
+  "images": [
+   "vip-01"
+  ],
+  "nameFr": "Salon VIP pour les réunions"
+ }
+]

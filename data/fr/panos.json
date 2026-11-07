@@ -1,0 +1,32 @@
+[
+ {
+  "id": "conference",
+  "title": "Salle de conférences et de réceptions · 120–135 pax",
+  "yaw": 0,
+  "pitch": -0.05
+ },
+ {
+  "id": "conference-2",
+  "title": "Salle de conférences · vers la scène",
+  "yaw": 0,
+  "pitch": -0.05
+ },
+ {
+  "id": "lobby",
+  "title": "Le hall de réception",
+  "yaw": 0.16,
+  "pitch": 0.08
+ },
+ {
+  "id": "atrium",
+  "title": "La galerie supérieure",
+  "yaw": 0,
+  "pitch": 0.04
+ },
+ {
+  "id": "room-2",
+  "title": "Une chambre de l'hôtel",
+  "yaw": 0,
+  "pitch": -0.16
+ }
+]
