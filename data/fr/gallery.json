@@ -74,6 +74,11 @@
    "alt": "Le salon de la Suite Royale et le fauteuil de massage"
   },
   {
+   "slot": "room-7-10",
+   "cat": "rooms",
+   "alt": "Le fauteuil de massage de la Suite Royale"
+  },
+  {
    "slot": "room-6-02",
    "cat": "rooms",
    "alt": "Le salon de la Suite Sénior sous le lustre"

@@ -74,6 +74,11 @@
    "alt": "The Royal Suite lounge and the massage chair"
   },
   {
+   "slot": "room-7-10",
+   "cat": "rooms",
+   "alt": "The massage chair in the Royal Suite"
+  },
+  {
    "slot": "room-6-02",
    "cat": "rooms",
    "alt": "The Senior Suite lounge beneath the chandelier"

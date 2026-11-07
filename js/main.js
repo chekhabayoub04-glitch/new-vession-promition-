@@ -7,7 +7,7 @@ export const tt = (ar, fr, en) => (EN ? en : FR ? fr : ar);
 // Keyboard: next/previous follow the reading direction (← is next in Arabic, → in French and English)
 export const step = k => ({ ArrowLeft: LTR ? -1 : 1, ArrowRight: LTR ? 1 : -1 })[k];
 const cache = {};
-const DV = '?v=2d13eda5'; // data version, written by tools/stamp.py: a changed JSON is never served from an old cache
+const DV = '?v=a8a05a68'; // data version, written by tools/stamp.py: a changed JSON is never served from an old cache
 export const json = p => (cache[p] ||= fetch(BASE + (LTR ? p.replace('data/', `data/${LANG}/`) : p) + DV).then(r => (r.ok ? r.json() : Promise.reject(p))));
 export const $ = (s, r = document) => r.querySelector(s);
 export const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -102,7 +102,9 @@ addEventListener('click', e => {
   if (!e.target.closest('[data-theme-toggle]')) return;
   const next = isDark() ? 'light' : 'dark';
   const apply = () => { root.dataset.theme = next; try { localStorage.setItem('hy-theme', next); } catch {} paintTheme(); };
-  document.startViewTransition && !reduced ? document.startViewTransition(apply) : apply();
+  if (!document.startViewTransition || reduced) return apply();
+  const vt = document.startViewTransition(apply); // a second tap before the crossfade ends skips the first one: not an error
+  vt.ready.catch(() => {}); vt.finished.catch(() => {});
 });
 night.addEventListener('change', paintTheme);
 paintTheme();
