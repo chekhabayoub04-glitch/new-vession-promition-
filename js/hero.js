@@ -1,13 +1,18 @@
 // hero.js — intro (mark draws, name appears, curtain opens) + the drone film scrubbed by scroll
-// 125 WebP frames drawn on a canvas (1920×1080; phones: 600×1000 centre crop), Real-ESRGAN upscaled: smooth on every phone, holds on the fountain.
-import { $, reduced, BASE } from './main.js?v=e4db52b5';
+// 125 frames drawn on a canvas (1920×1080; phones: 720×1200 centre crop), Real-ESRGAN upscaled, AVIF (WebP where AVIF
+// is not supported): smooth on every phone, holds on the fountain.
+import { $, reduced, BASE } from './main.js?v=ce27e218';
 
 const root = document.documentElement, hero = $('.hero'), canvas = $('#heroCanvas');
 const COUNT = 125, FILM_END = 0.68; // the film reaches the fountain at 68 % of the scroll; the rest holds on it
 const dir = matchMedia('(max-aspect-ratio: 4/5)').matches ? 'm' : 'd';
 const frames = [], asked = new Set(), ctx = canvas.getContext('2d');
-let want = 0, painted = '', firstReady;
+let want = 0, painted = '', moving = false, firstReady;
 const first = new Promise(r => (firstReady = r));
+// AVIF: the same sharpness for ~25 % fewer bytes than WebP — the film arrives sooner on mobile data. A 2×2 test image
+// tells within a few ms whether this browser decodes it (Safari 16+, Chrome, Firefox); otherwise WebP.
+const EXT = await new Promise(r => { const t = new Image(); t.onload = () => r(t.width === 2 ? 'avif' : 'webp'); t.onerror = () => r('webp');
+  t.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADrbWV0YQAAAAAAAAAhaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAAAAAAAOcGl0bQAAAAAAAQAAAB5pbG9jAAAAAEQAAAEAAQAAAAEAAAETAAAAGgAAAChpaW5mAAAAAAABAAAAGmluZmUCAAAAAAEAAGF2MDFDb2xvcgAAAABqaXBycAAAAEtpcGNvAAAAFGlzcGUAAAAAAAAAAgAAAAIAAAAQcGl4aQAAAAADCAgIAAAADGF2MUOBAAwAAAAAE2NvbHJuY2x4AAEADQAGgAAAABdpcG1hAAAAAAAAAAEAAQQBAoMEAAAAIm1kYXQSAAoFGAA2BCAyDxgACiiihAAAsBIP6AEfIA=='; });
 
 function load(i) {
   if (asked.has(i)) return;
@@ -17,7 +22,7 @@ function load(i) {
   // decoded off the main thread before it can be drawn: drawing a still-compressed frame decodes it on the spot (a stall)
   const ready = () => { frames[i] = im; i || firstReady(); redraw(); };
   im.onload = () => (im.decode ? im.decode().catch(() => {}).then(ready) : ready());
-  im.src =`${BASE}video/frames/${dir}/${String(i + 1).padStart(3, '0')}.webp?hd1`; // ?hd1: the upscaled film (a cached older frame never mixes in)
+  im.src = `${BASE}video/frames/${dir}/${String(i + 1).padStart(3, '0')}.${EXT}?hd2`; // ?hd2: this film (a cached older frame never mixes in)
 }
 // First frame, then the fountain, then coarse-to-fine (every 16th, 8th, 4th, 2nd, then all) so scrubbing works before
 // everything has arrived. Everything starts at once, during the 4 s intro: on a first visit the film is (nearly)
@@ -35,6 +40,8 @@ first.then(() => steps(lite ? [16, 8, 4] : [16, 8, 4, 2, 1]));
 // f is a fractional frame position. Drawn as the two nearest frames that have arrived, crossfaded by distance:
 // a missing frame never shows as a jump, only as a softer blend. Two neighbours that are both here are never blended:
 // the camera moves between them, and a mix would show a double image (the sign twice) — the nearer one is drawn.
+// The blend over a gap only happens while the film moves (it reads as motion); once the finger stops, the nearest
+// real frame is shown, always sharp.
 const below = i => { for (let k = i; k >= 0; k--) if (frames[k]) return k; return -1; };
 const above = i => { for (let k = i; k < COUNT; k++) if (frames[k]) return k; return -1; };
 const cover = (im, alpha) => {
@@ -48,7 +55,7 @@ function draw(f) {
   if (a < 0 && b < 0) return;
   if (a < 0) a = b;
   if (b < 0) b = a;
-  if (b - a <= 1) a = b = f - a < b - f ? a : b;
+  if (b - a <= 1 || !moving) a = b = f - a < b - f ? a : b;
   const t = b === a ? 0 : Math.round(((f - a) / (b - a)) * 40) / 40; // 40 blend steps: no redraw for invisible changes
   const key = `${a}:${b}:${t}`;
   if (key === painted) return;
@@ -61,8 +68,8 @@ function draw(f) {
 let pending = 0;
 const redraw = () => (pending ||= requestAnimationFrame(() => { pending = 0; painted = ''; draw(want); }));
 function size() {
-  // phone frames are 600×1000: a 3× canvas only burns GPU, 1.5× already shows every pixel of them
-  const d = Math.min(devicePixelRatio || 1, dir === 'm' ? 1.5 : 2), w = Math.round(canvas.clientWidth * d), h = Math.round(canvas.clientHeight * d);
+  // a 3× canvas only burns GPU; 2× shows every pixel of the 720×1200 / 1920×1080 frames
+  const d = Math.min(devicePixelRatio || 1, 2), w = Math.round(canvas.clientWidth * d), h = Math.round(canvas.clientHeight * d);
   if (w === canvas.width && h === canvas.height) return;
   canvas.width = w; canvas.height = h; painted = ''; draw(want);
 }
@@ -110,6 +117,7 @@ if (reduced) {
   const tick = () => {
     shown += (target - shown) * 0.2;
     if (Math.abs(target - shown) < 5e-4) shown = target;
+    moving = shown !== target;
     render(shown);
     raf = shown !== target ? requestAnimationFrame(tick) : 0;
   };

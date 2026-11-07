@@ -1,6 +1,6 @@
 // content.js — venues.html + restaurant.html
-import { $, $$, json, ready, pic, hasImg, esc, icon, fmt, reveal, ld, ROOT, ASK, tt } from './main.js?v=e4db52b5';
-import { lightbox } from './gallery.js?v=e4db52b5';
+import { $, $$, json, ready, pic, hasImg, esc, icon, fmt, reveal, ld, ROOT, ASK, tt } from './main.js?v=ce27e218';
+import { lightbox } from './gallery.js?v=ce27e218';
 
 ready.then(async () => {
   const zones = $('#zones');
