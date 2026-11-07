@@ -20,7 +20,7 @@ PLACE = {'ar': ('الحامة', 'خنشلة'), 'fr': ('El Hamma', 'Khenchela'), 
 OG_ALT = {'ar': 'فندق يوسف في ولاية خنشلة', 'fr': 'L\'Hôtel Youcef, wilaya de Khenchela', 'en': 'Hotel Youcef, Khenchela Province'}
 ISO = str.maketrans('', '', '⁦⁩')
 BLOCK = re.compile(r'<script type="application/ld\+json" data-seo="hotel">.*?</script>\n', re.S)
-EXTRA = re.compile(r'<meta (?:name="(?:geo\.[a-z]+|ICBM)"|property="og:(?:image:(?:width|height|alt)|locale:alternate)") content="[^"]*">\n')
+EXTRA = re.compile(r'<meta (?:name="(?:geo\.[a-z]+|ICBM)"|property="og:(?:image:(?:secure_url|type|width|height|alt)|locale:alternate)") content="[^"]*">\n')
 
 
 def data(name, lang):
@@ -68,6 +68,7 @@ def inject(t, page, lang):
     s = data('site', 'ar')
     extra = (f'<meta name="geo.region" content="DZ-40">\n<meta name="geo.placename" content="{", ".join(PLACE[lang])}">\n'
              f'<meta name="geo.position" content="{s["lat"]};{s["lng"]}">\n<meta name="ICBM" content="{s["lat"]}, {s["lng"]}">\n'
+             f'<meta property="og:image:secure_url" content="{SITE}img/og.jpg">\n<meta property="og:image:type" content="image/jpeg">\n'
              f'<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
              f'<meta property="og:image:alt" content="{OG_ALT[lang]}">\n'
              + ''.join(f'<meta property="og:locale:alternate" content="{v}">\n' for k, v in LOCALE.items() if k != lang))

@@ -1,6 +1,6 @@
 // hero.js — intro (mark draws, name appears, curtain opens) + the drone film scrubbed by scroll
 // 125 WebP frames drawn on a canvas (portrait crop on phones): smooth on every phone, holds on the fountain.
-import { $, reduced, BASE } from './main.js?v=b0832607';
+import { $, reduced, BASE } from './main.js?v=2ee4318a';
 
 const root = document.documentElement, hero = $('.hero'), canvas = $('#heroCanvas');
 const COUNT = 125, FILM_END = 0.68; // the film reaches the fountain at 68 % of the scroll; the rest holds on it
