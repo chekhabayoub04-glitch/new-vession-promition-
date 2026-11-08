@@ -415,11 +415,13 @@
   .doc-txt { display: grid; gap: .1rem; line-height: 1.3; }
   .doc-txt b { font: 600 .95rem var(--font-body); color: var(--accent-strong); }
   .doc-txt small { color: var(--muted); font-size: .8rem; }
-  .doc-dlg { inline-size: min(100% - 1rem, 760px); max-inline-size: none; max-block-size: min(100svh - 1rem, 1100px); background: var(--card); padding: 0; }
-  .doc-dlg[open] { display: flex; flex-direction: column; }
-  .doc-img { flex: 1; min-block-size: 0; overflow: auto; overscroll-behavior: contain; background: #FBFAF7; }
+  /* the whole window scrolls, title bar and footer stay pinned: the page sits in normal flow, its height never
+     depends on a flex calculation (iPhone Safari sized the old flex scroll box to 0 px — the window opened empty) */
+  .doc-dlg { inline-size: min(100% - 1rem, 760px); max-inline-size: none; max-block-size: min(100svh - 1rem, 1100px); background: var(--card); padding: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+  .doc-dlg .dlg-head { position: sticky; inset-block-start: 0; z-index: 1; background: var(--card); }
+  .doc-img { background: #FBFAF7; }
   .doc-img img { display: block; inline-size: 100%; block-size: auto; }
-  .doc-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 1rem; padding: .5rem 1.25rem; border-block-start: 1px solid var(--line); font-size: var(--fs-small); color: var(--muted); }
+  .doc-foot { position: sticky; inset-block-end: 0; background: var(--card); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .25rem 1rem; padding: .5rem 1.25rem; border-block-start: 1px solid var(--line); font-size: var(--fs-small); color: var(--muted); }
   .doc-foot a { display: inline-flex; align-items: center; gap: .4rem; min-block-size: 2.75rem; margin-inline-start: auto; color: var(--accent-strong); font-weight: 600; }
   @media (prefers-reduced-motion: reduce) { .doc-thumb, .doc-btn:hover .doc-thumb { transition: none; } }
   @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr 1fr; } .foot-grid > :first-child { grid-column: 1 / -1; } }

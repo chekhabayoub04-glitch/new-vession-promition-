@@ -1,5 +1,5 @@
 // pano.js — 360° viewer in plain WebGL (per-pixel ray → equirectangular photo)
-import { $, $$, json, ready, esc, tt, BASE } from './main.js?v=0eec202e';
+import { $, $$, json, ready, esc, tt, BASE } from './main.js?v=54e25dbd';
 
 const FS = `precision mediump float;uniform sampler2D t;uniform vec2 r;uniform float y,x,f;
 void main(){vec3 d=normalize(vec3((gl_FragCoord.xy*2.-r)/r.y*f,-1.));float c=cos(x),s=sin(x);d=vec3(d.x,d.y*c-d.z*s,d.y*s+d.z*c);

@@ -1,7 +1,7 @@
 // showcase.js — «لحظات»: full-bleed photo film under the rooms. Chapters (dining · pool · suites · hotel) from data/showcase.json.
 // Crossfade + slow Ken Burns; the gold bar is the timer (its animationend advances). Pause button, swipe, arrows,
 // pauses off-screen / in a hidden tab / on mouse hover; reduced motion = no autoplay, no zoom.
-import { $, $$, json, ready, pic, hasImg, esc, icon, reduced, tt, step, LTR } from './main.js?v=0eec202e';
+import { $, $$, json, ready, pic, hasImg, esc, icon, reduced, tt, step, LTR } from './main.js?v=54e25dbd';
 
 const sec = $('#moments');
 if (sec) ready.then(() => json('data/showcase.json')).then(({ chapters }) => {

@@ -23,6 +23,9 @@ const SITE = 'https://chekhabayoub04-glitch.github.io/new-vession-promition-/';
 export const ld = o => document.head.insertAdjacentHTML('beforeend', `<script type="application/ld+json">${JSON.stringify(o)}</script>`);
 export const day = () => new Date().toISOString().slice(0, 10);
 export const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// <dialog> windows (booking sheet, photo viewer, documents): iOS before 15.4 and old Android browsers have none —
+// there each opener falls back to a plain page (the booking section, the photo, the document) instead of doing nothing
+export const MODAL = typeof HTMLDialogElement === 'function' && 'showModal' in HTMLDialogElement.prototype;
 export let site = {};
 let IMG = {};
 export const ready = Promise.all([json('data/site.json'), json('data/images.json').catch(() => ({}))]).then(([s, i]) => ((IMG = i), (site = s)));
@@ -119,6 +122,7 @@ addEventListener('click', e => e.target.closest('[data-close]')?.closest('dialog
 
 // Footer documents (house guide, certificate): a thumbnail button opens the page in a dialog that scrolls,
 // with a link to the full-size file (pinch-zoom on phones); each button shows only once its photo exists
+// The page loads at once (not lazy): Safari on iPhone never loads a lazy image inside a modal dialog's scroll box.
 function docs() {
   $$('[data-doc]').forEach(b => {
     const slot = b.dataset.doc;
@@ -126,17 +130,18 @@ function docs() {
     b.hidden = false;
     $('.doc-thumb', b)?.insertAdjacentHTML('beforeend', pic(slot, '', '48px'));
     b.onclick = () => {
+      if (!MODAL) return void (window.open(`${BASE}img/${slot}-${IMG[slot].widths.at(-1)}.jpg`, '_blank') || (location.href = `${BASE}img/${slot}-${IMG[slot].widths.at(-1)}.jpg`));
       let d = $(`#doc-${slot}`);
       if (!d) {
         const full = `${BASE}img/${slot}-${IMG[slot].widths.at(-1)}.jpg`, note = b.dataset.note ? `<small>${esc(b.dataset.note)}</small>` : '';
-        document.body.insertAdjacentHTML('beforeend', `<dialog class="doc-dlg" id="doc-${slot}" aria-labelledby="doc-${slot}-h"><div class="dlg-head"><h2 id="doc-${slot}-h">${esc(b.dataset.title)}</h2><button type="button" class="icon-btn" data-close aria-label="${tt('إغلاق', 'Fermer', 'Close')}">${icon('x')}</button></div><div class="doc-img" tabindex="0" role="region" aria-label="${esc(b.dataset.title)}">${pic(slot, b.dataset.alt, '(min-width: 800px) 760px, 100vw')}</div><div class="doc-foot">${note}<a href="${full}" target="_blank" rel="noopener">${icon('zoom-in')}${tt('فتح بالحجم الكامل', 'Ouvrir en taille réelle', 'Open full size')}</a></div></dialog>`);
+        document.body.insertAdjacentHTML('beforeend', `<dialog class="doc-dlg" id="doc-${slot}" aria-labelledby="doc-${slot}-h"><div class="dlg-head"><h2 id="doc-${slot}-h">${esc(b.dataset.title)}</h2><button type="button" class="icon-btn" data-close aria-label="${tt('إغلاق', 'Fermer', 'Close')}">${icon('x')}</button></div><div class="doc-img">${pic(slot, b.dataset.alt, '(min-width: 800px) 760px, 100vw', true)}</div><div class="doc-foot">${note}<a href="${full}" target="_blank" rel="noopener">${icon('zoom-in')}${tt('فتح بالحجم الكامل', 'Ouvrir en taille réelle', 'Open full size')}</a></div></dialog>`);
         d = $(`#doc-${slot}`);
         d.addEventListener('close', () => d.from?.focus());
         d.onclick = e => e.target === d && d.close();
       }
       d.from = b;
       d.showModal();
-      $('.doc-img', d).scrollTop = 0;
+      d.scrollTop = 0;
     };
   });
 }

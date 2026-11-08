@@ -1,6 +1,6 @@
 // rooms.js — cards, comparison table, room.html
-import { $, $$, json, ready, pic, hasImg, icon, esc, fmt, roomName, reveal, site, ld, ROOT, ASK, tt, step } from './main.js?v=0eec202e';
-import { lightbox } from './gallery.js?v=0eec202e';
+import { $, $$, json, ready, pic, hasImg, icon, esc, fmt, roomName, reveal, site, ld, ROOT, ASK, tt, step } from './main.js?v=54e25dbd';
+import { lightbox } from './gallery.js?v=54e25dbd';
 
 const AMEN = { 'تكييف': 'air-vent', 'حمام خاص': 'shower-head', 'حوض استحمام': 'shower-head', 'واي فاي مجاني': 'wifi', 'تلفاز': 'tv', 'خزنة': 'lock', 'ميني بار': 'refrigerator', 'الفطور مشمول': 'coffee',
   'ركن شاي وقهوة': 'coffee', 'شرفة': 'sun', 'صالون جلوس': 'sofa', 'صالون واسع': 'sofa', 'صالون طعام': 'utensils', 'كرسي تدليك': 'armchair',

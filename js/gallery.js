@@ -1,5 +1,5 @@
 // gallery.js — lightbox, gallery filters, home strip
-import { $, $$, json, ready, pic, hasImg, esc, reveal, step } from './main.js?v=0eec202e';
+import { $, $$, json, ready, pic, hasImg, esc, reveal, step, MODAL } from './main.js?v=54e25dbd';
 
 const dlg = $('dialog.lightbox');
 let list = [], at = 0;
@@ -17,6 +17,7 @@ if (dlg) {
 }
 export function lightbox(items, i, from) {
   if (!dlg || !items.length) return;
+  if (!MODAL) { const im = from?.querySelector('img'); return void (im && window.open(im.currentSrc || im.src, '_blank')); } // no <dialog>: the photo itself
   list = items; at = i; dlg.from = from;
   $$('.lb-nav', dlg).forEach(b => (b.hidden = items.length < 2));
   go(0); dlg.showModal();
