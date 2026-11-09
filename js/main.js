@@ -7,7 +7,7 @@ export const tt = (ar, fr, en) => (EN ? en : FR ? fr : ar);
 // Keyboard: next/previous follow the reading direction (← is next in Arabic, → in French and English)
 export const step = k => ({ ArrowLeft: LTR ? -1 : 1, ArrowRight: LTR ? 1 : -1 })[k];
 const cache = {};
-const DV = '?v=dd24c1d4'; // data version, written by tools/stamp.py: a changed JSON is never served from an old cache
+const DV = '?v=497c75cf'; // data version, written by tools/stamp.py: a changed JSON is never served from an old cache
 export const json = p => (cache[p] ||= fetch(BASE + (LTR ? p.replace('data/', `data/${LANG}/`) : p) + DV).then(r => (r.ok ? r.json() : Promise.reject(p))));
 export const $ = (s, r = document) => r.querySelector(s);
 export const $$ = (s, r = document) => [...r.querySelectorAll(s)];
@@ -51,6 +51,7 @@ function fillSite(s) {
     else if (k === 'booking-email') mail(el, s.bookingEmail);
     else if (k === 'call') s.phoneE164 && (el.href = `tel:${s.phoneE164}`);
     else if (k === 'fax') el.textContent = s.faxDisplay || ASK;
+    else if (k === 'mobile1' || k === 'mobile2') s[`${k}E164`] ? link(el, `tel:${s[`${k}E164`]}`, s[`${k}Display`]) : el.closest('li').remove();
     else if (k === 'reviews') el.href = s.reviewsUrl;
     else if (k === 'address') el.textContent = [s.streetAddress, s.region].filter(Boolean).join(tt('، ', ', ', ', '));
     else if (k === 'year') el.textContent = new Date().getFullYear();

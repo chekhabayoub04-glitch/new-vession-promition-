@@ -1,6 +1,6 @@
 // rooms.js — cards, comparison table, room.html
-import { $, $$, json, ready, pic, hasImg, icon, esc, fmt, roomName, reveal, site, ld, ROOT, ASK, tt, step } from './main.js?v=54e25dbd';
-import { lightbox } from './gallery.js?v=54e25dbd';
+import { $, $$, json, ready, pic, hasImg, icon, esc, fmt, roomName, reveal, site, ld, ROOT, ASK, tt, step } from './main.js?v=15c5ec84';
+import { lightbox } from './gallery.js?v=15c5ec84';
 
 const AMEN = { 'تكييف': 'air-vent', 'حمام خاص': 'shower-head', 'حوض استحمام': 'shower-head', 'واي فاي مجاني': 'wifi', 'تلفاز': 'tv', 'خزنة': 'lock', 'ميني بار': 'refrigerator', 'الفطور مشمول': 'coffee',
   'ركن شاي وقهوة': 'coffee', 'شرفة': 'sun', 'صالون جلوس': 'sofa', 'صالون واسع': 'sofa', 'صالون طعام': 'utensils', 'كرسي تدليك': 'armchair',
@@ -71,7 +71,7 @@ function roomPage(rooms, el) {
 
 ready.then(() => json('data/rooms.json')).then(rooms => {
   const fill = (s, h) => { const n = $(s); if (n) n.innerHTML = h; };
-  fill('#home-rooms', rooms.slice(0, 4).map(card).join(''));
+  fill('#home-rooms', rooms.map(card).join('')); // all seven types, as on the rooms page
   fill('#all-rooms', rooms.map(card).join(''));
   // a column shows once at least one room has the value
   const has = { size: rooms.some(r => r.sizeM2), guests: rooms.some(r => r.maxGuests), view: rooms.some(r => r.view) };

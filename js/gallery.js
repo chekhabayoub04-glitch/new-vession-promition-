@@ -1,5 +1,5 @@
 // gallery.js — lightbox, gallery filters, home strip
-import { $, $$, json, ready, pic, hasImg, esc, reveal, step, MODAL } from './main.js?v=54e25dbd';
+import { $, $$, json, ready, pic, hasImg, esc, reveal, step, MODAL } from './main.js?v=15c5ec84';
 
 const dlg = $('dialog.lightbox');
 let list = [], at = 0;
