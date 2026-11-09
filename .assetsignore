@@ -9,3 +9,4 @@ node_modules
 tools
 img/src
 *.md
+CNAME
