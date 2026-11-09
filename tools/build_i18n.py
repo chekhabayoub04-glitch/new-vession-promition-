@@ -16,7 +16,7 @@ import seo
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = 'https://chekhabayoub04-glitch.github.io/new-vession-promition-/'
+SITE = 'https://hotelyoucefkhenchela.com/'
 PAGES = ['index', 'rooms', 'room', 'venues', 'restaurant', 'gallery', 'contact']
 LANGS = {'fr': {'locale': 'fr_DZ', 'name': 'Français', 'label': 'FR'},
          'en': {'locale': 'en_GB', 'name': 'English', 'label': 'EN'}}

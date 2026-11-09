@@ -1,0 +1,23 @@
+# Cloudflare: response headers (read at deploy, never served)
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+
+# versioned files (?v=… / ?hd2 change with every edit): kept a year on the phone, the film is instant on a 2nd visit
+/video/frames/*
+  Cache-Control: public, max-age=31536000, immutable
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+/styles.css
+  Cache-Control: public, max-age=31536000, immutable
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# photos keep their names when replaced: a week
+/img/*
+  Cache-Control: public, max-age=604800
+# data (versioned too, but small): a day
+/data/*
+  Cache-Control: public, max-age=86400

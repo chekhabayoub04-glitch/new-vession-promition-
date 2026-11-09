@@ -1,7 +1,7 @@
 // hero.js — intro (mark draws, name appears, curtain opens) + the drone film scrubbed by scroll
 // 125 frames drawn on a canvas (1920×1080; phones: 720×1200 centre crop), Real-ESRGAN upscaled, AVIF (WebP where AVIF
 // is not supported): smooth on every phone, holds on the fountain.
-import { $, reduced, BASE } from './main.js?v=15c5ec84';
+import { $, reduced, BASE } from './main.js?v=ebe6275b';
 
 const root = document.documentElement, hero = $('.hero'), canvas = $('#heroCanvas');
 const COUNT = 125, FILM_END = 0.68; // the film reaches the fountain at 68 % of the scroll; the rest holds on it

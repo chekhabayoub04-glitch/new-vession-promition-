@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /new-vession-promition-/tools/
-Disallow: /new-vession-promition-/img/src/
+Disallow: /tools/
+Disallow: /img/src/
 
-Sitemap: https://chekhabayoub04-glitch.github.io/new-vession-promition-/sitemap.xml
+Sitemap: https://hotelyoucefkhenchela.com/sitemap.xml

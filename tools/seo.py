@@ -13,7 +13,7 @@ import json, re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SITE = 'https://chekhabayoub04-glitch.github.io/new-vession-promition-/'
+SITE = 'https://hotelyoucefkhenchela.com/'
 LOCALE = {'ar': 'ar_DZ', 'fr': 'fr_DZ', 'en': 'en_GB'}
 NAME = {'ar': 'فندق يوسف', 'fr': 'Hôtel Youcef', 'en': 'Hotel Youcef'}
 PLACE = {'ar': ('الحامة', 'خنشلة'), 'fr': ('El Hamma', 'Khenchela'), 'en': ('El Hamma', 'Khenchela')}

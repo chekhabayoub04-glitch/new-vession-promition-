@@ -1,7 +1,7 @@
 // booking.js — «احجز» without a form (no auto-filled, fake requests): the visitor writes the email himself.
 // Computer: Gmail opens on a new message to the reservations desk. Phone: the phone's mail app (Gmail on Android).
 // Only the subject is set, so the hotel sees at once what the message is about (stay, a given room, an event quote).
-import { $, $$, ready, site, tt, MODAL } from './main.js?v=15c5ec84';
+import { $, $$, ready, site, tt, MODAL } from './main.js?v=ebe6275b';
 
 const phone = matchMedia('(pointer: coarse)').matches;
 const to = () => site.bookingEmail || site.email || 'reservation.hotelyoucef@gmail.com';

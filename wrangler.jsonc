@@ -1,0 +1,12 @@
+// Cloudflare Workers — static site (no server code). Cloudflare clones the GitHub repo and runs `npx wrangler deploy`.
+{
+  "name": "hotel-youcef",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": ".",
+    // rooms.html stays rooms.html (no redirect to /rooms): the links, canonicals and sitemap use .html
+    "html_handling": "none",
+    // unknown address → 404.html (the hotel's own "page not found")
+    "not_found_handling": "404-page"
+  }
+}

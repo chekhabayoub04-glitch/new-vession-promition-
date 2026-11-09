@@ -18,8 +18,8 @@ export const icon = n => `<svg class="i" aria-hidden="true"><use href="${BASE}im
 const thin = n => n.toLocaleString('fr-FR').replace(/\s/g, ' ');
 export const fmt = n => (EN ? n.toLocaleString('en-US') : LTR ? thin(n) : `⁦${thin(n)}⁩`);
 export const ASK = `<span class="tbd">${tt('عند الطلب', 'Sur demande', 'On request')}</span>`;
-export const ROOT = 'https://chekhabayoub04-glitch.github.io/new-vession-promition-/' + (LTR ? `${LANG}/` : '');
-const SITE = 'https://chekhabayoub04-glitch.github.io/new-vession-promition-/';
+export const ROOT = 'https://hotelyoucefkhenchela.com/' + (LTR ? `${LANG}/` : '');
+const SITE = 'https://hotelyoucefkhenchela.com/';
 export const ld = o => document.head.insertAdjacentHTML('beforeend', `<script type="application/ld+json">${JSON.stringify(o)}</script>`);
 export const day = () => new Date().toISOString().slice(0, 10);
 export const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
