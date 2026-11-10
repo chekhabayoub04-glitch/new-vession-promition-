@@ -1,5 +1,9 @@
+# Cloudflare (read at deploy). Home pages live at the folder address: /, /fr/, /en/
+/index.html / 301
+/fr/index.html /fr/ 301
+/en/index.html /en/ 301
+/fr /fr/ 301
+/en /en/ 301
 / /index.html 200
 /fr/ /fr/index.html 200
 /en/ /en/index.html 200
-/fr /fr/ 301
-/en /en/ 301

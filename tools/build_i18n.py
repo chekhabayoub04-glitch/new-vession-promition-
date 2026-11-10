@@ -42,12 +42,12 @@ def switch(page, cur):
         if lang == cur:
             out.append(f'<span aria-current="true" lang="{lang}">{label}</span>')
         else:
-            href = up + ('' if lang == 'ar' else f'{lang}/') + f'{page}.html'
+            href = up + ('' if lang == 'ar' else f'{lang}/') + ('' if page == 'index' else f'{page}.html')  # home: the folder (/en/), never /en/index.html
             out.append(f'<a href="{href}" hreflang="{lang}" lang="{lang}" data-lang aria-label="{name}">{label}</a>')
     # phones (≤440 px): one globe button opening the three full names — <details> works without JS
     items = []
     for lang, name in [('ar', 'العربية')] + [(k, v['name']) for k, v in LANGS.items()]:
-        href = up + ('' if lang == 'ar' else f'{lang}/') + f'{page}.html'
+        href = up + ('' if lang == 'ar' else f'{lang}/') + ('' if page == 'index' else f'{page}.html')  # home: the folder (/en/), never /en/index.html
         items.append(f'<span aria-current="true" lang="{lang}">{name}<svg class="i" aria-hidden="true"><use href="{up}img/icons.svg#check"/></svg></span>' if lang == cur
                      else f'<a href="{href}" hreflang="{lang}" lang="{lang}" data-lang>{name}</a>')
     menu = (f'<details class="lang-m"><summary aria-label="{GROUP}"><svg class="i" aria-hidden="true"><use href="{up}img/icons.svg#globe"/></svg></summary>'
